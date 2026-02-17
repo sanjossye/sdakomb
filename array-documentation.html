@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Array C++</title>
+    <link rel="stylesheet"  type="text/css" href="aset/main.css">
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dokumentasi Array C++</h1>
+            <p>Panduan Lengkap Array dari Dasar hingga Multi-Dimensi</p>
+        </header>
+
+        <nav>
+            <a href="index.html"><-</a>
+
+            <a href="#pendahuluan">Pendahuluan</a>
+            <a href="#for-loop">Array dengan For Loop</a>
+            <a href="#multi-dimensi">Array Multi-Dimensi</a>
+        </nav>
+
+        <div class="content">
+            <!-- SECTION 1: PENDAHULUAN -->
+            <div class="section" id="pendahuluan">
+                <h2>1. Pendahuluan: Array 1 Dimensi</h2>
+                
+                <p>Array adalah struktur data yang dapat menyimpan sekumpulan data dengan tipe yang sama dalam satu variabel. Setiap elemen dalam array dapat diakses menggunakan indeks yang dimulai dari 0.</p>
+
+                <h3>Konsep Dasar Array</h3>
+                <div class="info-box">
+                    <strong>Poin Penting:</strong>
+                    <ul>
+                        <li>Array menyimpan data dengan tipe yang sama secara berurutan di memori</li>
+                        <li>Indeks array dimulai dari 0</li>
+                        <li>Setiap elemen memiliki alamat memori yang unik</li>
+                        <li>Pointer dapat digunakan untuk mengakses elemen array</li>
+                    </ul>
+                </div>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                        </button>
+                    </div>
+                    <div class="code-content">
+<pre><code><span class="comment">// Program Array 1 Dimensi - Pendahuluan</span>
+<span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span>
+<span class="keyword">using namespace</span> std;
+
+<span class="keyword">int</span> <span class="function">main</span>(){
+    <span class="comment">// Membuat array dengan 6 elemen</span>
+    <span class="keyword">int</span> nilai[<span class="number">6</span>];
+    
+    <span class="comment">// Mengisi nilai array</span>
+    nilai[<span class="number">0</span>] = <span class="number">5</span>;
+    nilai[<span class="number">1</span>] = <span class="number">1</span>;
+    nilai[<span class="number">2</span>] = <span class="number">9</span>;
+    nilai[<span class="number">3</span>] = <span class="number">3</span>;
+    nilai[<span class="number">4</span>] = <span class="number">4</span>;
+    
+    <span class="comment">// Menampilkan alamat memori dan nilai array</span>
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">0</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">0</span>] <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">1</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">1</span>] <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">2</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">2</span>] <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">3</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">3</span>] <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">4</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">4</span>] <span class="operator">&lt;&lt;</span> endl;
+    
+    <span class="comment">// Manipulasi array menggunakan pointer</span>
+    <span class="keyword">int</span> *ptr = nilai;
+    *(ptr + <span class="number">2</span>) = <span class="number">6</span>;  <span class="comment">// Mengubah nilai[2] dari 9 menjadi 6</span>
+    nilai[<span class="number">3</span>] = <span class="number">7</span>;       <span class="comment">// Mengubah nilai[3] dari 3 menjadi 7</span>
+    
+    cout <span class="operator">&lt;&lt;</span> endl;
+    
+    <span class="comment">// Menampilkan nilai setelah perubahan</span>
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">0</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">0</span>] <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">1</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">1</span>] <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">2</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">2</span>] <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">3</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">3</span>] <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[<span class="number">4</span>] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[<span class="number">4</span>] <span class="operator">&lt;&lt;</span> endl;
+    
+    cout <span class="operator">&lt;&lt;</span> endl;
+    
+    <span class="comment">// Informasi ukuran array</span>
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"ukuran array = "</span> <span class="operator">&lt;&lt;</span> <span class="function">sizeof</span>(nilai) <span class="operator">&lt;&lt;</span> <span class="string">" byte"</span> <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"jumlah member array = "</span> <span class="operator">&lt;&lt;</span> <span class="function">sizeof</span>(nilai)/<span class="function">sizeof</span>(<span class="keyword">int</span>) <span class="operator">&lt;&lt;</span> endl;
+    
+    cin.get();
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <p>Program ini mendemonstrasikan penggunaan array 1 dimensi dalam C++, termasuk cara mendeklarasikan array, mengisi nilai, mengakses alamat memori, memanipulasi array menggunakan pointer, dan menghitung ukuran array.</p>
+            </div>
+
+            <!-- SECTION 2: FOR LOOP -->
+            <div class="section" id="for-loop">
+                <h2>2. Array dengan For Loop</h2>
+                
+                <p>Menggunakan perulangan (loop) membuat kode lebih efisien dan mudah dibaca, terutama saat bekerja dengan array berukuran besar.</p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                        </button>
+                    </div>
+                    <div class="code-content">
+<pre><code><span class="comment">// Program Array 1 Dimensi dengan For Loop</span>
+<span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span>
+<span class="keyword">using namespace</span> std;
+
+<span class="keyword">int</span> <span class="function">main</span>(){
+    <span class="comment">// Membuat array</span>
+    <span class="keyword">int</span> nilai[<span class="number">6</span>];
+    
+    <span class="comment">// Mengisi nilai array</span>
+    nilai[<span class="number">0</span>] = <span class="number">5</span>;
+    nilai[<span class="number">1</span>] = <span class="number">1</span>;
+    nilai[<span class="number">2</span>] = <span class="number">9</span>;
+    nilai[<span class="number">3</span>] = <span class="number">3</span>;
+    nilai[<span class="number">4</span>] = <span class="number">4</span>;
+    nilai[<span class="number">5</span>] = <span class="number">8</span>;
+    
+    <span class="comment">// Menampilkan nilai awal menggunakan for loop</span>
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"=== Nilai Awal ==="</span> <span class="operator">&lt;&lt;</span> endl;
+    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i <span class="operator">&lt;</span> <span class="number">6</span>; i++){
+        cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[i] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[i] <span class="operator">&lt;&lt;</span> endl;
+    }
+    
+    <span class="comment">// Manipulasi dengan pointer</span>
+    <span class="keyword">int</span> *ptr = nilai;
+    *(ptr + <span class="number">2</span>) = <span class="number">6</span>;  <span class="comment">// Mengubah nilai[2]</span>
+    nilai[<span class="number">3</span>] = <span class="number">7</span>;       <span class="comment">// Mengubah nilai[3]</span>
+    
+    <span class="comment">// Menampilkan nilai setelah perubahan</span>
+    cout <span class="operator">&lt;&lt;</span> endl <span class="operator">&lt;&lt;</span> <span class="string">"=== Nilai Setelah Perubahan ==="</span> <span class="operator">&lt;&lt;</span> endl;
+    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i <span class="operator">&lt;</span> <span class="number">6</span>; i++){
+        cout <span class="operator">&lt;&lt;</span> <span class="operator">&amp;</span>nilai[i] <span class="operator">&lt;&lt;</span> <span class="string">" nilainya adalah: "</span> <span class="operator">&lt;&lt;</span> nilai[i] <span class="operator">&lt;&lt;</span> endl;
+    }
+    
+    <span class="comment">// Informasi array</span>
+    cout <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"Ukuran array = "</span> <span class="operator">&lt;&lt;</span> <span class="function">sizeof</span>(nilai) <span class="operator">&lt;&lt;</span> <span class="string">" byte"</span> <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"Jumlah member array = "</span> <span class="operator">&lt;&lt;</span> <span class="function">sizeof</span>(nilai)/<span class="function">sizeof</span>(<span class="keyword">int</span>) <span class="operator">&lt;&lt;</span> endl;
+    
+    <span class="comment">// Menghitung total semua nilai</span>
+    <span class="keyword">int</span> total = <span class="number">0</span>;
+    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i <span class="operator">&lt;</span> <span class="number">6</span>; i++){
+        total += nilai[i];
+    }
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"Total semua nilai = "</span> <span class="operator">&lt;&lt;</span> total <span class="operator">&lt;&lt;</span> endl;
+    
+    cin.get();
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <p>Program ini menunjukkan penggunaan perulangan for untuk mengakses dan memanipulasi elemen array secara efisien. For loop membuat kode lebih ringkas dan mudah untuk array dengan ukuran besar.</p>
+
+                <h3>Keuntungan Menggunakan For Loop</h3>
+                <div class="info-box">
+                    <strong>Manfaat For Loop:</strong>
+                    <ul>
+                        <li><strong>Efisiensi:</strong> Mengurangi pengulangan kode yang sama</li>
+                        <li><strong>Skalabilitas:</strong> Mudah disesuaikan untuk array dengan ukuran berbeda</li>
+                        <li><strong>Fleksibilitas:</strong> Memudahkan operasi pada semua elemen array</li>
+                        <li><strong>Readability:</strong> Kode lebih mudah dibaca dan dipahami</li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+<pre>=== Nilai Awal ===
+0x7ffd123abc00 nilainya adalah: 5
+0x7ffd123abc04 nilainya adalah: 1
+0x7ffd123abc08 nilainya adalah: 9
+0x7ffd123abc0c nilainya adalah: 3
+0x7ffd123abc10 nilainya adalah: 4
+0x7ffd123abc14 nilainya adalah: 8
+
+=== Nilai Setelah Perubahan ===
+0x7ffd123abc00 nilainya adalah: 5
+0x7ffd123abc04 nilainya adalah: 1
+0x7ffd123abc08 nilainya adalah: 6
+0x7ffd123abc0c nilainya adalah: 7
+0x7ffd123abc10 nilainya adalah: 4
+0x7ffd123abc14 nilainya adalah: 8
+
+Ukuran array = 24 byte
+Jumlah member array = 6
+Total semua nilai = 31</pre>
+                </div>
+            </div>
+
+            <!-- SECTION 3: MULTI-DIMENSI -->
+            <div class="section" id="multi-dimensi">
+                <h2>3. Array Multi-Dimensi (2D Array)</h2>
+                
+                <p>Array dua dimensi adalah array yang memiliki baris dan kolom, mirip seperti tabel atau matriks. Sangat berguna untuk menyimpan data yang terstruktur.</p>
+
+                <h3>Konsep Array 2D</h3>
+                <div class="info-box">
+                    <strong>Visualisasi Array 2D:</strong>
+                    <pre>
+kelas[6][2] = 6 baris × 2 kolom
+
+        [0]  [1]
+    [0]  •    •
+    [1]  •    •
+    [2]  •    •
+    [3]  •    •
+    [4]  •    •
+    [5]  •    •
+                    </pre>
+                </div>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                        </button>
+                    </div>
+                    <div class="code-content">
+<pre><code><span class="comment">// Program Array 2 Dimensi</span>
+<span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span>
+<span class="keyword">using namespace</span> std;
+
+<span class="keyword">int</span> <span class="function">main</span>()
+{
+    <span class="comment">// Deklarasi array 2D: 6 baris x 2 kolom</span>
+    <span class="keyword">int</span> kelas[<span class="number">6</span>][<span class="number">2</span>];
+    <span class="keyword">int</span> total = <span class="number">0</span>;
+
+    <span class="comment">// Input data ke array 2D menggunakan nested loop</span>
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i <span class="operator">&lt;</span> <span class="number">6</span>; i++)
+    {
+        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j <span class="operator">&lt;</span> <span class="number">2</span>; j++)
+        {
+            cout <span class="operator">&lt;&lt;</span> <span class="string">"Masukkan nilai, pada kelas ["</span> <span class="operator">&lt;&lt;</span> i <span class="operator">&lt;&lt;</span> <span class="string">"]["</span> 
+                 <span class="operator">&lt;&lt;</span> j <span class="operator">&lt;&lt;</span> <span class="string">"] Adalah = "</span>;
+            cin <span class="operator">&gt;&gt;</span> kelas[i][j];
+        }
+    }
+
+    <span class="comment">// Menampilkan data array 2D</span>
+    cout <span class="operator">&lt;&lt;</span> endl <span class="operator">&lt;&lt;</span> <span class="string">"=== Data yang Dimasukkan ==="</span> <span class="operator">&lt;&lt;</span> endl;
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i <span class="operator">&lt;</span> <span class="number">6</span>; i++)
+    {
+        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j <span class="operator">&lt;</span> <span class="number">2</span>; j++)
+        {
+            cout <span class="operator">&lt;&lt;</span> <span class="string">"Kelas ["</span> <span class="operator">&lt;&lt;</span> i <span class="operator">&lt;&lt;</span> <span class="string">"]["</span> <span class="operator">&lt;&lt;</span> j <span class="operator">&lt;&lt;</span> <span class="string">"] Adalah = "</span> 
+                 <span class="operator">&lt;&lt;</span> kelas[i][j] <span class="operator">&lt;&lt;</span> endl;
+        }
+    }
+
+    <span class="comment">// Menghitung total semua nilai dalam array 2D</span>
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i <span class="operator">&lt;</span> <span class="number">6</span>; i++)
+    {
+        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j <span class="operator">&lt;</span> <span class="number">2</span>; j++)
+        {
+            total += kelas[i][j];
+        }
+    }
+
+    <span class="comment">// Menampilkan informasi array</span>
+    cout <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"Jumlah = "</span> <span class="operator">&lt;&lt;</span> total <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"Jumlah array = "</span> <span class="operator">&lt;&lt;</span> <span class="function">sizeof</span>(kelas) <span class="operator">&lt;&lt;</span> <span class="string">" byte"</span> <span class="operator">&lt;&lt;</span> endl;
+    cout <span class="operator">&lt;&lt;</span> <span class="string">"Jumlah data = "</span> <span class="operator">&lt;&lt;</span> <span class="function">sizeof</span>(kelas) / <span class="function">sizeof</span>(<span class="keyword">int</span>) <span class="operator">&lt;&lt;</span> endl;
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <p>Program ini mendemonstrasikan array 2 dimensi (matriks) dengan 6 baris dan 2 kolom. Menggunakan nested loop untuk input, menampilkan data, dan menghitung total semua nilai dalam array.</p>
+
+                <h3>Contoh Output Interaktif</h3>
+                <div class="output-block">
+<pre>Masukkan nilai, pada kelas [0][0] Adalah = 85
+Masukkan nilai, pada kelas [0][1] Adalah = 90
+Masukkan nilai, pada kelas [1][0] Adalah = 78
+Masukkan nilai, pada kelas [1][1] Adalah = 82
+Masukkan nilai, pada kelas [2][0] Adalah = 91
+Masukkan nilai, pada kelas [2][1] Adalah = 88
+Masukkan nilai, pada kelas [3][0] Adalah = 75
+Masukkan nilai, pada kelas [3][1] Adalah = 80
+Masukkan nilai, pada kelas [4][0] Adalah = 92
+Masukkan nilai, pada kelas [4][1] Adalah = 87
+Masukkan nilai, pada kelas [5][0] Adalah = 83
+Masukkan nilai, pada kelas [5][1] Adalah = 89
+
+=== Data yang Dimasukkan ===
+Kelas [0][0] Adalah = 85
+Kelas [0][1] Adalah = 90
+Kelas [1][0] Adalah = 78
+Kelas [1][1] Adalah = 82
+...
+
+Jumlah = 1020
+Jumlah array = 48 byte
+Jumlah data = 12</pre>
+                </div>
+
+                <div class="note">
+                    <strong>Catatan Penting:</strong>
+                    <ul>
+                        <li>Array 2D dapat digunakan untuk menyimpan data tabel, matriks, atau game board</li>
+                        <li>Indeks pertama [i] mewakili baris, indeks kedua [j] mewakili kolom</li>
+                        <li>Nested loop diperlukan untuk mengakses semua elemen</li>
+                        <li>Ukuran total = baris × kolom × ukuran tipe data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SECTION KESIMPULAN -->
+            <div class="section">
+                <h2>Kesimpulan</h2>
+                <p>Array adalah struktur data fundamental dalam pemrograman C++. Berikut rangkuman yang telah kita pelajari:</p>
+                
+                <div class="info-box">
+                    <strong>Poin-Poin Penting:</strong>
+                    <ul>
+                        <li><strong>Array 1D:</strong> Struktur data linear untuk menyimpan data sejenis</li>
+                        <li><strong>For Loop:</strong> Metode efisien untuk mengakses dan memanipulasi array</li>
+                        <li><strong>Array 2D:</strong> Struktur data matriks untuk data yang lebih kompleks</li>
+                        <li><strong>Pointer:</strong> Dapat digunakan untuk manipulasi array secara alternatif</li>
+                        <li><strong>Sizeof:</strong> Fungsi untuk mengetahui ukuran dan jumlah elemen array</li>
+                    </ul>
+                </div>
+
+                <h3>Tips Praktis</h3>
+                <ul>
+                    <li>Selalu inisialisasi array sebelum digunakan</li>
+                    <li>Perhatikan batas indeks array untuk menghindari error</li>
+                    <li>Gunakan konstanta untuk ukuran array agar mudah diubah</li>
+                    <li>Manfaatkan loop untuk operasi repetitif pada array</li>
+                    <li>Pahami hubungan antara array dan pointer</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+                       <p>&copy; jossye, 2026 Dokumentasi C++ |  dibuat untuk nyantui...</p>
+
+        </footer>
+    </div>
+
+      <link rel="stylesheet"  type="text/css" href="aset/main.js">
+
+</body>
+</html>
