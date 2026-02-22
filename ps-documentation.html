@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="aset/main.css">
+
+    <title>Dokumentasi Pointer C++</title>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <h1>Dokumentasi Pointer C++</h1>
+            <p>Dari dasar pointer hingga pass by pointer dalam fungsi</p>
+        </header>
+
+        <nav>
+            <a href="index.html"><-</a>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">Materi ▼</button>
+                        <div class="dropdown-content">
+                            <a href="array-documentation.html">Array</a>
+                            <a href="ps-documentation.html">Pointer</a>
+                        </div>
+                    </div>
+                    <a href="#p1">Dasar Pointer</a>
+                    <a href="#p2">Swap Manual</a>
+                    <a href="#p3">Pass by Value</a>
+                    <a href="#p4">Pass by Pointer</a>
+        </nav>
+
+        <div class="content">
+
+            <!-- SECTION 1 -->
+            <div class="section" id="p1">
+                <h2>1. Dasar Pointer</h2>
+                <p>Pointer adalah variabel yang menyimpan <strong>alamat memori</strong> dari variabel lain. Operator
+                    <code>&amp;</code> digunakan untuk mengambil alamat, sedangkan operator <code>*</code> digunakan
+                    untuk mengakses nilai di alamat tersebut (dereference).
+                </p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int a = 10;
+    int *b = &a;  // b menyimpan alamat memori a
+    *b = 20;      // mengubah nilai a melalui pointer b
+
+    cout &lt;&lt; "mem address of a -> " &lt;&lt; &a &lt;&lt; endl;
+    cout &lt;&lt; "nilai a adalah   -> " &lt;&lt; a  &lt;&lt; endl;
+
+    cout &lt;&lt; "mem address of b -> " &lt;&lt; &b &lt;&lt; endl;
+    cout &lt;&lt; "nilai b adalah   -> " &lt;&lt; *b &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="info-box">
+                    <strong>Poin Penting:</strong>
+                    <ul>
+                        <li><code>int *b = &amp;a</code> → pointer <code>b</code> menunjuk ke alamat variabel
+                            <code>a</code>
+                        </li>
+                        <li><code>*b = 20</code> → mengubah nilai di alamat yang ditunjuk, sehingga nilai <code>a</code>
+                            ikut berubah menjadi 20</li>
+                        <li><code>&amp;b</code> adalah alamat dari variabel pointer itu sendiri, berbeda dari
+                            <code>&amp;a</code>
+                        </li>
+                        <li>Karena <code>b</code> menunjuk ke <code>a</code>, nilai <code>*b</code> dan nilai
+                            <code>a</code> selalu sama
+                        </li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>mem address of a -> 0x7ffe4abc1230
+nilai a adalah   -> 20
+mem address of b -> 0x7ffe4abc1238
+nilai b adalah   -> 20</pre>
+                </div>
+            </div>
+
+            <!-- SECTION 2 -->
+            <div class="section" id="p2">
+                <h2>2. Swap Manual (di main)</h2>
+                <p>Pertukaran nilai dua variabel secara langsung di dalam <code>main()</code> menggunakan variabel
+                    sementara <code>temp</code>. Berhasil karena kita langsung menyentuh variabel aslinya.</p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int a = 10;
+    int b = 20;
+
+    int temp;
+    temp = a;   // temp = 10
+    a = b;      // a = 20
+    b = temp;   // b = 10
+
+    cout &lt;&lt; "mem address of a -> " &lt;&lt; &a &lt;&lt; endl;
+    cout &lt;&lt; "nilai a adalah   -> " &lt;&lt; a  &lt;&lt; endl;
+
+    cout &lt;&lt; "mem address of b -> " &lt;&lt; &b &lt;&lt; endl;
+    cout &lt;&lt; "nilai b adalah   -> " &lt;&lt; b  &lt;&lt; endl;
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <p>Swap berhasil karena dilakukan langsung di scope yang sama dengan variabel <code>a</code> dan
+                    <code>b</code>. Variabel <code>temp</code> berfungsi sebagai tempat penyimpanan sementara agar nilai
+                    tidak hilang saat pertukaran.
+                </p>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>mem address of a -> 0x7ffe...
+nilai a adalah   -> 20
+mem address of b -> 0x7ffe...
+nilai b adalah   -> 10</pre>
+                </div>
+            </div>
+
+            <!-- SECTION 3 -->
+            <div class="section" id="p3">
+                <h2>3. Pass by Value (Swap Gagal)</h2>
+                <p>Fungsi <code>tukar(int a, int b)</code> menerima <strong>salinan</strong> nilai, bukan variabel
+                    aslinya. Pertukaran terjadi di dalam fungsi tetapi tidak mempengaruhi variabel di
+                    <code>main()</code>.
+                </p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void tukar(int a, int b)    // a dan b adalah SALINAN nilai
+{
+    int temp;
+    temp = a;   // perubahan hanya berlaku di sini
+    a = b;
+    b = temp;
+}
+
+int main()
+{
+    int a = 10;
+    int b = 20;
+
+    tukar(a, b);   // mengirim NILAI, bukan alamat
+
+    cout &lt;&lt; "mem address of a -> " &lt;&lt; &a &lt;&lt; endl;
+    cout &lt;&lt; "nilai a adalah   -> " &lt;&lt; a  &lt;&lt; endl;  // tetap 10
+
+    cout &lt;&lt; "mem address of b -> " &lt;&lt; &b &lt;&lt; endl;
+    cout &lt;&lt; "nilai b adalah   -> " &lt;&lt; b  &lt;&lt; endl;  // tetap 20
+
+    return 0;
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="note">
+                    <strong>⚠ Mengapa Gagal?</strong>
+                    <ul>
+                        <li>Parameter fungsi <code>a</code> dan <code>b</code> adalah variabel <em>baru</em> yang hanya
+                            menyimpan salinan nilai dari <code>main()</code></li>
+                        <li>Pertukaran di dalam fungsi tidak menyentuh memori variabel asli di <code>main()</code></li>
+                        <li>Saat fungsi selesai dieksekusi, variabel salinan tersebut langsung dihapus dari stack</li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>mem address of a -> 0x7ffe...
+nilai a adalah   -> 10
+mem address of b -> 0x7ffe...
+nilai b adalah   -> 20</pre>
+                </div>
+            </div>
+
+            <!-- SECTION 4 -->
+            <div class="section" id="p4">
+                <h2>4. Pass by Pointer (Swap Berhasil)</h2>
+                <p>Fungsi <code>tukar(int *a, int *b)</code> menerima <strong>alamat memori</strong> variabel aslinya.
+                    Dengan operator <code>*</code>, fungsi dapat langsung memanipulasi nilai di alamat tersebut.</p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void tukar(int *a, int *b)   // a dan b adalah POINTER ke variabel asli
+{
+    int temp;
+    temp = *a;   // ambil nilai di alamat a
+    *a = *b;     // tulis nilai b ke alamat a
+    *b = temp;   // tulis temp ke alamat b
+}
+
+int main()
+{
+    int a = 10;
+    int b = 20;
+
+    tukar(&a, &b);   // mengirim ALAMAT variabel, bukan nilainya
+
+    cout &lt;&lt; "mem address of a -> " &lt;&lt; &a &lt;&lt; endl;
+    cout &lt;&lt; "nilai a adalah   -> " &lt;&lt; a  &lt;&lt; endl;  // 20
+
+    cout &lt;&lt; "mem address of b -> " &lt;&lt; &b &lt;&lt; endl;
+    cout &lt;&lt; "nilai b adalah   -> " &lt;&lt; b  &lt;&lt; endl;  // 10
+
+    return 0;
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="info-box">
+                    <strong>✅ Mengapa Berhasil?</strong>
+                    <ul>
+                        <li><code>tukar(&amp;a, &amp;b)</code> mengirimkan alamat memori nyata dari variabel
+                            <code>a</code> dan <code>b</code>
+                        </li>
+                        <li>Di dalam fungsi, <code>*a</code> dan <code>*b</code> langsung mengakses lokasi memori yang
+                            sama dengan variabel di <code>main()</code></li>
+                        <li>Perubahan yang dilakukan di dalam fungsi langsung terlihat di <code>main()</code></li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>mem address of a -> 0x7ffe...
+nilai a adalah   -> 20
+mem address of b -> 0x7ffe...
+nilai b adalah   -> 10</pre>
+                </div>
+            </div>
+
+            <!-- KESIMPULAN -->
+            <div class="section">
+                <h2>Kesimpulan</h2>
+                <p>Memahami pointer adalah kunci untuk mengerti bagaimana data dikelola di memori dalam C++. Berikut
+                    rangkuman yang telah dipelajari:</p>
+                <div class="info-box">
+                    <strong>Poin-Poin Penting:</strong>
+                    <ul>
+                        <li><strong>Pointer:</strong> Variabel yang menyimpan alamat memori variabel lain</li>
+                        <li><strong>Pass by Value:</strong> Fungsi menerima salinan — perubahan tidak mempengaruhi
+                            variabel asli</li>
+                        <li><strong>Pass by Pointer:</strong> Fungsi menerima alamat — perubahan langsung ke variabel
+                            asli</li>
+                        <li><strong>Tips:</strong> C++ juga punya pass by reference (<code>int &amp;a</code>) sebagai
+                            alternatif yang lebih bersih dari pointer</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div><!-- end .content -->
+
+        <footer>
+            <p>&copy; jossye, 2026 Dokumentasi C++ | dibuat untuk nyantui...</p>
+        </footer>
+
+    </div><!-- end .container -->
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('pre').textContent;
+
+            navigator.clipboard.writeText(code).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin:', err);
+            });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -16,3 +16,12 @@
                 console.error('Gagal menyalin:', err);
             });
         }
+
+   document.addEventListener('DOMContentLoaded', () => {
+    fetch('aset/nav.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar').innerHTML = html;
+        });
+});
+
