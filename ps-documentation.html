@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="aset/main.css">
 
-    <title>Dokumentasi Pointer C++</title>
+    <title>Dokumentasi Pointer & Struct C++</title>
 
     <!-- Highlight.js -->
     <link rel="stylesheet"
@@ -22,24 +22,44 @@
     <div class="container">
 
         <header>
-            <h1>Dokumentasi Pointer C++</h1>
-            <p>Dari dasar pointer hingga pass by pointer dalam fungsi</p>
+            <h1>Dokumentasi Pointer & Struct C++</h1>
+            <p>Dari dasar pointer hingga struct dalam C++</p>
         </header>
 
         <nav>
             <a href="index.html"><-</a>
 
-                    <div class="dropdown">
-                        <button class="dropbtn">Materi ▼</button>
-                        <div class="dropdown-content">
-                            <a href="array-documentation.html">Array</a>
-                            <a href="ps-documentation.html">Pointer</a>
-                        </div>
-                    </div>
+            <div class="dropdown">
+                <button class="dropbtn">Materi ▼</button>
+                <div class="dropdown-content">
+                    <a href="array-documentation.html">Array</a>
+                    <a href="ps-documentation.html">Pointer &amp; Struct</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Pointer ▼</button>
+                <div class="dropdown-content">
                     <a href="#p1">Dasar Pointer</a>
                     <a href="#p2">Swap Manual</a>
                     <a href="#p3">Pass by Value</a>
                     <a href="#p4">Pass by Pointer</a>
+                    <a href="#p5">Double Pointer</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Struct ▼</button>
+                <div class="dropdown-content">
+                    <a href="#s1">Dasar Struct</a>
+                    <a href="#s2">Pass by Value</a>
+                    <a href="#s3">Pass by Reference</a>
+                    <a href="#s4">Pass by Pointer</a>
+                    <a href="#s5">Array Struct ke Fungsi</a>
+                    <a href="#s6">Return Pointer</a>
+                    <a href="#s7">Kode Lengkap</a>
+                </div>
+            </div>
         </nav>
 
         <div class="content">
@@ -386,10 +406,702 @@ int main()
 x setelah diubah lewat **pptr = 150</pre>
                 </div>
             </div>
+
+            <!-- ===================== STRUCT SECTION ===================== -->
+
+            <!-- STRUCT SECTION 1 -->
+            <div class="section" id="s1">
+                <h2>6. Dasar Struct</h2>
+                <p>
+                    <strong>Struct</strong> (structure) adalah tipe data bentukan yang menggabungkan beberapa variabel
+                    dengan tipe yang berbeda-beda ke dalam satu kelompok. Struct sangat berguna untuk merepresentasikan
+                    sebuah entitas nyata, misalnya data saham di aplikasi seperti Stockbit.
+                </p>
+
+                <h3>Sintaks Dasar</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">struct NamaStruct {
+    tipe_data anggota1;
+    tipe_data anggota2;
+    // ...
+};</code></pre>
+                </div>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Saham {
+    string kode;
+    string emiten;
+    int harga;
+    string pemilik;
+    string kategori;
+};
+
+int main() {
+
+    // Banyak saham seperti di aplikasi Stockbit
+    Saham daftarSaham[4] = {
+        {"BBCA", "Bank Central Asia", 7900, "Hartono Family", "Perbankan"},
+        {"RLCO", "Abadi Lestari Indonesia", 7700, "Edwin Pranata", "Konsumen non-primer"},
+        {"BUMI", "Bumi Resources", 250, "Mach Energy", "Pertambangan"},
+        {"DEWA", "Darma Henwa", 505, "Zurich Asset International", "Pertambangan"}
+    };
+
+    // Menampilkan semua saham
+    for (int i = 0; i &lt; 4; i++) {
+        cout &lt;&lt; "===== Saham ke-" &lt;&lt; i+1 &lt;&lt; " =====" &lt;&lt; endl;
+        cout &lt;&lt; "Kode     : " &lt;&lt; daftarSaham[i].kode &lt;&lt; endl;
+        cout &lt;&lt; "Emiten   : " &lt;&lt; daftarSaham[i].emiten &lt;&lt; endl;
+        cout &lt;&lt; "Harga    : Rp." &lt;&lt; daftarSaham[i].harga &lt;&lt; endl;
+        cout &lt;&lt; "Pemilik  : " &lt;&lt; daftarSaham[i].pemilik &lt;&lt; endl;
+        cout &lt;&lt; "Kategori : " &lt;&lt; daftarSaham[i].kategori &lt;&lt; endl;
+        cout &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="info-box">
+                    <strong>Poin Penting:</strong>
+                    <ul>
+                        <li><code>struct Saham { ... }</code> → mendefinisikan blueprint/cetakan tipe data baru bernama
+                            <code>Saham</code></li>
+                        <li>Setiap variabel di dalam struct disebut <strong>member</strong> atau <strong>anggota</strong></li>
+                        <li><code>Saham daftarSaham[4]</code> → membuat array berisi 4 objek bertipe <code>Saham</code></li>
+                        <li>Akses member menggunakan operator titik → <code>daftarSaham[i].kode</code>,
+                            <code>daftarSaham[i].harga</code>, dst.</li>
+                        <li>Inisialisasi dilakukan dengan kurung kurawal <code>{}</code> sesuai urutan member dalam
+                            struct</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>💡 Analogi Struct:</strong>
+                    <p style="margin: 0.5rem 0 0;">
+                        Bayangkan struct seperti <strong>formulir isian</strong>. Struct <code>Saham</code> adalah
+                        template formulirnya, sedangkan setiap objek <code>daftarSaham[i]</code> adalah satu lembar
+                        formulir yang sudah diisi dengan data saham tertentu.
+                    </p>
+                </div>
+
+                <h3>Visualisasi Struct</h3>
+                <div class="output-block">
+                    <pre>daftarSaham[0]
+┌─────────────────────────────────┐
+│ kode     : "BBCA"               │
+│ emiten   : "Bank Central Asia"  │
+│ harga    : 7900                 │
+│ pemilik  : "Hartono Family"     │
+│ kategori : "Perbankan"          │
+└─────────────────────────────────┘
+
+daftarSaham[1]
+┌──────────────────────────────────────┐
+│ kode     : "RLCO"                    │
+│ emiten   : "Abadi Lestari Indonesia" │
+│ harga    : 7700                      │
+│ pemilik  : "Edwin Pranata"           │
+│ kategori : "Konsumen non-primer"     │
+└──────────────────────────────────────┘</pre>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>===== Saham ke-1 =====
+Kode     : BBCA
+Emiten   : Bank Central Asia
+Harga    : Rp.7900
+Pemilik  : Hartono Family
+Kategori : Perbankan
+
+===== Saham ke-2 =====
+Kode     : RLCO
+Emiten   : Abadi Lestari Indonesia
+Harga    : Rp.7700
+Pemilik  : Edwin Pranata
+Kategori : Konsumen non-primer
+
+===== Saham ke-3 =====
+Kode     : BUMI
+Emiten   : Bumi Resources
+Harga    : Rp.250
+Pemilik  : Mach Energy
+Kategori : Pertambangan
+
+===== Saham ke-4 =====
+Kode     : DEWA
+Emiten   : Darma Henwa
+Harga    : Rp.505
+Pemilik  : Zurich Asset International
+Kategori : Pertambangan</pre>
+                </div>
+            </div>
+
+            <!-- STRUCT SECTION 2: PASS BY VALUE -->
+            <div class="section" id="s2">
+                <h2>7. Struct: Pass by Value</h2>
+                <p>
+                    Ketika struct dioper ke fungsi secara <strong>pass by value</strong>, fungsi menerima
+                    <strong>salinan penuh</strong> dari seluruh member struct. Perubahan apapun di dalam fungsi
+                    <strong>tidak akan mempengaruhi</strong> data asli di <code>main()</code>.
+                </p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">// Tampilkan struct (pass by value — cukup untuk baca-baca)
+void tampilkanSaham_ByValue(Saham s) {
+    cout &lt;&lt; "\n[PASS BY VALUE]" &lt;&lt; endl;
+    cout &lt;&lt; "Kode     : " &lt;&lt; s.kode &lt;&lt; endl;
+    cout &lt;&lt; "Emiten   : " &lt;&lt; s.emiten &lt;&lt; endl;
+    cout &lt;&lt; "Harga    : Rp." &lt;&lt; s.harga &lt;&lt; endl;
+    cout &lt;&lt; "Pemilik  : " &lt;&lt; s.pemilik &lt;&lt; endl;
+    cout &lt;&lt; "Kategori : " &lt;&lt; s.kategori &lt;&lt; endl;
+}
+
+// Coba ubah harga — TIDAK AKAN BERPENGARUH ke data asli!
+void naikkanHarga_ByValue(Saham s, int kenaikan) {
+    s.harga += kenaikan;
+    cout &lt;&lt; "\n[BY VALUE] Harga di dalam fungsi: Rp." &lt;&lt; s.harga &lt;&lt; endl;
+}
+
+int main() {
+    Saham daftarSaham[4] = { ... };
+
+    tampilkanSaham_ByValue(daftarSaham[0]);
+
+    cout &lt;&lt; "Harga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[0].harga &lt;&lt; endl;
+    naikkanHarga_ByValue(daftarSaham[0], 100);
+    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[0].harga &lt;&lt; endl;
+    cout &lt;&lt; "❌ HARGA TIDAK BERUBAH! (karena by value, cuma copy)" &lt;&lt; endl;
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="note">
+                    <strong>⚠ Mengapa Tidak Berubah?</strong>
+                    <ul>
+                        <li>Parameter <code>Saham s</code> di fungsi adalah <strong>salinan baru</strong> dari struct asli</li>
+                        <li><code>s.harga += kenaikan</code> hanya mengubah salinan, bukan struct di <code>main()</code></li>
+                        <li>Begitu fungsi selesai, salinan tersebut langsung dihapus dari stack</li>
+                        <li>Pass by value cocok digunakan jika fungsi hanya <strong>membaca</strong> data, bukan mengubahnya</li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>[PASS BY VALUE]
+Kode     : BBCA
+Emiten   : Bank Central Asia
+Harga    : Rp.7900
+Pemilik  : Hartono Family
+Kategori : Perbankan
+
+Harga SEBELUM naikkan (di main): Rp.7900
+[BY VALUE] Harga di dalam fungsi: Rp.8000
+Harga SETELAH naikkan (di main): Rp.7900
+❌ HARGA TIDAK BERUBAH! (karena by value, cuma copy)</pre>
+                </div>
+            </div>
+
+            <!-- STRUCT SECTION 3: PASS BY REFERENCE -->
+            <div class="section" id="s3">
+                <h2>8. Struct: Pass by Reference</h2>
+                <p>
+                    Ketika struct dioper secara <strong>pass by reference</strong> (<code>Saham &amp;s</code>),
+                    fungsi mendapatkan <strong>referensi langsung</strong> ke struct asli. Perubahan di dalam
+                    fungsi <strong>akan langsung mempengaruhi</strong> data aslinya.
+                </p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">// Tampilkan struct (pass by reference — lebih efisien karena tidak copy)
+void tampilkanSaham_ByReference(Saham &amp;s) {
+    cout &lt;&lt; "\n[PASS BY REFERENCE]" &lt;&lt; endl;
+    cout &lt;&lt; "Kode     : " &lt;&lt; s.kode &lt;&lt; endl;
+    cout &lt;&lt; "Emiten   : " &lt;&lt; s.emiten &lt;&lt; endl;
+    cout &lt;&lt; "Harga    : Rp." &lt;&lt; s.harga &lt;&lt; endl;
+    cout &lt;&lt; "Pemilik  : " &lt;&lt; s.pemilik &lt;&lt; endl;
+    cout &lt;&lt; "Kategori : " &lt;&lt; s.kategori &lt;&lt; endl;
+}
+
+// Ubah harga — AKAN BERPENGARUH ke data asli!
+void naikkanHarga_ByReference(Saham &amp;s, int kenaikan) {
+    s.harga += kenaikan;
+    cout &lt;&lt; "\n[BY REFERENCE] Harga di dalam fungsi: Rp." &lt;&lt; s.harga &lt;&lt; endl;
+}
+
+int main() {
+    Saham daftarSaham[4] = { ... };
+
+    tampilkanSaham_ByReference(daftarSaham[1]);
+
+    cout &lt;&lt; "Harga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[1].harga &lt;&lt; endl;
+    naikkanHarga_ByReference(daftarSaham[1], 100);
+    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[1].harga &lt;&lt; endl;
+    cout &lt;&lt; "✅ HARGA BERUBAH! (karena by reference, langsung ke aslinya)" &lt;&lt; endl;
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="info-box">
+                    <strong>✅ Mengapa Berhasil?</strong>
+                    <ul>
+                        <li>Operator <code>&amp;</code> pada parameter membuat <code>s</code> menjadi <strong>alias</strong> dari struct asli</li>
+                        <li><code>s.harga += kenaikan</code> langsung memodifikasi struct yang ada di <code>main()</code></li>
+                        <li>Pass by reference juga lebih <strong>efisien memori</strong> dari pass by value karena tidak membuat salinan</li>
+                        <li>Akses member tetap menggunakan operator titik (<code>.</code>), bukan panah (<code>-&gt;</code>)</li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>[PASS BY REFERENCE]
+Kode     : RLCO
+Emiten   : Abadi Lestari Indonesia
+Harga    : Rp.7700
+Pemilik  : Edwin Pranata
+Kategori : Konsumen non-primer
+
+Harga SEBELUM naikkan (di main): Rp.7700
+[BY REFERENCE] Harga di dalam fungsi: Rp.7800
+Harga SETELAH naikkan (di main): Rp.7800
+✅ HARGA BERUBAH! (karena by reference, langsung ke aslinya)</pre>
+                </div>
+            </div>
+
+            <!-- STRUCT SECTION 4: PASS BY POINTER -->
+            <div class="section" id="s4">
+                <h2>9. Struct: Pass by Pointer</h2>
+                <p>
+                    Ketika struct dioper secara <strong>pass by pointer</strong> (<code>Saham *s</code>),
+                    fungsi menerima <strong>alamat memori</strong> struct asli. Akses member dilakukan
+                    menggunakan operator panah (<code>-&gt;</code>) sebagai pengganti <code>(*s).member</code>.
+                </p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">// Tampilkan struct (pass by pointer — pakai -> untuk akses member)
+void tampilkanSaham_ByPointer(Saham *s) {
+    cout &lt;&lt; "\n[PASS BY POINTER]" &lt;&lt; endl;
+    cout &lt;&lt; "Kode     : " &lt;&lt; s-&gt;kode &lt;&lt; endl;      // Pakai -> untuk pointer
+    cout &lt;&lt; "Emiten   : " &lt;&lt; s-&gt;emiten &lt;&lt; endl;
+    cout &lt;&lt; "Harga    : Rp." &lt;&lt; s-&gt;harga &lt;&lt; endl;
+    cout &lt;&lt; "Pemilik  : " &lt;&lt; s-&gt;pemilik &lt;&lt; endl;
+    cout &lt;&lt; "Kategori : " &lt;&lt; s-&gt;kategori &lt;&lt; endl;
+}
+
+// Ubah harga — AKAN BERPENGARUH ke data asli!
+void naikkanHarga_ByPointer(Saham *s, int kenaikan) {
+    s-&gt;harga += kenaikan;
+    cout &lt;&lt; "\n[BY POINTER] Harga di dalam fungsi: Rp." &lt;&lt; s-&gt;harga &lt;&lt; endl;
+}
+
+int main() {
+    Saham daftarSaham[4] = { ... };
+
+    tampilkanSaham_ByPointer(&amp;daftarSaham[2]);   // Kirim alamat pakai &
+
+    cout &lt;&lt; "Harga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[2].harga &lt;&lt; endl;
+    naikkanHarga_ByPointer(&amp;daftarSaham[2], 50);
+    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[2].harga &lt;&lt; endl;
+    cout &lt;&lt; "✅ HARGA BERUBAH! (karena by pointer, akses langsung via alamat)" &lt;&lt; endl;
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="info-box">
+                    <strong>✅ Poin Penting Pass by Pointer:</strong>
+                    <ul>
+                        <li>Pemanggilan menggunakan <code>&amp;daftarSaham[2]</code> → mengirim <strong>alamat memori</strong> struct, bukan nilainya</li>
+                        <li>Di dalam fungsi, <code>s</code> adalah pointer ke struct asli</li>
+                        <li>Operator <code>-&gt;</code> adalah shorthand dari <code>(*s).</code> → dereference lalu akses member</li>
+                        <li><code>s-&gt;harga</code> sama persis dengan <code>(*s).harga</code></li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>💡 Operator Titik vs Panah:</strong>
+                    <ul>
+                        <li><code>s.harga</code> → digunakan jika <code>s</code> adalah struct biasa atau reference</li>
+                        <li><code>s-&gt;harga</code> → digunakan jika <code>s</code> adalah <strong>pointer</strong> ke struct</li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>[PASS BY POINTER]
+Kode     : BUMI
+Emiten   : Bumi Resources
+Harga    : Rp.250
+Pemilik  : Mach Energy
+Kategori : Pertambangan
+
+Harga SEBELUM naikkan (di main): Rp.250
+[BY POINTER] Harga di dalam fungsi: Rp.300
+Harga SETELAH naikkan (di main): Rp.300
+✅ HARGA BERUBAH! (karena by pointer, akses langsung via alamat)</pre>
+                </div>
+            </div>
+
+            <!-- STRUCT SECTION 5: ARRAY STRUCT KE FUNGSI -->
+            <div class="section" id="s5">
+                <h2>10. Array Struct ke Fungsi</h2>
+                <p>
+                    Array of struct dapat dioper ke fungsi menggunakan <strong>pointer</strong>. Saat nama array
+                    ditulis tanpa kurung siku (<code>daftarSaham</code>), C++ secara otomatis mengubahnya menjadi
+                    pointer ke elemen pertama array. Itulah mengapa parameter fungsinya bertipe <code>Saham *daftar</code>.
+                </p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">void tampilkanSemuaSaham(Saham *daftar, int ukuran) {
+    cout &lt;&lt; "\n===== MENAMPILKAN SEMUA SAHAM =====" &lt;&lt; endl;
+    for (int i = 0; i &lt; ukuran; i++) {
+        cout &lt;&lt; "\n----- Saham ke-" &lt;&lt; i+1 &lt;&lt; " -----" &lt;&lt; endl;
+        cout &lt;&lt; "Kode     : " &lt;&lt; daftar[i].kode &lt;&lt; endl;
+        cout &lt;&lt; "Emiten   : " &lt;&lt; daftar[i].emiten &lt;&lt; endl;
+        cout &lt;&lt; "Harga    : Rp." &lt;&lt; daftar[i].harga &lt;&lt; endl;
+        cout &lt;&lt; "Pemilik  : " &lt;&lt; daftar[i].pemilik &lt;&lt; endl;
+        cout &lt;&lt; "Kategori : " &lt;&lt; daftar[i].kategori &lt;&lt; endl;
+    }
+}
+
+int main() {
+    Saham daftarSaham[4] = { ... };
+
+    // nama array otomatis jadi pointer ke elemen pertama
+    tampilkanSemuaSaham(daftarSaham, 4);
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="info-box">
+                    <strong>Poin Penting:</strong>
+                    <ul>
+                        <li><code>daftarSaham</code> saat dioper ke fungsi secara otomatis menjadi <code>&amp;daftarSaham[0]</code> (pointer ke elemen pertama)</li>
+                        <li>Parameter <code>int ukuran</code> wajib dioper karena pointer tidak menyimpan informasi panjang array</li>
+                        <li>Di dalam fungsi, <code>daftar[i]</code> tetap menggunakan notasi indeks seperti biasa meskipun <code>daftar</code> adalah pointer</li>
+                        <li>Ini adalah cara standar C++ untuk mengoper array ke dalam fungsi</li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>===== MENAMPILKAN SEMUA SAHAM =====
+
+----- Saham ke-1 -----
+Kode     : BBCA
+Emiten   : Bank Central Asia
+Harga    : Rp.7900
+...
+
+----- Saham ke-4 -----
+Kode     : DEWA
+Emiten   : Darma Henwa
+Harga    : Rp.505
+Pemilik  : Zurich Asset International
+Kategori : Pertambangan</pre>
+                </div>
+            </div>
+
+            <!-- STRUCT SECTION 6: CARI SAHAM -->
+            <div class="section" id="s6">
+                <h2>11. Fungsi yang Mengembalikan Pointer Struct</h2>
+                <p>
+                    Fungsi dapat mengembalikan <strong>pointer ke struct</strong> (<code>Saham*</code>). Ini berguna
+                    untuk mencari data dalam array — jika ditemukan, kembalikan alamat memori elemen tersebut;
+                    jika tidak, kembalikan <code>nullptr</code>.
+                </p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">Saham* cariSaham(Saham *daftar, int ukuran, string kode) {
+    for (int i = 0; i &lt; ukuran; i++) {
+        if (daftar[i].kode == kode) {
+            return &amp;daftar[i];   // kembalikan alamat elemen yang cocok
+        }
+    }
+    return nullptr;   // tidak ditemukan
+}
+
+int main() {
+    Saham daftarSaham[4] = { ... };
+
+    string kodeYangDicari = "BUMI";
+    Saham* hasil = cariSaham(daftarSaham, 4, kodeYangDicari);
+
+    if (hasil != nullptr) {
+        cout &lt;&lt; "✅ Saham " &lt;&lt; kodeYangDicari &lt;&lt; " ditemukan!" &lt;&lt; endl;
+        cout &lt;&lt; "Emiten : " &lt;&lt; hasil-&gt;emiten &lt;&lt; endl;
+        cout &lt;&lt; "Harga  : Rp." &lt;&lt; hasil-&gt;harga &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Saham tidak ditemukan!" &lt;&lt; endl;
+    }
+}</code></pre>
+                </div>
+
+                <h3>Penjelasan Program</h3>
+                <div class="info-box">
+                    <strong>Poin Penting:</strong>
+                    <ul>
+                        <li>Return type <code>Saham*</code> → fungsi mengembalikan <strong>pointer ke struct</strong>, bukan salinannya</li>
+                        <li><code>return &amp;daftar[i]</code> → mengembalikan alamat elemen array yang cocok</li>
+                        <li><code>nullptr</code> → nilai khusus yang berarti pointer tidak menunjuk ke mana-mana (tidak ditemukan)</li>
+                        <li>Cek <code>hasil != nullptr</code> sebelum menggunakan pointer untuk menghindari crash</li>
+                        <li>Hasil akses menggunakan <code>-&gt;</code> karena <code>hasil</code> bertipe pointer</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>⚠ Hati-hati dengan nullptr:</strong>
+                    <p style="margin: 0.5rem 0 0;">
+                        Mengakses member dari pointer <code>nullptr</code> akan menyebabkan program crash
+                        (<em>segmentation fault</em>). Selalu cek <code>!= nullptr</code> sebelum menggunakan
+                        pointer hasil kembalian fungsi pencarian.
+                    </p>
+                </div>
+
+                <h3>Contoh Output</h3>
+                <div class="output-block">
+                    <pre>✅ Saham BUMI ditemukan!
+Emiten : Bumi Resources
+Harga  : Rp.300</pre>
+                </div>
+            </div>
+
+            <!-- STRUCT SECTION 7: KODE LENGKAP -->
+            <div class="section" id="s7">
+                <h2>12. Kode Lengkap</h2>
+                <p>
+                    Berikut adalah seluruh kode program yang menggabungkan semua konsep yang telah dipelajari:
+                    pass by value, pass by reference, pass by pointer, array struct ke fungsi, dan fungsi
+                    pengembalian pointer.
+                </p>
+
+                <h3>Kode Program</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                </path>
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Saham {
+    string kode;
+    string emiten;
+    int harga;
+    string pemilik;
+    string kategori;
+};
+
+// ===== PASS BY VALUE =====
+void tampilkanSaham_ByValue(Saham s) {
+    cout &lt;&lt; "\n[PASS BY VALUE]" &lt;&lt; endl;
+    cout &lt;&lt; "Kode     : " &lt;&lt; s.kode &lt;&lt; endl;
+    cout &lt;&lt; "Emiten   : " &lt;&lt; s.emiten &lt;&lt; endl;
+    cout &lt;&lt; "Harga    : Rp." &lt;&lt; s.harga &lt;&lt; endl;
+    cout &lt;&lt; "Pemilik  : " &lt;&lt; s.pemilik &lt;&lt; endl;
+    cout &lt;&lt; "Kategori : " &lt;&lt; s.kategori &lt;&lt; endl;
+}
+
+void naikkanHarga_ByValue(Saham s, int kenaikan) {
+    s.harga += kenaikan;
+    cout &lt;&lt; "\n[BY VALUE] Harga di dalam fungsi: Rp." &lt;&lt; s.harga &lt;&lt; endl;
+}
+
+// ===== PASS BY REFERENCE =====
+void tampilkanSaham_ByReference(Saham &amp;s) {
+    cout &lt;&lt; "\n[PASS BY REFERENCE]" &lt;&lt; endl;
+    cout &lt;&lt; "Kode     : " &lt;&lt; s.kode &lt;&lt; endl;
+    cout &lt;&lt; "Emiten   : " &lt;&lt; s.emiten &lt;&lt; endl;
+    cout &lt;&lt; "Harga    : Rp." &lt;&lt; s.harga &lt;&lt; endl;
+    cout &lt;&lt; "Pemilik  : " &lt;&lt; s.pemilik &lt;&lt; endl;
+    cout &lt;&lt; "Kategori : " &lt;&lt; s.kategori &lt;&lt; endl;
+}
+
+void naikkanHarga_ByReference(Saham &amp;s, int kenaikan) {
+    s.harga += kenaikan;
+    cout &lt;&lt; "\n[BY REFERENCE] Harga di dalam fungsi: Rp." &lt;&lt; s.harga &lt;&lt; endl;
+}
+
+// ===== PASS BY POINTER =====
+void tampilkanSaham_ByPointer(Saham *s) {
+    cout &lt;&lt; "\n[PASS BY POINTER]" &lt;&lt; endl;
+    cout &lt;&lt; "Kode     : " &lt;&lt; s-&gt;kode &lt;&lt; endl;
+    cout &lt;&lt; "Emiten   : " &lt;&lt; s-&gt;emiten &lt;&lt; endl;
+    cout &lt;&lt; "Harga    : Rp." &lt;&lt; s-&gt;harga &lt;&lt; endl;
+    cout &lt;&lt; "Pemilik  : " &lt;&lt; s-&gt;pemilik &lt;&lt; endl;
+    cout &lt;&lt; "Kategori : " &lt;&lt; s-&gt;kategori &lt;&lt; endl;
+}
+
+void naikkanHarga_ByPointer(Saham *s, int kenaikan) {
+    s-&gt;harga += kenaikan;
+    cout &lt;&lt; "\n[BY POINTER] Harga di dalam fungsi: Rp." &lt;&lt; s-&gt;harga &lt;&lt; endl;
+}
+
+// ===== ARRAY STRUCT KE FUNGSI =====
+void tampilkanSemuaSaham(Saham *daftar, int ukuran) {
+    cout &lt;&lt; "\n===== MENAMPILKAN SEMUA SAHAM =====" &lt;&lt; endl;
+    for (int i = 0; i &lt; ukuran; i++) {
+        cout &lt;&lt; "\n----- Saham ke-" &lt;&lt; i+1 &lt;&lt; " -----" &lt;&lt; endl;
+        cout &lt;&lt; "Kode     : " &lt;&lt; daftar[i].kode &lt;&lt; endl;
+        cout &lt;&lt; "Emiten   : " &lt;&lt; daftar[i].emiten &lt;&lt; endl;
+        cout &lt;&lt; "Harga    : Rp." &lt;&lt; daftar[i].harga &lt;&lt; endl;
+        cout &lt;&lt; "Pemilik  : " &lt;&lt; daftar[i].pemilik &lt;&lt; endl;
+        cout &lt;&lt; "Kategori : " &lt;&lt; daftar[i].kategori &lt;&lt; endl;
+    }
+}
+
+// ===== FUNGSI KEMBALIKAN POINTER =====
+Saham* cariSaham(Saham *daftar, int ukuran, string kode) {
+    for (int i = 0; i &lt; ukuran; i++) {
+        if (daftar[i].kode == kode) {
+            return &amp;daftar[i];
+        }
+    }
+    return nullptr;
+}
+
+
+int main() {
+    Saham daftarSaham[4] = {
+        {"BBCA", "Bank Central Asia", 7900, "Hartono Family", "Perbankan"},
+        {"RLCO", "Abadi Lestari Indonesia", 7700, "Edwin Pranata", "Konsumen non-primer"},
+        {"BUMI", "Bumi Resources", 250, "Mach Energy", "Pertambangan"},
+        {"DEWA", "Darma Henwa", 505, "Zurich Asset International", "Pertambangan"}
+    };
+
+    cout &lt;&lt; "DEMO 1: PASS BY VALUE" &lt;&lt; endl;
+    tampilkanSaham_ByValue(daftarSaham[0]);
+    cout &lt;&lt; "\nHarga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[0].harga &lt;&lt; endl;
+    naikkanHarga_ByValue(daftarSaham[0], 100);
+    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[0].harga &lt;&lt; endl;
+    cout &lt;&lt; "❌ HARGA TIDAK BERUBAH! (karena by value, cuma copy)" &lt;&lt; endl;
+
+    cout &lt;&lt; "\nDEMO 2: PASS BY REFERENCE" &lt;&lt; endl;
+    tampilkanSaham_ByReference(daftarSaham[1]);
+    cout &lt;&lt; "\nHarga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[1].harga &lt;&lt; endl;
+    naikkanHarga_ByReference(daftarSaham[1], 100);
+    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[1].harga &lt;&lt; endl;
+    cout &lt;&lt; "✅ HARGA BERUBAH! (karena by reference, langsung ke aslinya)" &lt;&lt; endl;
+
+    cout &lt;&lt; "\nDEMO 3: PASS BY POINTER" &lt;&lt; endl;
+    tampilkanSaham_ByPointer(&amp;daftarSaham[2]);
+    cout &lt;&lt; "\nHarga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[2].harga &lt;&lt; endl;
+    naikkanHarga_ByPointer(&amp;daftarSaham[2], 50);
+    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[2].harga &lt;&lt; endl;
+    cout &lt;&lt; "✅ HARGA BERUBAH! (karena by pointer, akses langsung via alamat)" &lt;&lt; endl;
+
+    cout &lt;&lt; "\n========================================" &lt;&lt; endl;
+    cout &lt;&lt; "DEMO 4: ARRAY STRUCT KE FUNGSI" &lt;&lt; endl;
+    cout &lt;&lt; "========================================" &lt;&lt; endl;
+    tampilkanSemuaSaham(daftarSaham, 4);
+
+    cout &lt;&lt; "\n========================================" &lt;&lt; endl;
+    cout &lt;&lt; "DEMO 5: CARI SAHAM" &lt;&lt; endl;
+    cout &lt;&lt; "========================================" &lt;&lt; endl;
+    string kodeYangDicari = "BUMI";
+    Saham* hasil = cariSaham(daftarSaham, 4, kodeYangDicari);
+
+    if (hasil != nullptr) {
+        cout &lt;&lt; "\n✅ Saham " &lt;&lt; kodeYangDicari &lt;&lt; " ditemukan!" &lt;&lt; endl;
+        cout &lt;&lt; "Emiten : " &lt;&lt; hasil-&gt;emiten &lt;&lt; endl;
+        cout &lt;&lt; "Harga  : Rp." &lt;&lt; hasil-&gt;harga &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "\nSaham tidak ditemukan!" &lt;&lt; endl;
+    }
+
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+
             <!-- KESIMPULAN -->
             <div class="section">
                 <h2>Kesimpulan</h2>
-                <p>Memahami pointer adalah kunci untuk mengerti bagaimana data dikelola di memori dalam C++. Berikut
+                <p>Memahami pointer dan struct adalah kunci untuk mengerti bagaimana data dikelola di memori dalam C++. Berikut
                     rangkuman yang telah dipelajari:</p>
              <div class="info-box">
     <strong>Poin-Poin Penting:</strong>
@@ -398,7 +1110,12 @@ x setelah diubah lewat **pptr = 150</pre>
         <li><strong>Pass by Value:</strong> Fungsi menerima salinan — perubahan tidak mempengaruhi variabel asli</li>
         <li><strong>Pass by Pointer:</strong> Fungsi menerima alamat — perubahan langsung ke variabel asli</li>
         <li><strong>Double Pointer:</strong> Pointer yang menyimpan alamat pointer lain — akses nilai melalui dua tingkat dereferensi (<code>**pptr</code>)</li>
-        <li><strong>Tips:</strong> C++ juga punya pass by reference (<code>int &amp;a</code>) sebagai alternatif yang lebih bersih dari pointer</li>
+        <li><strong>Struct:</strong> Tipe data bentukan yang mengelompokkan beberapa variabel berbeda tipe menjadi satu entitas</li>
+        <li><strong>Struct + Pass by Value:</strong> Salinan struct dioper — perubahan tidak mempengaruhi data asli</li>
+        <li><strong>Struct + Pass by Reference (<code>&amp;</code>):</strong> Alias langsung ke struct asli — lebih efisien dan perubahan langsung terasa</li>
+        <li><strong>Struct + Pass by Pointer (<code>*</code>):</strong> Alamat struct dioper — akses member menggunakan <code>-&gt;</code></li>
+        <li><strong>Array Struct ke Fungsi:</strong> Nama array otomatis menjadi pointer ke elemen pertama</li>
+        <li><strong>Fungsi Kembalikan Pointer:</strong> Gunakan <code>nullptr</code> untuk kondisi tidak ditemukan, selalu cek sebelum digunakan</li>
     </ul>
 </div>
             </div>
