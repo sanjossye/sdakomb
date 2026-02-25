@@ -976,7 +976,7 @@ struct Saham {
     string kategori;
 };
 
-// ===== PASS BY VALUE =====
+//pass by value
 void tampilkanSaham_ByValue(Saham s) {
     cout &lt;&lt; "\n[PASS BY VALUE]" &lt;&lt; endl;
     cout &lt;&lt; "Kode     : " &lt;&lt; s.kode &lt;&lt; endl;
@@ -991,7 +991,7 @@ void naikkanHarga_ByValue(Saham s, int kenaikan) {
     cout &lt;&lt; "\n[BY VALUE] Harga di dalam fungsi: Rp." &lt;&lt; s.harga &lt;&lt; endl;
 }
 
-// ===== PASS BY REFERENCE =====
+///pass by reference
 void tampilkanSaham_ByReference(Saham &amp;s) {
     cout &lt;&lt; "\n[PASS BY REFERENCE]" &lt;&lt; endl;
     cout &lt;&lt; "Kode     : " &lt;&lt; s.kode &lt;&lt; endl;
@@ -1006,10 +1006,10 @@ void naikkanHarga_ByReference(Saham &amp;s, int kenaikan) {
     cout &lt;&lt; "\n[BY REFERENCE] Harga di dalam fungsi: Rp." &lt;&lt; s.harga &lt;&lt; endl;
 }
 
-// ===== PASS BY POINTER =====
+//pass by pointer
 void tampilkanSaham_ByPointer(Saham *s) {
     cout &lt;&lt; "\n[PASS BY POINTER]" &lt;&lt; endl;
-    cout &lt;&lt; "Kode     : " &lt;&lt; s-&gt;kode &lt;&lt; endl;
+    cout &lt;&lt; "Kode     : " &lt;&lt; s-&gt;kode &lt;&lt; endl;      // -&gt; untuk pointer
     cout &lt;&lt; "Emiten   : " &lt;&lt; s-&gt;emiten &lt;&lt; endl;
     cout &lt;&lt; "Harga    : Rp." &lt;&lt; s-&gt;harga &lt;&lt; endl;
     cout &lt;&lt; "Pemilik  : " &lt;&lt; s-&gt;pemilik &lt;&lt; endl;
@@ -1021,7 +1021,7 @@ void naikkanHarga_ByPointer(Saham *s, int kenaikan) {
     cout &lt;&lt; "\n[BY POINTER] Harga di dalam fungsi: Rp." &lt;&lt; s-&gt;harga &lt;&lt; endl;
 }
 
-// ===== ARRAY STRUCT KE FUNGSI =====
+
 void tampilkanSemuaSaham(Saham *daftar, int ukuran) {
     cout &lt;&lt; "\n===== MENAMPILKAN SEMUA SAHAM =====" &lt;&lt; endl;
     for (int i = 0; i &lt; ukuran; i++) {
@@ -1034,7 +1034,7 @@ void tampilkanSemuaSaham(Saham *daftar, int ukuran) {
     }
 }
 
-// ===== FUNGSI KEMBALIKAN POINTER =====
+
 Saham* cariSaham(Saham *daftar, int ukuran, string kode) {
     for (int i = 0; i &lt; ukuran; i++) {
         if (daftar[i].kode == kode) {
@@ -1053,46 +1053,43 @@ int main() {
         {"DEWA", "Darma Henwa", 505, "Zurich Asset International", "Pertambangan"}
     };
 
-    cout &lt;&lt; "DEMO 1: PASS BY VALUE" &lt;&lt; endl;
-    tampilkanSaham_ByValue(daftarSaham[0]);
-    cout &lt;&lt; "\nHarga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[0].harga &lt;&lt; endl;
+    cout &lt;&lt; "PASS BY VALUE" &lt;&lt; endl;
+        tampilkanSaham_ByValue(daftarSaham[0]);
+    cout &lt;&lt; "\nSEBELUM KENAIKAN = " &lt;&lt; daftarSaham[0].harga &lt;&lt; endl;
     naikkanHarga_ByValue(daftarSaham[0], 100);
-    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[0].harga &lt;&lt; endl;
-    cout &lt;&lt; "❌ HARGA TIDAK BERUBAH! (karena by value, cuma copy)" &lt;&lt; endl;
+    cout &lt;&lt; "SETELAH KENAIKAN = " &lt;&lt; daftarSaham[0].harga &lt;&lt; endl;
 
-    cout &lt;&lt; "\nDEMO 2: PASS BY REFERENCE" &lt;&lt; endl;
+
+    cout &lt;&lt; "PASS BY REFERENCE" &lt;&lt; endl;
     tampilkanSaham_ByReference(daftarSaham[1]);
-    cout &lt;&lt; "\nHarga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[1].harga &lt;&lt; endl;
+    cout &lt;&lt; "\nSEBELUM KENAIKAN = " &lt;&lt; daftarSaham[1].harga &lt;&lt; endl;
     naikkanHarga_ByReference(daftarSaham[1], 100);
-    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[1].harga &lt;&lt; endl;
-    cout &lt;&lt; "✅ HARGA BERUBAH! (karena by reference, langsung ke aslinya)" &lt;&lt; endl;
+    cout &lt;&lt; "SETELAH KENAIKAN = " &lt;&lt; daftarSaham[1].harga &lt;&lt; endl;
 
-    cout &lt;&lt; "\nDEMO 3: PASS BY POINTER" &lt;&lt; endl;
-    tampilkanSaham_ByPointer(&amp;daftarSaham[2]);
-    cout &lt;&lt; "\nHarga SEBELUM naikkan (di main): Rp." &lt;&lt; daftarSaham[2].harga &lt;&lt; endl;
+
+    cout &lt;&lt; "PASS BY POINTER" &lt;&lt; endl;
+    tampilkanSaham_ByPointer(&amp;daftarSaham[2]); // Kirim alamat pakai &amp;
+    cout &lt;&lt; "\nSEBELUM KENAIKAN = " &lt;&lt; daftarSaham[2].harga &lt;&lt; endl;
     naikkanHarga_ByPointer(&amp;daftarSaham[2], 50);
-    cout &lt;&lt; "Harga SETELAH naikkan (di main): Rp." &lt;&lt; daftarSaham[2].harga &lt;&lt; endl;
-    cout &lt;&lt; "✅ HARGA BERUBAH! (karena by pointer, akses langsung via alamat)" &lt;&lt; endl;
+    cout &lt;&lt; "SETELAH KENAIKAN = " &lt;&lt; daftarSaham[2].harga &lt;&lt; endl;
 
-    cout &lt;&lt; "\n========================================" &lt;&lt; endl;
-    cout &lt;&lt; "DEMO 4: ARRAY STRUCT KE FUNGSI" &lt;&lt; endl;
-    cout &lt;&lt; "========================================" &lt;&lt; endl;
+
+    cout &lt;&lt; "ARRAY STRUCT KE FUNGSI" &lt;&lt; endl;
     tampilkanSemuaSaham(daftarSaham, 4);
 
-    cout &lt;&lt; "\n========================================" &lt;&lt; endl;
-    cout &lt;&lt; "DEMO 5: CARI SAHAM" &lt;&lt; endl;
-    cout &lt;&lt; "========================================" &lt;&lt; endl;
+
+    cout &lt;&lt; endl;
+    cout &lt;&lt; "CARI SAHAM" &lt;&lt; endl;
     string kodeYangDicari = "BUMI";
     Saham* hasil = cariSaham(daftarSaham, 4, kodeYangDicari);
 
     if (hasil != nullptr) {
-        cout &lt;&lt; "\n✅ Saham " &lt;&lt; kodeYangDicari &lt;&lt; " ditemukan!" &lt;&lt; endl;
+        cout &lt;&lt; "\nSaham " &lt;&lt; kodeYangDicari &lt;&lt; " ditemukan!" &lt;&lt; endl;
         cout &lt;&lt; "Emiten : " &lt;&lt; hasil-&gt;emiten &lt;&lt; endl;
         cout &lt;&lt; "Harga  : Rp." &lt;&lt; hasil-&gt;harga &lt;&lt; endl;
     } else {
         cout &lt;&lt; "\nSaham tidak ditemukan!" &lt;&lt; endl;
     }
-
     return 0;
 }</code></pre>
                 </div>
