@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Linked List C++</title>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: white;
+            color: black;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+
+        header {
+            background: black;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid black;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; }
+
+        /* ── NAV ─────────────────────────────────────────────── */
+        nav {
+            background: black;
+            padding: 0 30px;
+            border-bottom: 2px solid black;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        nav > a,
+        .dropbtn {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            font-family: inherit;
+            padding: 14px 12px;
+            display: inline-block;
+            border-bottom: 3px solid transparent;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        nav > a:hover,
+        .dropbtn:hover {
+            border-bottom: 3px solid white;
+        }
+
+        .dropdown { position: relative; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1a1a1a;
+            min-width: 160px;
+            border: 1px solid #444;
+            z-index: 99;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 16px;
+            font-size: 0.88em;
+            color: #ccc;
+            border-bottom: none;
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background: #2a2a2a;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* ── CONTENT ─────────────────────────────────────────── */
+        .content { padding: 40px; background: white; }
+
+        .section { margin-bottom: 50px; }
+        .section h2 {
+            color: black;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid black;
+        }
+        .section h3 { color: black; font-size: 1.5em; margin: 25px 0 15px 0; }
+        .section p { margin-bottom: 15px; text-align: justify; }
+
+        /* ── ACCORDION ───────────────────────────────────────── */
+        .accordion-group { margin-bottom: 10px; }
+
+        .accordion-toggle {
+            width: 100%;
+            background: black;
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            text-align: left;
+            font-size: 1.35em;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .accordion-toggle:hover { background: #222; }
+
+        .accordion-toggle .arrow {
+            font-size: 0.8em;
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .accordion-toggle.open .arrow { transform: rotate(180deg); }
+
+        .accordion-body {
+            display: none;
+            border: 1px solid black;
+            border-top: none;
+            padding: 30px 30px 10px 30px;
+        }
+
+        .accordion-body.open { display: block; }
+
+        /* ── CODE BLOCKS ─────────────────────────────────────── */
+        .code-block {
+            border: 1px solid black;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .code-header {
+            background: #21252b;
+            padding: 10px 15px;
+            border-bottom: 1px solid #181a1f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-language { color: #abb2bf; font-size: 0.85em; font-weight: 600; }
+
+        .copy-button {
+            background: #3e4451;
+            color: #abb2bf;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+        .copy-button:hover { background: #4e5461; }
+        .copy-button.copied { background: #2ea043; color: white; }
+        .copy-icon { width: 14px; height: 14px; }
+
+        .code-block .hljs {
+            padding: 20px !important;
+            font-size: 0.95em !important;
+            line-height: 1.6 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+        }
+
+        .output-block {
+            background: black;
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid black;
+        }
+
+        .info-box {
+            background: white;
+            border: 1px solid black;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-box strong { color: black; }
+
+        .note {
+            background: white;
+            border: 1px solid black;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        ul { margin: 15px 0 15px 30px; }
+        ul li { margin-bottom: 10px; }
+
+        /* Sub-section inside accordion */
+        .sub-section { margin-bottom: 40px; }
+        .sub-section:last-child { margin-bottom: 0; }
+
+        .sub-section h3 {
+            color: black;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .sub-section h4 {
+            color: black;
+            font-size: 1.1em;
+            margin: 18px 0 10px 0;
+        }
+
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .content { padding: 20px; }
+            header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <header>
+        <h1>Dokumentasi Linked List C++</h1>
+        <p>Single Linked List, Double Linked List, dan Circular Single Linked List</p>
+    </header>
+
+    <nav>
+        <a href="index.html">&larr;</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Materi ▼</button>
+            <div class="dropdown-content">
+                <a href="array-documentation.html">Array</a>
+                <a href="ps-documentation.html">Pointer &amp; Struct</a>
+                <a href="ll-documentation.html">Linked List</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Single LL ▼</button>
+            <div class="dropdown-content">
+                <a href="#sll">Buka Single LL</a>
+                <a href="#sll-intro">Apa itu SLL?</a>
+                <a href="#sll-struct">Deklarasi Struct</a>
+                <a href="#sll-create">Create</a>
+                <a href="#sll-count">Count</a>
+                <a href="#sll-add-first">Add First</a>
+                <a href="#sll-add-last">Add Last</a>
+                <a href="#sll-add-middle">Add Middle</a>
+                <a href="#sll-remove-first">Remove First</a>
+                <a href="#sll-remove-last">Remove Last</a>
+                <a href="#sll-remove-middle">Remove Middle</a>
+                <a href="#sll-change">Change</a>
+                <a href="#sll-full">Kode Lengkap</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Double LL ▼</button>
+            <div class="dropdown-content">
+                <a href="#dll">Buka Double LL</a>
+                <a href="#dll-intro">Apa itu DLL?</a>
+                <a href="#dll-struct">Deklarasi Struct</a>
+                <a href="#dll-create">Create</a>
+                <a href="#dll-add-first">Add First</a>
+                <a href="#dll-add-last">Add Last</a>
+                <a href="#dll-add-middle">Add Middle</a>
+                <a href="#dll-remove-first">Remove First</a>
+                <a href="#dll-remove-last">Remove Last</a>
+                <a href="#dll-remove-middle">Remove Middle</a>
+                <a href="#dll-full">Kode Lengkap</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Circular SLL ▼</button>
+            <div class="dropdown-content">
+                <a href="#csll">Buka Circular SLL</a>
+                <a href="#csll-intro">Apa itu CSLL?</a>
+                <a href="#csll-struct">Deklarasi Struct</a>
+                <a href="#csll-create">Create</a>
+                <a href="#csll-add-first">Add First</a>
+                <a href="#csll-add-last">Add Last</a>
+                <a href="#csll-add-middle">Add Middle</a>
+                <a href="#csll-remove-first">Remove First</a>
+                <a href="#csll-remove-last">Remove Last</a>
+                <a href="#csll-remove-middle">Remove Middle</a>
+                <a href="#csll-full">Kode Lengkap</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+
+        <!-- PENGANTAR -->
+        <div class="section">
+            <h2>Pengantar — Tiga Jenis Linked List</h2>
+            <p>
+                Linked List adalah struktur data di mana setiap elemen (node) menyimpan data sekaligus
+                pointer ke node lain. Ada tiga varian utama yang dipelajari di sini:
+            </p>
+            <div class="info-box">
+                <strong>Perbandingan Tiga Jenis Linked List:</strong>
+                <ul>
+                    <li><strong>Single Linked List (SLL)</strong> → setiap node hanya punya pointer <code>next</code>; traversal satu arah; ujung menunjuk <code>NULL</code></li>
+                    <li><strong>Double Linked List (DLL)</strong> → setiap node punya <code>prev</code> dan <code>next</code>; traversal dua arah; ujung menunjuk <code>NULL</code></li>
+                    <li><strong>Circular Single Linked List (CSLL)</strong> → seperti SLL tapi <code>tail->next</code> menunjuk kembali ke <code>head</code>; tidak ada <code>NULL</code></li>
+                </ul>
+            </div>
+            <div class="output-block">
+<pre>Single LL:
+NULL &lt;- [A] -&gt; [B] -&gt; [C] -&gt; NULL
+        head           tail
+
+Double LL:
+NULL &lt;- [A] &lt;-&gt; [B] &lt;-&gt; [C] -&gt; NULL
+        head             tail
+
+Circular Single LL:
++-----------------------------------+
+|                                   |
++-&gt; [A] -&gt; [B] -&gt; [C] -&gt; [D] ------+
+    head            tail</pre>
+            </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!--  ACCORDION 1 — SINGLE LINKED LIST                               -->
+        <!-- ================================================================ -->
+        <div class="accordion-group" id="sll">
+            <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                1. Single Linked List (SLL)
+                <span class="arrow">▼</span>
+            </button>
+            <div class="accordion-body">
+
+                <!-- INTRO -->
+                <div class="sub-section" id="sll-intro">
+                    <h3>Apa itu Single Linked List?</h3>
+                    <p>
+                        <strong>Single Linked List (SLL)</strong> adalah linked list paling dasar. Setiap node
+                        menyimpan data dan satu pointer <code>next</code> yang menunjuk ke node berikutnya.
+                        Node terakhir (tail) memiliki <code>next = NULL</code> sebagai penanda akhir list.
+                    </p>
+                    <div class="info-box">
+                        <strong>Karakteristik SLL:</strong>
+                        <ul>
+                            <li>Traversal hanya bisa ke depan (satu arah)</li>
+                            <li>Insert/delete di awal: O(1)</li>
+                            <li>Insert/delete di akhir: O(1) jika ada pointer tail; O(n) jika tidak</li>
+                            <li>Insert/delete di tengah: O(n) — butuh traversal</li>
+                            <li>Cocok untuk: stack, queue sederhana, undo list</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- STRUCT -->
+                <div class="sub-section" id="sll-struct">
+                    <h3>Deklarasi Struct &amp; Variabel Global</h3>
+                    <p>Struct <code>Buku</code> mendefinisikan bentuk setiap node. Variabel global digunakan agar semua fungsi bisa mengakses pointer list tanpa harus passing parameter terus-menerus.</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">struct Buku {
+    string judul, pengarang;
+    int tahunTerbit;
+    Buku *next;          // pointer ke node berikutnya; NULL jika node terakhir
+};
+
+Buku *head;     // node pertama
+Buku *tail;     // node terakhir
+Buku *cur;      // cursor traversal
+Buku *newNode;  // node baru saat insert
+Buku *del;      // node yang akan dihapus
+Buku *before;   // node sebelum target (untuk removeMiddle)</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Fungsi Tiap Variabel Global:</strong>
+                        <ul>
+                            <li><code>head</code> → pintu masuk list; semua traversal dimulai dari sini</li>
+                            <li><code>tail</code> → memungkinkan addLast O(1) tanpa perlu traversal ke akhir</li>
+                            <li><code>cur</code> → pointer sementara untuk berjalan node demi node</li>
+                            <li><code>newNode</code> → menampung node baru sebelum disambungkan ke list</li>
+                            <li><code>del</code> → menyimpan node yang hendak dihapus sebelum memorinya dibebaskan</li>
+                            <li><code>before</code> → dipakai di removeMiddle untuk menyimpan node sebelum target</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CREATE -->
+                <div class="sub-section" id="sll-create">
+                    <h3>Create</h3>
+                    <p>Fungsi <code>createSingleLinkedList()</code> membuat node pertama sekaligus menginisialisasi <code>head</code> dan <code>tail</code>. Dipanggil hanya sekali di awal program.</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void createSingleLinkedList(string judul, string pengarang, int tB) {
+    head = new Buku();
+    head->judul       = judul;
+    head->pengarang   = pengarang;
+    head->tahunTerbit = tB;
+    head->next        = NULL;   // node pertama belum punya penerus
+    tail = head;                // satu-satunya node = head sekaligus tail
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Alur Eksekusi Create:</strong>
+                        <ul>
+                            <li><code>new Buku()</code> → alokasi memori di heap untuk node pertama</li>
+                            <li>Isi semua member dengan nilai parameter yang diterima</li>
+                            <li><code>head->next = NULL</code> → tidak ada node setelahnya</li>
+                            <li><code>tail = head</code> → karena hanya ada satu node, head dan tail adalah node yang sama</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- COUNT -->
+                <div class="sub-section" id="sll-count">
+                    <h3>Count</h3>
+                    <p>Fungsi <code>countSingleLinkedList()</code> menghitung jumlah node dalam list dengan cara traversal dari head ke tail.</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">int countSingleLinkedList() {
+    cur = head;
+    int jumlah = 0;
+    while (cur != NULL) {
+        jumlah++;
+        cur = cur->next;
+    }
+    return jumlah;
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Poin Penting:</strong>
+                        <ul>
+                            <li>Mulai dari <code>head</code>, maju terus sampai <code>cur == NULL</code></li>
+                            <li>Setiap kali masuk iterasi, <code>jumlah</code> bertambah satu</li>
+                            <li>Kompleksitas: O(n) — harus menelusuri seluruh list</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ADD FIRST -->
+                <div class="sub-section" id="sll-add-first">
+                    <h3>Add First</h3>
+                    <p>Menambahkan node baru di posisi paling depan. Node baru menjadi <code>head</code> baru. Operasi ini O(1).</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addFirst(string judul, string pengarang, int tB) {
+    newNode = new Buku();
+    newNode->judul       = judul;
+    newNode->pengarang   = pengarang;
+    newNode->tahunTerbit = tB;
+    newNode->next = head;   // node baru menunjuk ke head lama
+    head = newNode;         // head digeser ke node baru
+}</code></pre>
+                    </div>
+                    <div class="note">
+                        <strong>⚠ Urutan Wajib Diperhatikan:</strong>
+                        <ul>
+                            <li><code>newNode->next = head</code> harus dilakukan SEBELUM <code>head = newNode</code></li>
+                            <li>Jika head digeser duluan, referensi ke node lama hilang selamanya</li>
+                            <li>Pointer <code>tail</code> tidak berubah — head berubah, tail tetap</li>
+                        </ul>
+                    </div>
+                    <h4>Visualisasi</h4>
+                    <div class="output-block">
+<pre>Sebelum: head --&gt; [Kata] --&gt; NULL
+                   tail --&gt; [Kata]
+
+addFirst("Dia adalah Kakakku", ...)
+newNode-&gt;next = head   --&gt; [DiaAdlhKkk] --&gt; [Kata]
+head          = newNode
+
+Sesudah: head --&gt; [DiaAdlhKkk] --&gt; [Kata] --&gt; NULL
+                                    tail --&gt; [Kata]</pre>
+                    </div>
+                </div>
+
+                <!-- ADD LAST -->
+                <div class="sub-section" id="sll-add-last">
+                    <h3>Add Last</h3>
+                    <p>Menambahkan node baru di posisi paling belakang. Node baru menjadi <code>tail</code> baru. Operasi O(1).</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addLast(string judul, string pengarang, int tB) {
+    newNode = new Buku();
+    newNode->judul       = judul;
+    newNode->pengarang   = pengarang;
+    newNode->tahunTerbit = tB;
+    newNode->next = NULL;      // node baru adalah akhir list
+    tail->next    = newNode;   // sambungkan dari tail lama
+    tail          = newNode;   // geser tail ke node baru
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Poin Penting:</strong>
+                        <ul>
+                            <li><code>newNode->next = NULL</code> → node baru adalah ujung list</li>
+                            <li><code>tail->next = newNode</code> → sambungkan tail lama ke node baru</li>
+                            <li><code>tail = newNode</code> → geser tail ke node baru; head tidak berubah</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ADD MIDDLE -->
+                <div class="sub-section" id="sll-add-middle">
+                    <h3>Add Middle</h3>
+                    <p>Menambahkan node baru di posisi tertentu di tengah list. Membutuhkan traversal O(n).</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addMiddle(string judul, string pengarang, int tB, int posisi) {
+    if (posisi < 1 || posisi > countSingleLinkedList()) {
+        cout << "Posisi diluar jangkauan" << endl;
+    } else if (posisi == 1) {
+        cout << "Posisi bukan posisi tengah" << endl;
+    } else {
+        newNode = new Buku();
+        newNode->judul       = judul;
+        newNode->pengarang   = pengarang;
+        newNode->tahunTerbit = tB;
+
+        cur = head;
+        int nomor = 1;
+        while (nomor < posisi - 1) {   // berhenti di posisi - 1
+            cur = cur->next;
+            nomor++;
+        }
+        newNode->next = cur->next;   // sambung ke node lama di posisi
+        cur->next     = newNode;     // sambung dari node sebelum
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Dua Langkah Penyambungan:</strong>
+                        <ul>
+                            <li><code>newNode->next = cur->next</code> → sambungkan dulu ke depan</li>
+                            <li><code>cur->next = newNode</code> → baru sambungkan dari belakang</li>
+                            <li>Urutan ini WAJIB; terbalik akan kehilangan referensi ke node setelah posisi sisipan</li>
+                        </ul>
+                    </div>
+                    <h4>Visualisasi</h4>
+                    <div class="output-block">
+<pre>List: [A] --&gt; [B] --&gt; [C]
+Sisip [X] di posisi 2
+
+Traversal: berhenti di posisi-1=1, cur = [A]
+newNode-&gt;next = cur-&gt;next = [B]    --&gt; [X] --&gt; [B]
+cur-&gt;next     = newNode             --&gt; [A] --&gt; [X]
+
+Sesudah: [A] --&gt; [X] --&gt; [B] --&gt; [C]</pre>
+                    </div>
+                </div>
+
+                <!-- REMOVE FIRST -->
+                <div class="sub-section" id="sll-remove-first">
+                    <h3>Remove First</h3>
+                    <p>Menghapus node pertama (head). Head bergeser ke node kedua. Operasi O(1).</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeFirst() {
+    del  = head;         // simpan pointer head lama
+    head = head->next;   // head bergeser ke node kedua
+    delete del;          // bebaskan memori head lama
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Poin Penting:</strong>
+                        <ul>
+                            <li><code>del = head</code> → simpan dulu sebelum head digeser</li>
+                            <li><code>head = head->next</code> → head baru adalah node kedua</li>
+                            <li><code>delete del</code> → tanpa ini terjadi memory leak</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- REMOVE LAST -->
+                <div class="sub-section" id="sll-remove-last">
+                    <h3>Remove Last</h3>
+                    <p>Menghapus node terakhir (tail). Harus traversal O(n) karena tidak ada pointer <code>prev</code>.</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeLast() {
+    del = tail;               // simpan tail yang akan dihapus
+    cur = head;
+    while (cur->next != tail) {   // traversal: cari node sebelum tail
+        cur = cur->next;
+    }
+    tail       = cur;         // node sebelum tail menjadi tail baru
+    tail->next = NULL;        // tail baru tidak punya penerus
+    delete del;               // bebaskan memori tail lama
+}</code></pre>
+                    </div>
+                    <div class="note">
+                        <strong>⚠ Mengapa Perlu Traversal?</strong>
+                        <ul>
+                            <li>SLL tidak punya pointer <code>prev</code> — tidak bisa langsung tahu node sebelum tail</li>
+                            <li>Solusi: traversal dari head, berhenti saat <code>cur->next == tail</code></li>
+                            <li>Berbeda dari DLL yang bisa langsung akses <code>tail->prev</code> → O(1)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- REMOVE MIDDLE -->
+                <div class="sub-section" id="sll-remove-middle">
+                    <h3>Remove Middle</h3>
+                    <p>Menghapus node di posisi tertentu di tengah list.</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeMiddle(int posisi) {
+    if (posisi < 1 || posisi > countSingleLinkedList()) {
+        cout << "Posisi diluar jangkauan" << endl;
+    } else if (posisi == 1) {
+        cout << "Posisi bukan posisi tengah" << endl;
+    } else {
+        int nomor = 1;
+        cur = head;
+        while (nomor <= posisi) {
+            if (nomor == posisi - 1) before = cur;   // simpan node sebelum target
+            if (nomor == posisi)     del    = cur;   // simpan node target
+            cur = cur->next;
+            nomor++;
+        }
+        before->next = cur;   // bypass node target
+        delete del;
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Teknik Bypass dengan Dua Pointer:</strong>
+                        <ul>
+                            <li><code>before</code> → node di posisi target - 1</li>
+                            <li><code>del</code> → node di posisi target</li>
+                            <li>Setelah loop, <code>cur</code> sudah maju satu langkah setelah <code>del</code></li>
+                            <li><code>before->next = cur</code> → sambungkan langsung, melewati <code>del</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CHANGE -->
+                <div class="sub-section" id="sll-change">
+                    <h3>Change (Ubah Data)</h3>
+                    <p>Tiga fungsi untuk mengubah data node: di awal, di akhir, dan di tengah. Tidak ada alokasi memori baru — hanya nilai member yang diganti.</p>
+                    <h4>Kode Program</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">// Ubah node pertama — O(1)
+void changeFirst(string judul, string pengarang, int tB) {
+    head->judul       = judul;
+    head->pengarang   = pengarang;
+    head->tahunTerbit = tB;
+}
+
+// Ubah node terakhir — O(1)
+void changeLast(string judul, string pengarang, int tB) {
+    tail->judul       = judul;
+    tail->pengarang   = pengarang;
+    tail->tahunTerbit = tB;
+}
+
+// Ubah node di posisi tengah — O(n)
+void changeMiddle(string judul, string pengarang, int tB, int posisi) {
+    if (posisi < 1 || posisi > countSingleLinkedList()) {
+        cout << "Posisi diluar jangkauan" << endl;
+    } else if (posisi == 1 || posisi == countSingleLinkedList()) {
+        cout << "Posisi bukan posisi tengah" << endl;
+    } else {
+        cur = head;
+        int nomor = 1;
+        while (nomor < posisi) {
+            cur = cur->next;
+            nomor++;
+        }
+        cur->judul       = judul;
+        cur->pengarang   = pengarang;
+        cur->tahunTerbit = tB;
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- KODE LENGKAP SLL -->
+                <div class="sub-section" id="sll-full">
+                    <h3>Kode Lengkap SLL</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Buku{
+  string judul, pengarang;
+  int tahunTerbit;
+  Buku *next;
+};
+
+Buku *head, *tail, *cur, *newNode, *del, *before;
+
+void createSingleLinkedList(string judul, string pengarang, int tB){
+  head = new Buku();
+  head->judul = judul;
+  head->pengarang = pengarang;
+  head->tahunTerbit = tB;
+  head->next = NULL;
+  tail = head;
+}
+
+int countSingleLinkedList(){
+  cur = head;
+  int jumlah = 0;
+  while( cur != NULL ){
+    jumlah++;
+    cur = cur->next;
+  }
+  return jumlah;
+}
+
+void addFirst(string judul, string pengarang, int tB){
+  newNode = new Buku();
+  newNode->judul = judul;
+  newNode->pengarang = pengarang;
+  newNode->tahunTerbit = tB;
+  newNode->next = head;
+  head = newNode;
+}
+
+void addLast(string judul, string pengarang, int tB){
+  newNode = new Buku();
+  newNode->judul = judul;
+  newNode->pengarang = pengarang;
+  newNode->tahunTerbit = tB;
+  newNode->next = NULL;
+  tail->next = newNode;
+  tail = newNode;
+}
+
+void addMiddle(string judul, string pengarang, int tB, int posisi){
+  if( posisi < 1 || posisi > countSingleLinkedList() ){
+    cout << "Posisi diluar jangkauan" << endl;
+  }else if( posisi == 1){
+    cout << "Posisi bukan posisi tengah" << endl;
+  }else{
+    newNode = new Buku();
+    newNode->judul = judul;
+    newNode->pengarang = pengarang;
+    newNode->tahunTerbit = tB;
+    cur = head;
+    int nomor = 1;
+    while( nomor < posisi - 1 ){
+      cur = cur->next;
+      nomor++;
+    }
+    newNode->next = cur->next;
+    cur->next = newNode;
+  }
+}
+
+void removeFirst(){
+  del = head;
+  head = head->next;
+  delete del;
+}
+
+void removeLast(){
+  del = tail;
+  cur = head;
+  while( cur->next != tail ){
+    cur = cur->next;
+  }
+  tail = cur;
+  tail->next = NULL;
+  delete del;
+}
+
+void removeMiddle(int posisi){
+  if( posisi < 1 || posisi > countSingleLinkedList() ){
+    cout << "Posisi diluar jangkauan" << endl;
+  }else if( posisi == 1){
+    cout << "Posisi bukan posisi tengah" << endl;
+  }else{
+    int nomor = 1;
+    cur = head;
+    while( nomor <= posisi ){
+      if( nomor == posisi-1 ) before = cur;
+      if( nomor == posisi )   del    = cur;
+      cur = cur->next;
+      nomor++;
+    }
+    before->next = cur;
+    delete del;
+  }
+}
+
+void changeFirst(string judul, string pengarang, int tB){
+  head->judul = judul;
+  head->pengarang = pengarang;
+  head->tahunTerbit = tB;
+}
+
+void changeLast(string judul, string pengarang, int tB){
+  tail->judul = judul;
+  tail->pengarang = pengarang;
+  tail->tahunTerbit = tB;
+}
+
+void changeMiddle(string judul, string pengarang, int tB, int posisi){
+  if( posisi < 1 || posisi > countSingleLinkedList() ){
+    cout << "Posisi diluar jangkauan" << endl;
+  }else if( posisi == 1 || posisi == countSingleLinkedList() ){
+    cout << "Posisi bukan posisi tengah" << endl;
+  }else{
+    cur = head;
+    int nomor = 1;
+    while( nomor < posisi ){
+      cur = cur->next;
+      nomor++;
+    }
+    cur->judul = judul;
+    cur->pengarang = pengarang;
+    cur->tahunTerbit = tB;
+  }
+}
+
+void printSingleLinkedList(){
+  cout << "Jumlah data ada : " << countSingleLinkedList() << endl;
+  cur = head;
+  while( cur != NULL ){
+    cout << "Judul Buku        : " << cur->judul << endl;
+    cout << "Pengarang Buku    : " << cur->pengarang << endl;
+    cout << "Tahun Terbit Buku : " << cur->tahunTerbit << endl;
+    cur = cur->next;
+  }
+}
+
+int main(){
+  createSingleLinkedList("Kata", "Geez & Aan", 2018);
+  addFirst("Dia adalah Kakakku", "Tere Liye", 2009);
+  addLast("Aroma Karsa", "Dee Lestari", 2018);
+  removeFirst();
+  addLast("11.11", "Fiersa Besari", 2018);
+  removeLast();
+  changeFirst("Berhenti di Kamu", "Gia Pratama", 2018);
+  addMiddle("Bumi Manusia", "Pramoedya Anata Toer", 2005, 2);
+  addMiddle("Negeri 5 Menara", "Ahmad Fuadi", 2009, 2);
+  removeMiddle(5);
+  changeMiddle("Sang Pemimpi", "Andrea Hirata", 2006, 2);
+  printSingleLinkedList();
+}</code></pre>
+                    </div>
+                </div>
+
+            </div><!-- end accordion-body SLL -->
+        </div><!-- end accordion-group SLL -->
+
+
+        <!-- ================================================================ -->
+        <!--  ACCORDION 2 — DOUBLE LINKED LIST                               -->
+        <!-- ================================================================ -->
+        <div class="accordion-group" id="dll">
+            <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                2. Double Linked List (DLL)
+                <span class="arrow">▼</span>
+            </button>
+            <div class="accordion-body">
+
+                <!-- INTRO -->
+                <div class="sub-section" id="dll-intro">
+                    <h3>Apa itu Double Linked List?</h3>
+                    <p>
+                        <strong>Double Linked List (DLL)</strong> adalah linked list di mana setiap node memiliki
+                        <strong>dua pointer</strong>: <code>prev</code> (ke node sebelumnya) dan <code>next</code>
+                        (ke node berikutnya). Ini memungkinkan traversal dua arah dan operasi hapus di akhir menjadi O(1).
+                    </p>
+                    <div class="info-box">
+                        <strong>Keunggulan DLL vs SLL:</strong>
+                        <ul>
+                            <li><strong>removeLast O(1)</strong> → tinggal akses <code>tail->prev</code>; SLL butuh O(n)</li>
+                            <li><strong>Traversal dua arah</strong> → bisa maju dan mundur</li>
+                            <li><strong>Trade-off</strong> → setiap node butuh memori extra untuk pointer <code>prev</code></li>
+                            <li>Cocok untuk: browser history, undo/redo, music player</li>
+                        </ul>
+                    </div>
+                    <div class="output-block">
+<pre>NULL &lt;-- [prev|data|next] &lt;--&gt; [prev|data|next] &lt;--&gt; [prev|data|next] --&gt; NULL
+          head                                          tail</pre>
+                    </div>
+                </div>
+
+                <!-- STRUCT -->
+                <div class="sub-section" id="dll-struct">
+                    <h3>Deklarasi Struct &amp; Variabel Global</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">struct DataUser {
+    string nama, username, email, password;
+    DataUser *prev;   // pointer ke node sebelumnya; NULL jika node pertama
+    DataUser *next;   // pointer ke node berikutnya; NULL jika node terakhir
+};
+
+DataUser *head;
+DataUser *tail;
+DataUser *cur;
+DataUser *newNode;
+DataUser *del;
+DataUser *afterNode;  // node setelah posisi sisipan (untuk addMiddle)</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Perbedaan Struct DLL vs SLL:</strong>
+                        <ul>
+                            <li>DLL punya dua pointer per node: <code>prev</code> dan <code>next</code></li>
+                            <li><code>prev</code> di head selalu <code>NULL</code>; <code>next</code> di tail selalu <code>NULL</code></li>
+                            <li>Saat insert di tengah, baik <code>prev</code> maupun <code>next</code> dari node sekitar harus diperbarui</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CREATE -->
+                <div class="sub-section" id="dll-create">
+                    <h3>Create</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void createDoubleLinkedList(string data[4]) {
+    head = new DataUser();
+    head->nama     = data[0];
+    head->username = data[1];
+    head->email    = data[2];
+    head->password = data[3];
+    head->prev = NULL;   // node pertama tidak punya pendahulu
+    head->next = NULL;   // node pertama tidak punya penerus
+    tail = head;
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Perbedaan Create DLL vs SLL:</strong>
+                        <ul>
+                            <li>DLL harus mengisi dua pointer: <code>prev = NULL</code> dan <code>next = NULL</code></li>
+                            <li>SLL hanya perlu <code>next = NULL</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ADD FIRST -->
+                <div class="sub-section" id="dll-add-first">
+                    <h3>Add First</h3>
+                    <p>Menambahkan node baru di depan. Pointer <code>prev</code> dari head lama juga harus disambungkan ke node baru.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addFirst(string data[4]) {
+    if (head == NULL) {
+        cout << "Double Linked List belum dibuat!!!" << endl;
+    } else {
+        newNode = new DataUser();
+        newNode->nama     = data[0];
+        newNode->username = data[1];
+        newNode->email    = data[2];
+        newNode->password = data[3];
+        newNode->prev = NULL;    // node baru = ujung kiri
+        newNode->next = head;    // node baru menunjuk ke head lama
+        head->prev    = newNode; // head lama balik menunjuk ke node baru
+        head          = newNode; // geser head ke node baru
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>4 Langkah Add First DLL:</strong>
+                        <ul>
+                            <li><code>newNode->prev = NULL</code></li>
+                            <li><code>newNode->next = head</code></li>
+                            <li><code>head->prev = newNode</code> (DLL!)</li>
+                            <li><code>head = newNode</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ADD LAST -->
+                <div class="sub-section" id="dll-add-last">
+                    <h3>Add Last</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addLast(string data[4]) {
+    if (head == NULL) {
+        cout << "Double Linked List belum dibuat!!!" << endl;
+    } else {
+        newNode = new DataUser();
+        newNode->nama     = data[0];
+        newNode->username = data[1];
+        newNode->email    = data[2];
+        newNode->password = data[3];
+        newNode->prev = tail;    // node baru menunjuk ke tail lama sebagai pendahulunya
+        newNode->next = NULL;    // node baru adalah ekor baru
+        tail->next    = newNode; // tail lama menunjuk ke node baru
+        tail          = newNode; // geser tail
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- ADD MIDDLE -->
+                <div class="sub-section" id="dll-add-middle">
+                    <h3>Add Middle</h3>
+                    <p>Pada DLL ada <strong>4 pointer yang harus diperbarui</strong> karena setiap sambungan bersifat dua arah.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addMiddle(string data[4], int posisi) {
+    if (head == NULL) {
+        cout << "Double Linked List belum dibuat!!!" << endl;
+    } else {
+        if (posisi == 1) {
+            cout << "Posisi 1 itu bukan posisi tengah!!!" << endl;
+        } else if (posisi < 1 || posisi > countDoubleLinkedList()) {
+            cout << "Posisi diluar jangkauan!!!" << endl;
+        } else {
+            newNode = new DataUser();
+            newNode->nama     = data[0];
+            newNode->username = data[1];
+            newNode->email    = data[2];
+            newNode->password = data[3];
+
+            cur = head;
+            int nomor = 1;
+            while (nomor < posisi - 1) {
+                cur = cur->next;
+                nomor++;
+            }
+            afterNode = cur->next;
+            newNode->prev   = cur;        // sambung ke kiri
+            newNode->next   = afterNode;  // sambung ke kanan
+            cur->next       = newNode;    // node kiri ke newNode
+            afterNode->prev = newNode;    // node kanan ke newNode
+        }
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>4 Pointer yang Harus Diperbarui:</strong>
+                        <ul>
+                            <li><code>newNode->prev = cur</code></li>
+                            <li><code>newNode->next = afterNode</code></li>
+                            <li><code>cur->next = newNode</code></li>
+                            <li><code>afterNode->prev = newNode</code></li>
+                        </ul>
+                    </div>
+                    <h4>Visualisasi</h4>
+                    <div class="output-block">
+<pre>List: [A] &lt;--&gt; [B] &lt;--&gt; [C]
+Sisip [X] di posisi 2
+
+cur = [A], afterNode = [B]
+newNode-&gt;prev  = cur        [A] &lt;-- [X]
+newNode-&gt;next  = afterNode  [X] --&gt; [B]
+cur-&gt;next      = newNode    [A] --&gt; [X]
+afterNode-&gt;prev = newNode   [X] &lt;-- [B]
+
+Sesudah: [A] &lt;--&gt; [X] &lt;--&gt; [B] &lt;--&gt; [C]</pre>
+                    </div>
+                </div>
+
+                <!-- REMOVE FIRST -->
+                <div class="sub-section" id="dll-remove-first">
+                    <h3>Remove First</h3>
+                    <p>Menghapus node pertama. <code>prev</code> dari head baru harus diset ke <code>NULL</code>.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeFirst() {
+    if (head == NULL) {
+        cout << "Double Linked List belum dibuat!!!" << endl;
+    } else {
+        del  = head;
+        head = head->next;
+        head->prev = NULL;   // head baru tidak punya pendahulu
+        delete del;
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Perbedaan removeFirst DLL vs SLL:</strong>
+                        <ul>
+                            <li>SLL: cukup <code>head = head->next</code></li>
+                            <li>DLL: setelah head digeser, wajib <code>head->prev = NULL</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- REMOVE LAST -->
+                <div class="sub-section" id="dll-remove-last">
+                    <h3>Remove Last</h3>
+                    <p>Karena DLL punya pointer <code>prev</code>, operasi ini <strong>O(1)</strong> — tidak perlu traversal.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeLast() {
+    if (head == NULL) {
+        cout << "Double Linked List belum dibuat!!!" << endl;
+    } else {
+        del  = tail;
+        tail = tail->prev;   // tail baru = node sebelum tail lama (pakai prev!)
+        tail->next = NULL;
+        delete del;
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Keunggulan DLL — removeLast O(1):</strong>
+                        <ul>
+                            <li>SLL removeLast: harus traversal O(n) dari head</li>
+                            <li>DLL removeLast: cukup <code>tail = tail->prev</code> → O(1)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- REMOVE MIDDLE -->
+                <div class="sub-section" id="dll-remove-middle">
+                    <h3>Remove Middle</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeMiddle(int posisi) {
+    if (head == NULL) {
+        cout << "Double Linked List belum dibuat!!!" << endl;
+    } else {
+        if (posisi == 1 || posisi == countDoubleLinkedList()) {
+            cout << "Posisi bukan posisi tengah!!" << endl;
+        } else if (posisi < 1 || posisi > countDoubleLinkedList()) {
+            cout << "Posisi diluar jangkauan!!" << endl;
+        } else {
+            int nomor = 1;
+            cur = head;
+            while (nomor < posisi - 1) {
+                cur = cur->next;
+                nomor++;
+            }
+            del       = cur->next;
+            afterNode = del->next;
+            cur->next       = afterNode;  // node kiri skip del
+            afterNode->prev = cur;        // node kanan skip del
+            delete del;
+        }
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>2 Pointer yang Diperbarui saat Remove Middle DLL:</strong>
+                        <ul>
+                            <li><code>cur->next = afterNode</code> → node kiri langsung menunjuk ke node kanan</li>
+                            <li><code>afterNode->prev = cur</code> → node kanan balik menunjuk ke node kiri</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- KODE LENGKAP DLL -->
+                <div class="sub-section" id="dll-full">
+                    <h3>Kode Lengkap DLL</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct DataUser{
+  string nama, username, email, password;
+  DataUser *prev;
+  DataUser *next;
+};
+
+DataUser *head, *tail, *cur, *newNode, *del, *afterNode;
+
+void createDoubleLinkedList( string data[4] ){
+  head = new DataUser();
+  head->nama = data[0];
+  head->username = data[1];
+  head->email = data[2];
+  head->password = data[3];
+  head->prev = NULL;
+  head->next = NULL;
+  tail = head;
+}
+
+int countDoubleLinkedList(){
+  if( head == NULL ){
+    cout << "Double Linked List belum dibuat!!!";
+  }else{
+    cur = head;
+    int jumlah = 0;
+    while( cur != NULL ){
+      jumlah++;
+      cur = cur->next;
+    }
+    return jumlah;
+  }
+}
+
+void addFirst( string data[4] ){
+  if( head == NULL ){
+    cout << "Double Linked List belum dibuat!!!";
+  }else{
+    newNode = new DataUser();
+    newNode->nama = data[0];
+    newNode->username = data[1];
+    newNode->email = data[2];
+    newNode->password = data[3];
+    newNode->prev = NULL;
+    newNode->next = head;
+    head->prev = newNode;
+    head = newNode;
+  }
+}
+
+void addLast( string data[4] ){
+  if( head == NULL ){
+    cout << "Double Linked List belum dibuat!!!";
+  }else{
+    newNode = new DataUser();
+    newNode->nama = data[0];
+    newNode->username = data[1];
+    newNode->email = data[2];
+    newNode->password = data[3];
+    newNode->prev = tail;
+    newNode->next = NULL;
+    tail->next = newNode;
+    tail = newNode;
+  }
+}
+
+void addMiddle( string data[4], int posisi ){
+  if( head == NULL ){
+    cout << "Double Linked List belum dibuat!!!";
+  }else{
+    if( posisi == 1 ){
+      cout << "Posisi 1 itu bukan posisi tengah!!!" << endl;
+    }else if( posisi < 1 || posisi > countDoubleLinkedList() ){
+      cout << "Posisi diluar jangkauan!!!" << endl;
+    }else{
+      newNode = new DataUser();
+      newNode->nama = data[0];
+      newNode->username = data[1];
+      newNode->email = data[2];
+      newNode->password = data[3];
+      cur = head;
+      int nomor = 1;
+      while( nomor < posisi - 1){
+        cur = cur->next;
+        nomor++;
+      }
+      afterNode = cur->next;
+      newNode->prev = cur;
+      newNode->next = afterNode;
+      cur->next = newNode;
+      afterNode->prev = newNode;
+    }
+  }
+}
+
+void removeFirst(){
+  if( head == NULL ){
+    cout << "Double Linked List belum dibuat!!!";
+  }else{
+    del = head;
+    head = head->next;
+    head->prev = NULL;
+    delete del;
+  }
+}
+
+void removeLast(){
+  if( head == NULL ){
+    cout << "Double Linked List belum dibuat!!!";
+  }else{
+    del = tail;
+    tail = tail->prev;
+    tail->next = NULL;
+    delete del;
+  }
+}
+
+void removeMiddle(int posisi){
+  if( head == NULL ){
+    cout << "Double Linked List belum dibuat!!!";
+  }else{
+    if( posisi == 1 || posisi == countDoubleLinkedList() ){
+      cout << "Posisi bukan posisi tengah!!" << endl;
+    }else if( posisi < 1 || posisi > countDoubleLinkedList() ){
+      cout << "Posisi diluar jangkauan!!" << endl;
+    }else{
+      int nomor = 1;
+      cur = head;
+      while( nomor < posisi - 1 ){
+        cur = cur->next;
+        nomor++;
+      }
+      del = cur->next;
+      afterNode = del->next;
+      cur->next = afterNode;
+      afterNode->prev = cur;
+      delete del;
+    }
+  }
+}
+
+void printDoubleLinkedList(){
+  if( head == NULL ){
+    cout << "Double Linked List belum dibuat!!!";
+  }else{
+    cout << "Jumlah Data : " << countDoubleLinkedList() << endl;
+    cur = head;
+    while( cur != NULL ){
+      cout << "Nama     : " << cur->nama << endl;
+      cout << "Username : " << cur->username << endl;
+      cout << "Email    : " << cur->email << endl;
+      cout << "Password : " << cur->password << "\n" << endl;
+      cur = cur->next;
+    }
+  }
+}
+
+int main(){
+  string d1[4] = {"Yunus Febriansyah", "yuunuss", "yunus@gmail.com", "gampangAja"};
+  createDoubleLinkedList(d1);
+  string d2[4] = {"Bambang", "bmb", "bambangdong@gmail.com", "dongBambang"};
+  addFirst(d2);
+  string d3[4] = {"Siti Hidayah", "sitii", "sisiti@gmail.com", "sitiAja"};
+  addLast(d3);
+  string d4[4] = {"Mamat Hermawan", "mam", "mamatHer@yahoo.com", "hermawanMamat"};
+  addMiddle(d4, 3);
+  removeMiddle(2);
+  printDoubleLinkedList();
+}</code></pre>
+                    </div>
+                </div>
+
+            </div><!-- end accordion-body DLL -->
+        </div><!-- end accordion-group DLL -->
+
+
+        <!-- ================================================================ -->
+        <!--  ACCORDION 3 — CIRCULAR SINGLE LINKED LIST                      -->
+        <!-- ================================================================ -->
+        <div class="accordion-group" id="csll">
+            <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                3. Circular Single Linked List (CSLL)
+                <span class="arrow">▼</span>
+            </button>
+            <div class="accordion-body">
+
+                <!-- INTRO -->
+                <div class="sub-section" id="csll-intro">
+                    <h3>Apa itu Circular Single Linked List?</h3>
+                    <p>
+                        <strong>Circular Single Linked List (CSLL)</strong> adalah Single Linked List di mana
+                        <code>tail->next</code> tidak menunjuk ke <code>NULL</code>, melainkan menunjuk kembali ke
+                        <code>head</code>. Hasilnya adalah struktur melingkar — tidak ada ujung yang <code>NULL</code>.
+                    </p>
+                    <div class="info-box">
+                        <strong>Perbedaan CSLL vs SLL:</strong>
+                        <ul>
+                            <li>SLL: <code>tail->next = NULL</code></li>
+                            <li>CSLL: <code>tail->next = head</code> → membentuk lingkaran</li>
+                            <li>Traversal: gunakan <code>while(cur->next != head)</code>, bukan <code>while(cur != NULL)</code></li>
+                            <li>Cocok untuk: round-robin scheduling, playlist berulang, game giliran pemain</li>
+                        </ul>
+                    </div>
+                    <div class="output-block">
+<pre>+-------------------------------------+
+|                                     |
++-&gt; [A] -&gt; [B] -&gt; [C] -&gt; [D] --------+
+    head                    tail</pre>
+                    </div>
+                </div>
+
+                <!-- STRUCT -->
+                <div class="sub-section" id="csll-struct">
+                    <h3>Deklarasi Struct &amp; Variabel Global</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">struct Mahasiswa {
+    string npm, nama, jurusan;
+    Mahasiswa *next;   // tidak pernah NULL — selalu menunjuk ke node berikutnya
+};
+
+Mahasiswa *head;      // node pertama
+Mahasiswa *tail;      // node terakhir; tail->next == head selalu
+Mahasiswa *newNode;
+Mahasiswa *cur;
+Mahasiswa *del;</code></pre>
+                    </div>
+                    <div class="note">
+                        <strong>⚠ Invariant CSLL yang Harus Selalu Terjaga:</strong>
+                        <ul>
+                            <li><code>tail->next == head</code> → SELALU, sebelum dan sesudah setiap operasi</li>
+                            <li>Jika invariant ini rusak, traversal akan infinite loop atau crash</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CREATE -->
+                <div class="sub-section" id="csll-create">
+                    <h3>Create</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void createCircularSingleLinkedList(string dataBaru[3]) {
+    head = new Mahasiswa();
+    head->npm     = dataBaru[0];
+    head->nama    = dataBaru[1];
+    head->jurusan = dataBaru[2];
+    tail = head;
+    tail->next = head;   // KUNCI: node satu-satunya menunjuk ke dirinya sendiri
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Perbedaan Create CSLL vs SLL:</strong>
+                        <ul>
+                            <li>SLL: <code>head->next = NULL</code></li>
+                            <li>CSLL: <code>tail->next = head</code> → sirkular sejak node pertama</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ADD FIRST -->
+                <div class="sub-section" id="csll-add-first">
+                    <h3>Add First</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addFirst(string data[3]) {
+    if (head == NULL) {
+        cout << "Buat Linked List dulu!!" << endl;
+    } else {
+        newNode = new Mahasiswa();
+        newNode->npm     = data[0];
+        newNode->nama    = data[1];
+        newNode->jurusan = data[2];
+        newNode->next = head;    // node baru menunjuk ke head lama
+        tail->next    = newNode; // tail harus menunjuk ke head baru!
+        head          = newNode; // geser head
+    }
+}</code></pre>
+                    </div>
+                    <div class="note">
+                        <strong>⚠ Beda dengan SLL addFirst:</strong>
+                        <ul>
+                            <li>SLL: 2 langkah — <code>newNode->next = head</code>, <code>head = newNode</code></li>
+                            <li>CSLL: 3 langkah — tambah <code>tail->next = newNode</code> agar lingkaran tidak putus</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ADD LAST -->
+                <div class="sub-section" id="csll-add-last">
+                    <h3>Add Last</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addLast(string data[3]) {
+    if (head == NULL) {
+        cout << "Buat Linked List dulu!!" << endl;
+    } else {
+        newNode = new Mahasiswa();
+        newNode->npm     = data[0];
+        newNode->nama    = data[1];
+        newNode->jurusan = data[2];
+        newNode->next = head;    // node baru langsung menunjuk ke head (bukan NULL!)
+        tail->next    = newNode; // sambungkan dari tail lama
+        tail          = newNode; // geser tail ke node baru
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Beda CSLL addLast vs SLL addLast:</strong>
+                        <ul>
+                            <li>SLL: <code>newNode->next = NULL</code></li>
+                            <li>CSLL: <code>newNode->next = head</code> → node baru langsung menutup lingkaran</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ADD MIDDLE -->
+                <div class="sub-section" id="csll-add-middle">
+                    <h3>Add Middle</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void addMiddle(string data[3], int posisi) {
+    if (head == NULL) {
+        cout << "Buat Linked List dulu!!" << endl;
+    } else {
+        if (posisi == 1) {
+            cout << "Posisi satu bukan posisi tengah!!!" << endl;
+        } else {
+            newNode = new Mahasiswa();
+            newNode->npm     = data[0];
+            newNode->nama    = data[1];
+            newNode->jurusan = data[2];
+
+            int nomor = 1;
+            cur = head;
+            while (nomor < posisi - 1) {
+                cur = cur->next;
+                nomor++;
+            }
+            newNode->next = cur->next;
+            cur->next     = newNode;
+        }
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Catatan addMiddle CSLL:</strong>
+                        <ul>
+                            <li>Jika node disisipkan di tengah, sirkularitas tidak berpengaruh — polanya sama persis dengan SLL</li>
+                            <li>Pointer <code>tail->next</code> tidak perlu disentuh karena head dan tail tidak berubah</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- REMOVE FIRST -->
+                <div class="sub-section" id="csll-remove-first">
+                    <h3>Remove First</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeFirst() {
+    if (head == NULL) {
+        cout << "Buat Linked List dulu!!" << endl;
+    } else {
+        del  = head;
+        head = head->next;
+        tail->next = head;   // tail harus menunjuk ke head baru!
+        delete del;
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Beda CSLL removeFirst vs SLL removeFirst:</strong>
+                        <ul>
+                            <li>SLL: cukup <code>del = head; head = head->next; delete del</code></li>
+                            <li>CSLL: wajib tambah <code>tail->next = head</code> agar tail tidak menunjuk ke node yang sudah dihapus</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- REMOVE LAST -->
+                <div class="sub-section" id="csll-remove-last">
+                    <h3>Remove Last</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeLast() {
+    if (head == NULL) {
+        cout << "Buat Linked List dulu!!" << endl;
+    } else {
+        del = tail;
+        cur = head;
+        while (cur->next != tail) {   // berhenti di node sebelum tail
+            cur = cur->next;
+        }
+        tail       = cur;
+        tail->next = head;   // tail baru menunjuk ke head (bukan NULL!)
+        delete del;
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Beda CSLL removeLast vs SLL removeLast:</strong>
+                        <ul>
+                            <li>SLL: <code>tail->next = NULL</code> setelah tail digeser</li>
+                            <li>CSLL: <code>tail->next = head</code> — tail baru harus tutup lingkaran, bukan NULL</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- REMOVE MIDDLE -->
+                <div class="sub-section" id="csll-remove-middle">
+                    <h3>Remove Middle</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">void removeMiddle(int posisi) {
+    if (head == NULL) {
+        cout << "Buat Linked List dulu!!" << endl;
+    } else {
+        int nomor = 1;
+        cur = head;
+        while (nomor < posisi - 1) {
+            cur = cur->next;
+            nomor++;
+        }
+        del       = cur->next;
+        cur->next = del->next;   // bypass node target
+        delete del;
+    }
+}</code></pre>
+                    </div>
+                    <div class="info-box">
+                        <strong>Catatan removeMiddle CSLL:</strong>
+                        <ul>
+                            <li>Jika node yang dihapus bukan head maupun tail, pointer <code>tail->next</code> tidak terpengaruh</li>
+                            <li>Polanya identik dengan SLL removeMiddle</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- KODE LENGKAP CSLL -->
+                <div class="sub-section" id="csll-full">
+                    <h3>Kode Lengkap CSLL</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">C++</span>
+                            <button class="copy-button" onclick="copyCode(this)">
+                                <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Salin Kode
+                            </button>
+                        </div>
+                        <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Mahasiswa{
+  string npm, nama, jurusan;
+  Mahasiswa *next;
+};
+
+Mahasiswa *head, *tail, *newNode, *cur, *del;
+
+void createCircularSingleLinkedList(string dataBaru[3]){
+  head = new Mahasiswa();
+  head->npm = dataBaru[0];
+  head->nama = dataBaru[1];
+  head->jurusan = dataBaru[2];
+  tail = head;
+  tail->next = head;
+}
+
+void addFirst( string data[3] ){
+  if( head == NULL ){
+    cout << "Buat Linked List dulu!!" << endl;
+  }else{
+    newNode = new Mahasiswa();
+    newNode->npm = data[0];
+    newNode->nama = data[1];
+    newNode->jurusan = data[2];
+    newNode->next = head;
+    tail->next = newNode;
+    head = newNode;
+  }
+}
+
+void addLast( string data[3] ){
+  if( head == NULL ){
+    cout << "Buat Linked List dulu!!" << endl;
+  }else{
+    newNode = new Mahasiswa();
+    newNode->npm = data[0];
+    newNode->nama = data[1];
+    newNode->jurusan = data[2];
+    newNode->next = head;
+    tail->next = newNode;
+    tail = newNode;
+  }
+}
+
+void addMiddle(string data[3], int posisi){
+  if( head == NULL ){
+    cout << "Buat Linked List dulu!!" << endl;
+  }else{
+    if( posisi == 1 ){
+      cout << "Posisi satu bukan posisi tengah!!!" << endl;
+    }else{
+      newNode = new Mahasiswa();
+      newNode->npm = data[0];
+      newNode->nama = data[1];
+      newNode->jurusan = data[2];
+      int nomor = 1;
+      cur = head;
+      while (nomor < posisi - 1){
+        cur = cur->next;
+        nomor++;
+      }
+      newNode->next = cur->next;
+      cur->next = newNode;
+    }
+  }
+}
+
+void removeFirst(){
+  if( head == NULL ){
+    cout << "Buat Linked List dulu!!" << endl;
+  }else{
+    del = head;
+    head = head->next;
+    tail->next = head;
+    delete del;
+  }
+}
+
+void removeLast(){
+  if( head == NULL ){
+    cout << "Buat Linked List dulu!!" << endl;
+  }else{
+    del = tail;
+    cur = head;
+    while( cur->next != tail ){
+      cur = cur->next;
+    }
+    tail = cur;
+    tail->next = head;
+    delete del;
+  }
+}
+
+void removeMiddle(int posisi){
+  if( head == NULL ){
+    cout << "Buat Linked List dulu!!" << endl;
+  }else{
+    int nomor = 1;
+    cur = head;
+    while( nomor &lt; posisi - 1 ){
+      cur = cur->next;
+      nomor++;
+    }
+    del = cur->next;
+    cur->next = del->next;
+    delete del;
+  }
+}
+
+void printCircular(){
+  if( head == NULL ){
+    cout << "Buat Linked List dulu!!" << endl;
+  }else{
+    cout << "Data Mahasiswa " << endl;
+    cout << "________________________________________________________________" << endl;
+    cout << "| NPM\t\t| Nama\t\t\t| Jurusan\t\t|" << endl;
+    cout << "________________________________________________________________" << endl;
+    cur = head;
+    while (cur->next != head){
+      cout << "| " << cur->npm << "\t| " << cur->nama << "\t| " << cur->jurusan << "\t\t|" << endl;
+      cur = cur->next;
+    }
+    cout << "| " << cur->npm << "\t| " << cur->nama << "\t| " << cur->jurusan << "\t\t|" << endl;
+    cout << "_________________________________________________________________" << endl;
+  }
+}
+
+int main(){
+  string d1[3] = {"19312009", "Yunus Febriansyah", "Informatika"};
+  createCircularSingleLinkedList(d1);
+  string d2[3] = {"19312079", "M Rizky Fadhilah", "Informatika"};
+  addFirst(d2);
+  string d3[3] = {"19312015", "Gilang Ramadan", "Sistem Informasi"};
+  addLast(d3);
+  string d4[3] = {"19312024", "Verdian Galang", "Teknik Elektro"};
+  addMiddle(d4, 5);
+  removeMiddle(6);
+  removeFirst();
+  removeLast();
+  printCircular();
+}</code></pre>
+                    </div>
+                </div>
+
+            </div><!-- end accordion-body CSLL -->
+        </div><!-- end accordion-group CSLL -->
+
+
+        <!-- KESIMPULAN -->
+        <div class="section" style="margin-top: 40px;">
+            <h2>Kesimpulan — Perbandingan Tiga Linked List</h2>
+            <div class="info-box">
+                <strong>Perbedaan Kunci Tiga Jenis Linked List:</strong>
+                <ul>
+                    <li><strong>Struct</strong> → SLL &amp; CSLL: hanya <code>next</code>. DLL: <code>prev</code> + <code>next</code></li>
+                    <li><strong>Create</strong> → SLL: <code>next=NULL</code>. DLL: <code>prev=NULL, next=NULL</code>. CSLL: <code>next=head</code></li>
+                    <li><strong>addFirst</strong> → SLL: 2 langkah. DLL: 4 langkah (update <code>head->prev</code>). CSLL: 3 langkah (update <code>tail->next</code>)</li>
+                    <li><strong>addLast</strong> → SLL: <code>newNode->next=NULL</code>. DLL: <code>newNode->prev=tail</code>. CSLL: <code>newNode->next=head</code></li>
+                    <li><strong>addMiddle</strong> → SLL &amp; CSLL: 2 pointer. DLL: 4 pointer</li>
+                    <li><strong>removeFirst</strong> → SLL: biasa. DLL: tambah <code>head->prev=NULL</code>. CSLL: tambah <code>tail->next=head</code></li>
+                    <li><strong>removeLast</strong> → SLL: O(n) traversal. DLL: O(1) via <code>tail->prev</code>. CSLL: O(n) + <code>tail->next=head</code></li>
+                    <li><strong>Traversal kondisi berhenti</strong> → SLL &amp; DLL: <code>cur != NULL</code>. CSLL: <code>cur->next != head</code></li>
+                </ul>
+            </div>
+        </div>
+
+    </div><!-- end .content -->
+
+    <footer>
+        <p>&copy; jossye, 2026 Dokumentasi C++ | dibuat untuk nyantui...</p>
+    </footer>
+
+</div><!-- end .container -->
+
+<script>
+    function toggleAccordion(btn) {
+        const body = btn.nextElementSibling;
+        const isOpen = body.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
+        document.querySelectorAll('.accordion-toggle').forEach(b => b.classList.remove('open'));
+
+        // Open clicked (if it was closed)
+        if (!isOpen) {
+            body.classList.add('open');
+            btn.classList.add('open');
+        }
+    }
+
+    function copyCode(button) {
+        const codeBlock = button.closest('.code-block');
+        const code = codeBlock.querySelector('pre').textContent;
+        navigator.clipboard.writeText(code).then(() => {
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.classList.remove('copied');
+            }, 2000);
+        }).catch(err => console.error('Gagal menyalin:', err));
+    }
+
+    // Auto-open section from URL hash
+    window.addEventListener('DOMContentLoaded', () => {
+        const hash = window.location.hash;
+        if (hash) {
+            const target = document.querySelector(hash);
+            if (target) {
+                // Find the accordion body that contains this target
+                const body = target.closest('.accordion-body');
+                if (body) {
+                    body.classList.add('open');
+                    body.previousElementSibling.classList.add('open');
+                    setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
