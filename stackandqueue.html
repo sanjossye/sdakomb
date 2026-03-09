@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Stack & Queue C++</title>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: white;
+            color: black;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+
+        header {
+            background: black;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid black;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+        }
+
+        /* ── NAV ─────────────────────────────────────────────── */
+        nav {
+            background: black;
+            padding: 0 30px;
+            border-bottom: 2px solid black;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        nav>a,
+        .dropbtn {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            font-family: inherit;
+            padding: 14px 12px;
+            display: inline-block;
+            border-bottom: 3px solid transparent;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        nav>a:hover,
+        .dropbtn:hover {
+            border-bottom: 3px solid white;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1a1a1a;
+            min-width: 160px;
+            border: 1px solid #444;
+            z-index: 99;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 16px;
+            font-size: 0.88em;
+            color: #ccc;
+            border-bottom: none;
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background: #2a2a2a;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* ── CONTENT ─────────────────────────────────────────── */
+        .content {
+            padding: 40px;
+            background: white;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: black;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid black;
+        }
+
+        .section h3 {
+            color: black;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* ── ACCORDION ───────────────────────────────────────── */
+        .accordion-group {
+            margin-bottom: 10px;
+        }
+
+        .accordion-toggle {
+            width: 100%;
+            background: black;
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            text-align: left;
+            font-size: 1.35em;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .accordion-toggle:hover {
+            background: #222;
+        }
+
+        .accordion-toggle .arrow {
+            font-size: 0.8em;
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .accordion-toggle.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            display: none;
+            border: 1px solid black;
+            border-top: none;
+            padding: 30px 30px 10px 30px;
+        }
+
+        .accordion-body.open {
+            display: block;
+        }
+
+        /* ── CODE BLOCKS ─────────────────────────────────────── */
+        .code-block {
+            border: 1px solid black;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .code-header {
+            background: #21252b;
+            padding: 10px 15px;
+            border-bottom: 1px solid #181a1f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-language {
+            color: #abb2bf;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .copy-button {
+            background: #3e4451;
+            color: #abb2bf;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+
+        .copy-button:hover {
+            background: #4e5461;
+        }
+
+        .copy-button.copied {
+            background: #2ea043;
+            color: white;
+        }
+
+        .copy-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .code-block .hljs {
+            padding: 20px !important;
+            font-size: 0.95em !important;
+            line-height: 1.6 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+        }
+
+        .output-block {
+            background: black;
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid black;
+        }
+
+        .info-box {
+            background: white;
+            border: 1px solid black;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .info-box strong {
+            color: black;
+        }
+
+        .note {
+            background: white;
+            border: 1px solid black;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        ul {
+            margin: 15px 0 15px 30px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Sub-section inside accordion */
+        .sub-section {
+            margin-bottom: 40px;
+        }
+
+        .sub-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .sub-section h3 {
+            color: black;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .sub-section h4 {
+            color: black;
+            font-size: 1.1em;
+            margin: 18px 0 10px 0;
+        }
+
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* ── VIDEO SECTION ───────────────────────────────────── */
+        .video-section {
+            margin: 24px 0;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+
+        .video-section-header {
+            background: black;
+            color: white;
+            padding: 12px 18px;
+            font-weight: 700;
+            font-size: 0.95em;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-section-header::before {
+            content: '▶';
+            font-size: 0.75em;
+        }
+
+        .video-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        @media (max-width: 700px) {
+            .video-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-wrap {
+            background: #111;
+            position: relative;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .video-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 0.85em;
+            gap: 10px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .video-placeholder-icon {
+            width: 48px;
+            height: 48px;
+            border: 2px solid #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-placeholder-icon::after {
+            content: '▶';
+            color: #666;
+            font-size: 1.2em;
+            margin-left: 4px;
+        }
+
+        .video-thumbnail-wrap {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .video-thumbnail-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .video-play-overlay:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .play-btn-circle {
+            width: 56px;
+            height: 56px;
+            border: 3px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .play-btn-circle:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .play-btn-circle::after {
+            content: '▶';
+            color: white;
+            font-size: 1.2em;
+            margin-left: 5px;
+        }
+
+        .play-label {
+            color: white;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .video-meta {
+            background: white;
+            padding: 20px;
+            border-left: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .video-meta h4 {
+            font-size: 1em;
+            font-weight: 700;
+            border-bottom: 1px solid black;
+            padding-bottom: 8px;
+            margin-bottom: 4px;
+        }
+
+        .video-meta p {
+            font-size: 0.88em;
+            color: #333;
+            margin-bottom: 0;
+            text-align: left;
+        }
+
+        .video-keypoints {
+            margin-top: 6px;
+        }
+
+        .video-keypoints h5 {
+            font-size: 0.82em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+
+        .keypoint-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.83em;
+            margin-bottom: 5px;
+            color: #222;
+        }
+
+        .keypoint-item::before {
+            content: '✓';
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ── INTERACTIVE VISUALIZATION — HITAM PUTIH ─────────── */
+        .viz-section {
+            margin: 24px 0;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+
+        .viz-header {
+            background: black;
+            color: white;
+            padding: 12px 18px;
+            font-weight: 700;
+            font-size: 0.95em;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .viz-body {
+            padding: 28px 24px;
+            background: white;
+        }
+
+        /* Stack Arena */
+        .stack-arena {
+            display: flex;
+            align-items: flex-start;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .stack-visual-label {
+            text-align: center;
+            font-size: 0.72em;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* The tower — open top, closed bottom */
+        .stack-tower {
+            width: 160px;
+            min-height: 300px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 4px;
+            padding-bottom: 6px;
+            border-left: 2px solid black;
+            border-right: 2px solid black;
+        }
+
+        /* Bottom "floor" line */
+        .stack-tower::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: black;
+            flex-shrink: 0;
+        }
+
+        /* Each card */
+        .stack-cell {
+            width: 100%;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.05em;
+            position: relative;
+            color: black;
+            background: white;
+            border: 2px solid black;
+            cursor: default;
+            user-select: none;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* TOP badge */
+        .stack-cell.is-top {
+            background: black;
+            color: white;
+        }
+
+        .stack-cell.is-top .top-badge {
+            display: flex;
+        }
+
+        .top-badge {
+            display: none;
+            position: absolute;
+            right: -52px;
+            background: white;
+            color: black;
+            border: 1px solid black;
+            font-size: 0.6em;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            padding: 3px 7px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .stack-cell.push-anim {
+            animation: pushIn 0.35s ease-out;
+        }
+
+        .stack-cell.pop-anim {
+            animation: popOut 0.28s ease-in forwards;
+        }
+
+        @keyframes pushIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popOut {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+        }
+
+        .stack-empty-msg {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 0.8em;
+            font-style: italic;
+            pointer-events: none;
+        }
+
+        /* Controls */
+        .viz-controls {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .viz-input-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .viz-input {
+            flex: 1;
+            border: 2px solid black;
+            padding: 9px 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            font-weight: 600;
+            outline: none;
+            background: white;
+            color: black;
+            width: 100%;
+        }
+
+        .viz-input:focus {
+            background: #f5f5f5;
+        }
+
+        .viz-input::placeholder {
+            color: #999;
+            font-weight: 400;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .viz-btn {
+            border: 2px solid black;
+            background: white;
+            color: black;
+            padding: 9px 14px;
+            font-family: inherit;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+
+        .viz-btn:hover {
+            background: black;
+            color: white;
+        }
+
+        .viz-btn:active {
+            opacity: 0.8;
+        }
+
+        .viz-btn.primary {
+            background: black;
+            color: white;
+        }
+
+        .viz-btn.primary:hover {
+            background: #333;
+        }
+
+        .viz-btn.danger {
+            border-color: black;
+            color: #555;
+        }
+
+        .viz-btn.danger:hover {
+            background: black;
+            color: white;
+        }
+
+        .viz-btn-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        /* Log */
+        .viz-log {
+            margin-top: 18px;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+
+        .viz-log-header {
+            background: black;
+            color: white;
+            padding: 6px 14px;
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-bottom: 1px solid black;
+        }
+
+        .viz-log-body {
+            background: #111;
+            color: #eee;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            padding: 12px 16px;
+            min-height: 80px;
+            max-height: 130px;
+            overflow-y: auto;
+            line-height: 1.75;
+        }
+
+        .viz-log-body .log-entry {
+            opacity: 0;
+            animation: fadeLog 0.3s forwards;
+        }
+
+        @keyframes fadeLog {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .log-err {
+            color: #ccc;
+        }
+
+        .log-ok {
+            color: #fff;
+        }
+
+        .log-info {
+            color: #aaa;
+        }
+
+        /* Pointer badges */
+        .ptr-display {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .ptr-badge {
+            border: 1px solid black;
+            padding: 6px 12px;
+            font-size: 0.82em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+        }
+
+        .ptr-badge .ptr-name {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        .ptr-badge .ptr-val {
+            font-size: 1em;
+            color: black;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+        }
+
+        /* Index markers */
+        .stack-index-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 9px;
+            gap: 4px;
+        }
+
+        .stack-index-cell {
+            height: 48px;
+            width: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65em;
+            color: #999;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        @keyframes qEnterAnim {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes qExitAnim {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+        }
+
+        /* Peek flash */
+        .stack-cell.peek-flash {
+            background: #333 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <h1>Dokumentasi Stack &amp; Queue C++</h1>
+            <p>Stack (LIFO) dan Queue (FIFO) berbasis Array</p>
+        </header>
+
+        <nav>
+            <a href="index.html">&larr;</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">Materi ▼</button>
+                <div class="dropdown-content">
+                    <a href="array-documentation.html">Array</a>
+                    <a href="ps-documentation.html">Pointer &amp; Struct</a>
+                    <a href="linkedlist.html">Linked List</a>
+                    <a href="stackandqueue.html">Stack &amp; Queue</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Stack ▼</button>
+                <div class="dropdown-content">
+                    <a href="#stack">Buka Stack</a>
+                    <a href="#stack-intro">Apa itu Stack?</a>
+                    <a href="#stack-video">Video</a>
+                    <a href="#stack-viz">Visualisasi</a>
+                    <a href="#stack-struct">Deklarasi &amp; Global</a>
+                    <a href="#stack-push">Push</a>
+                    <a href="#stack-pop">Pop</a>
+                    <a href="#stack-peek">Peek / Top</a>
+                    <a href="#stack-display">Display / Tampilan</a>
+                    <a href="#stack-full">Kode Lengkap</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Queue ▼</button>
+                <div class="dropdown-content">
+                    <a href="#queue">Buka Queue</a>
+                    <a href="#queue-intro">Apa itu Queue?</a>
+                    <a href="#queue-viz">Visualisasi</a>
+                    <a href="#queue-struct">Deklarasi &amp; Global</a>
+                    <a href="#queue-enqueue">Enqueue</a>
+                    <a href="#queue-dequeue">Dequeue</a>
+                    <a href="#queue-display">Display</a>
+                    <a href="#queue-full">Kode Lengkap</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+
+            <!-- PENGANTAR -->
+            <div class="section">
+                <h2>Pengantar — Stack &amp; Queue</h2>
+                <p>
+                    Stack dan Queue adalah dua struktur data linear paling fundamental dalam pemrograman.
+                    Keduanya menggunakan array sebagai media penyimpanan, namun berbeda dalam cara mengakses datanya.
+                </p>
+                <div class="info-box">
+                    <strong>Perbandingan Stack vs Queue:</strong>
+                    <ul>
+                        <li><strong>Stack (LIFO)</strong> → Last In First Out; elemen terakhir masuk adalah yang pertama
+                            keluar; insert &amp; delete dari satu ujung (TOP)</li>
+                        <li><strong>Queue (FIFO)</strong> → First In First Out; elemen pertama masuk adalah yang pertama
+                            keluar; insert dari REAR, delete dari FRONT</li>
+                    </ul>
+                </div>
+                <div class="output-block">
+                    <pre>STACK — LIFO:
+Push 10 → Push 20 → Push 30
+Top ──► [ 30 ]
+        [ 20 ]
+        [ 10 ]   ← Bottom
+
+Pop → keluar 30 (yang terakhir masuk)
+
+QUEUE — FIFO:
+Enqueue 1 → Enqueue 2 → Enqueue 3
+FRONT ──► [ 1 ] [ 2 ] [ 3 ] ◄── REAR
+
+Dequeue → keluar 1 (yang pertama masuk)</pre>
+                </div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!--  ACCORDION 1 — STACK                                            -->
+            <!-- ================================================================ -->
+            <div class="accordion-group" id="stack">
+                <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                    1. Stack (LIFO — Last In First Out)
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="accordion-body">
+
+                    <!-- INTRO -->
+                    <div class="sub-section" id="stack-intro">
+                        <h3>Apa itu Stack?</h3>
+                        <p>
+                            <strong>Stack</strong> adalah struktur data linear yang mengikuti prinsip <strong>LIFO (Last
+                                In, First Out)</strong>.
+                            Bayangkan tumpukan piring — piring yang terakhir diletakkan di atas adalah piring yang
+                            pertama diambil.
+                            Stack hanya dapat diakses dari satu ujung yang disebut <code>TOP</code>.
+                        </p>
+                        <div class="info-box">
+                            <strong>Karakteristik Stack:</strong>
+                            <ul>
+                                <li>Insert (Push) dan Delete (Pop) hanya dari satu ujung: TOP</li>
+                                <li>Push &amp; Pop: O(1) — sangat efisien</li>
+                                <li>Peek/Top: O(1) — melihat elemen puncak tanpa menghapus</li>
+                                <li>Cocok untuk: function call stack, undo/redo, ekspresi matematika, browser back</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- VIDEO SECTION -->
+                    <div class="sub-section" id="stack-video">
+                        <h3>Video Penjelasan Stack</h3>
+                        <div class="video-section">
+                            <div class="video-section-header">Tutorial Visual — Stack LIFO</div>
+                            <div class="video-layout">
+                                <!-- Video side -->
+                                <div class="video-wrap" id="videoWrap">
+                                    <div class="video-thumbnail-wrap" id="videoThumb" onclick="playStackVideo()">
+                                        <img src="image/stack.jpg" alt="Stack thumbnail"
+                                            onerror="this.parentElement.style.display='none'; document.getElementById('videoFallback').style.display='flex'">
+                                        <div class="video-play-overlay">
+                                            <div class="play-btn-circle"></div>
+                                            <span class="play-label">Klik untuk memutar</span>
+                                        </div>
+                                    </div>
+                                    <div class="video-placeholder" id="videoFallback" style="display:none;"
+                                        onclick="playStackVideo()">
+                                        <div class="video-placeholder-icon"></div>
+                                        <span>Klik untuk memutar<br>video/stack.mp4</span>
+                                    </div>
+                                    <video id="stackVideoEl"
+                                        style="display:none; width:100%; height:100%; object-fit:cover;" controls>
+                                        <source src="video/stack.mp4" type="video/mp4">
+                                        Browser tidak mendukung video.
+                                    </video>
+                                </div>
+
+                                <!-- Meta side -->
+                                <div class="video-meta">
+                                    <h4>Tutorial Visual Stack</h4>
+                                    <p>Video ini menjelaskan konsep dasar Stack secara visual, mulai dari prinsip LIFO
+                                        hingga implementasi operasi Push, Pop, dan Peek dalam C++.</p>
+                                    <div class="video-keypoints">
+                                        <h5>Yang dipelajari:</h5>
+                                        <div class="keypoint-item">Prinsip LIFO — Last In First Out</div>
+                                        <div class="keypoint-item">Demonstrasi operasi Push dan Pop</div>
+                                        <div class="keypoint-item">Peek / melihat elemen puncak</div>
+                                        <div class="keypoint-item">Implementasi dengan array C++</div>
+                                        <div class="keypoint-item">Aplikasi Stack di dunia nyata</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INTERACTIVE VISUALIZATION -->
+                    <div class="sub-section" id="stack-viz">
+                        <h3>Visualisasi Interaktif</h3>
+                        <p>Gunakan tombol di bawah untuk mencoba operasi Stack secara langsung. Masukkan nilai lalu klik
+                            <strong>PUSH</strong>, atau coba <strong>POP</strong>, <strong>PEEK</strong>, dan
+                            <strong>DISPLAY</strong>.</p>
+
+                        <div class="viz-section">
+                            <div class="viz-header">Stack Simulator — MAX = 6</div>
+                            <div class="viz-body">
+                                <div class="stack-arena">
+                                    <!-- Index column -->
+                                    <div
+                                        style="display:flex; flex-direction:column; align-items:center; gap:0; padding-top:28px;">
+                                        <div class="stack-index-col" id="indexCol"></div>
+                                    </div>
+
+                                    <!-- The tower -->
+                                    <div>
+                                        <div class="stack-visual-label">STACK</div>
+                                        <div class="stack-tower" id="stackTower">
+                                            <div class="stack-empty-msg" id="emptyMsg">— kosong —</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <div class="viz-controls">
+                                        <div class="viz-input-row">
+                                            <input class="viz-input" id="vizInput" type="number"
+                                                placeholder="Masukkan nilai...">
+                                        </div>
+                                        <div class="viz-btn-row">
+                                            <button class="viz-btn primary" onclick="vizPush()">▲ PUSH</button>
+                                            <button class="viz-btn" onclick="vizPop()">▼ POP</button>
+                                        </div>
+                                        <div class="viz-btn-row">
+                                            <button class="viz-btn" onclick="vizPeek()">◎ PEEK</button>
+                                            <button class="viz-btn" onclick="vizDisplay()">☰ DISPLAY</button>
+                                            <button class="viz-btn danger" onclick="vizClear()">✕ CLEAR</button>
+                                        </div>
+
+                                        <!-- Pointer badges -->
+                                        <div class="ptr-display">
+                                            <div class="ptr-badge">
+                                                <span class="ptr-name">top</span>
+                                                <span class="ptr-val" id="topBadge">-1</span>
+                                            </div>
+                                            <div class="ptr-badge">
+                                                <span class="ptr-name">size</span>
+                                                <span class="ptr-val" id="sizeBadge">0 / 6</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Log -->
+                                <div class="viz-log">
+                                    <div class="viz-log-header">Log Output</div>
+                                    <div class="viz-log-body" id="vizLog">
+                                        <span class="log-info">// Siap! Coba Push atau Pop...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STRUCT / DEKLARASI -->
+                    <div class="sub-section" id="stack-struct">
+                        <h3>Deklarasi Array &amp; Variabel Global</h3>
+                        <p>Stack diimplementasikan menggunakan array global. Variabel <code>top</code> bertindak sebagai
+                            pointer ke elemen puncak stack. Nilai awal <code>top = -1</code> menandakan stack kosong.
+                        </p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">#define MAX 5   // ukuran maksimal stack
+
+int stack[MAX]; // array penampung elemen stack
+int top = -1;   // pointer puncak; -1 = stack kosong</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Penjelasan Variabel:</strong>
+                            <ul>
+                                <li><code>MAX</code> → kapasitas maksimal stack; ubah sesuai kebutuhan</li>
+                                <li><code>stack[MAX]</code> → array tempat menyimpan semua elemen</li>
+                                <li><code>top = -1</code> → kondisi awal: stack kosong; setiap push increment top,
+                                    setiap pop decrement top</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- PUSH -->
+                    <div class="sub-section" id="stack-push">
+                        <h3>Push</h3>
+                        <p>Fungsi <code>push()</code> menambahkan elemen baru ke puncak stack. Sebelum menambah, harus
+                            dicek apakah stack sudah penuh (<code>top == MAX - 1</code>). Operasi O(1).</p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">void push(int data) {
+    if (top == MAX - 1) {
+        cout << "Stack Overflow! Stack penuh." << endl;
+    } else {
+        top++;             // naikkan pointer dulu
+        stack[top] = data; // baru isi data
+    }
+}</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Alur Eksekusi Push:</strong>
+                            <ul>
+                                <li>Cek <code>top == MAX - 1</code> → jika ya: Stack Overflow, tolak</li>
+                                <li><code>top++</code> → pindahkan pointer ke posisi baru</li>
+                                <li><code>stack[top] = data</code> → simpan data di posisi baru</li>
+                            </ul>
+                        </div>
+                        <h4>Visualisasi</h4>
+                        <div class="output-block">
+                            <pre>push(10):  top = -1 → top++ → top=0 → stack[0]=10
+push(20):  top =  0 → top++ → top=1 → stack[1]=20
+push(30):  top =  1 → top++ → top=2 → stack[2]=30
+
+State stack:
+index: [0]=10  [1]=20  [2]=30
+                            ↑ top=2</pre>
+                        </div>
+                    </div>
+
+                    <!-- POP -->
+                    <div class="sub-section" id="stack-pop">
+                        <h3>Pop</h3>
+                        <p>Fungsi <code>pop()</code> menghapus elemen dari puncak stack. Harus dicek apakah stack kosong
+                            (<code>top == -1</code>) sebelum pop. Operasi O(1).</p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">void pop() {
+    if (top == -1) {
+        cout << "Stack Underflow! Stack kosong." << endl;
+    } else {
+        cout << "Elemen keluar: " << stack[top] << endl;
+        top--; // turunkan pointer; data lama "terhapus" secara logis
+    }
+}</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Alur Eksekusi Pop:</strong>
+                            <ul>
+                                <li>Cek <code>top == -1</code> → jika ya: Stack Underflow, tolak</li>
+                                <li>Tampilkan <code>stack[top]</code> → elemen yang akan dihapus</li>
+                                <li><code>top--</code> → turunkan pointer; elemen di atas indeks baru dianggap tidak ada
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="note">
+                            <strong>⚠ Catatan:</strong>
+                            <ul>
+                                <li>Nilai lama di array tidak benar-benar dihapus dari memori — hanya <code>top</code>
+                                    yang diturunkan</li>
+                                <li>Jika push berikutnya dilakukan, posisi itu akan ditimpa dengan nilai baru</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- PEEK -->
+                    <div class="sub-section" id="stack-peek">
+                        <h3>Peek / Top</h3>
+                        <p>Fungsi <code>peek()</code> menampilkan elemen puncak stack <strong>tanpa
+                                menghapusnya</strong>. Berguna untuk melihat nilai top sebelum memutuskan langkah
+                            selanjutnya. Operasi O(1).</p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">void peek() {
+    if (top == -1) {
+        cout << "Stack kosong." << endl;
+    } else {
+        cout << "Elemen puncak (TOP): " << stack[top] << endl;
+    }
+}</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Perbedaan Peek vs Pop:</strong>
+                            <ul>
+                                <li><strong>Peek</strong> → hanya membaca <code>stack[top]</code>, pointer
+                                    <code>top</code> tidak berubah
+                                </li>
+                                <li><strong>Pop</strong> → membaca <code>stack[top]</code> lalu decrement
+                                    <code>top</code>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- DISPLAY / TAMPILAN -->
+                    <div class="sub-section" id="stack-display">
+                        <h3>Display / Tampilan</h3>
+                        <p>Fungsi <code>tampilan()</code> menampilkan semua elemen dalam stack dari indeks 0 (bottom)
+                            hingga <code>top</code>. Operasi O(n).</p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">void tampilan() {
+    if (top == -1) {
+        cout << "Stack kosong." << endl;
+    } else {
+        cout << "Isi stack (bottom → top):" << endl;
+        for (int i = 0; i <= top; i++) {
+            cout << stack[i] << " ";
+        }
+        cout << endl;
+    }
+}</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Poin Penting:</strong>
+                            <ul>
+                                <li>Loop dari <code>i = 0</code> sampai <code>i &lt;= top</code></li>
+                                <li>Elemen pertama (<code>stack[0]</code>) adalah bottom, elemen terakhir
+                                    (<code>stack[top]</code>) adalah top</li>
+                                <li>Kompleksitas O(n) — harus iterasi seluruh elemen aktif</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- KODE LENGKAP STACK -->
+                    <div class="sub-section" id="stack-full">
+                        <h3>Kode Lengkap Stack</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+#define MAX 5
+
+int stack[MAX];
+int top = -1;
+
+void push(int data) {
+    if (top == MAX - 1) {
+        cout &lt;&lt; "penuh" &lt;&lt; endl;
+    } else {
+        top++;
+        stack[top] = data;
+    }
+}
+
+void pop() {
+    if (top == -1) {
+        cout &lt;&lt; "kosong" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "keluar: " &lt;&lt; stack[top] &lt;&lt; endl;
+        top--;
+    }
+}
+
+void peek() {
+    if (top == -1) {
+        cout &lt;&lt; "kosong" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "TOP: " &lt;&lt; stack[top] &lt;&lt; endl;
+    }
+}
+
+void tampilan() {
+    if (top == -1) {
+        cout &lt;&lt; "kosong" &lt;&lt; endl;
+    } else {
+        for (int i = 0; i &lt;= top; i++) {
+            cout &lt;&lt; stack[i] &lt;&lt; " ";
+        }
+        cout &lt;&lt; endl;
+    }
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+    tampilan();  // 10 20 30
+    peek();      // TOP: 30
+    pop();       // keluar: 30
+    tampilan();  // 10 20
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="output-block">
+                            <pre>Output:
+10 20 30
+TOP: 30
+keluar: 30
+10 20</pre>
+                        </div>
+                    </div>
+
+                </div><!-- end accordion-body Stack -->
+            </div><!-- end accordion-group Stack -->
+
+
+            <!-- ================================================================ -->
+            <!--  ACCORDION 2 — QUEUE                                            -->
+            <!-- ================================================================ -->
+            <div class="accordion-group" id="queue">
+                <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                    2. Queue (FIFO — First In First Out)
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="accordion-body">
+
+                    <!-- INTRO -->
+                    <div class="sub-section" id="queue-intro">
+                        <h3>Apa itu Queue?</h3>
+                        <p>
+                            <strong>Queue</strong> adalah struktur data linear yang mengikuti prinsip <strong>FIFO
+                                (First In, First Out)</strong>.
+                            Bayangkan antrian di kasir — orang yang datang pertama akan dilayani pertama.
+                            Queue memiliki dua ujung: <code>FRONT</code> (ujung depan, tempat hapus) dan
+                            <code>REAR</code> (ujung belakang, tempat tambah).
+                        </p>
+                        <div class="info-box">
+                            <strong>Karakteristik Queue:</strong>
+                            <ul>
+                                <li>Enqueue (insert) selalu di ujung REAR</li>
+                                <li>Dequeue (delete) selalu dari ujung FRONT</li>
+                                <li>Enqueue &amp; Dequeue: O(1)</li>
+                                <li>Cocok untuk: CPU scheduling, print spooling, BFS graph traversal, network buffering
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="output-block">
+                            <pre>FRONT ──► [ 1 ] [ 2 ] [ 3 ] [ 4 ] ◄── REAR
+
+Enqueue(5): masuk dari REAR
+FRONT ──► [ 1 ] [ 2 ] [ 3 ] [ 4 ] [ 5 ] ◄── REAR
+
+Dequeue(): keluar dari FRONT
+FRONT ──► [ 2 ] [ 3 ] [ 4 ] [ 5 ] ◄── REAR
+(1 keluar)</pre>
+                        </div>
+                    </div>
+
+                    <!-- QUEUE INTERACTIVE VISUALIZATION -->
+                    <div class="sub-section" id="queue-viz">
+                        <h3>Visualisasi Interaktif</h3>
+                        <p>Gunakan tombol di bawah untuk mencoba operasi Queue secara langsung. Elemen masuk dari
+                            <strong>REAR</strong> dan keluar dari <strong>FRONT</strong>.</p>
+
+                        <div class="viz-section">
+                            <div class="viz-header">Queue Simulator — MAX = 6</div>
+                            <div class="viz-body" style="background:white; padding:28px 24px;">
+
+                                <!-- Queue lane -->
+                                <div style="margin-bottom:18px;">
+                                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                                        <span
+                                            style="font-size:0.72em; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#666;">◄
+                                            FRONT (keluar)</span>
+                                        <span
+                                            style="font-size:0.72em; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#666;">(masuk)
+                                            REAR ►</span>
+                                    </div>
+
+                                    <!-- Arrow row ATAS (pointer label) -->
+                                    <div style="display:flex; gap:4px; margin-bottom:2px; min-height:28px;"
+                                        id="qTopArrowRow"></div>
+
+                                    <!-- Queue track -->
+                                    <div style="position:relative; border-top:2px solid black; border-bottom:2px solid black; min-height:56px; display:flex; align-items:center; padding:6px 4px; gap:4px;"
+                                        id="queueTrack">
+                                        <div id="qEmptyMsg"
+                                            style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#aaa; font-size:0.8em; font-style:italic; pointer-events:none;">
+                                            — kosong —</div>
+                                    </div>
+
+                                    <!-- Index row -->
+                                    <div style="display:flex; gap:4px; margin-top:3px;" id="qIndexRow"></div>
+                                </div>
+
+                                <!-- Controls + pointers row -->
+                                <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start;">
+
+                                    <!-- Buttons -->
+                                    <div style="display:flex; flex-direction:column; gap:8px;">
+                                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                                            <button class="viz-btn primary" onclick="qVizEnqueue()">► ENQUEUE</button>
+                                            <button class="viz-btn" onclick="qVizDequeue()">◄ DEQUEUE</button>
+                                        </div>
+                                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                                            <button class="viz-btn" onclick="qVizFront()">◎ FRONT</button>
+                                            <button class="viz-btn" onclick="qVizDisplay()">☰ DISPLAY</button>
+                                            <button class="viz-btn danger" onclick="qVizClear()">✕ CLEAR</button>
+                                        </div>
+                                        <!-- Input -->
+                                        <input class="viz-input" id="qVizInput" type="number"
+                                            placeholder="Nilai (kosongkan = auto)">
+                                    </div>
+
+                                    <!-- Pointer badges -->
+                                    <div style="display:flex; flex-direction:column; gap:8px; justify-content:center;">
+                                        <div class="ptr-badge">
+                                            <span class="ptr-name">front</span>
+                                            <span class="ptr-val" id="qFrontBadge">-1</span>
+                                        </div>
+                                        <div class="ptr-badge">
+                                            <span class="ptr-name">rear</span>
+                                            <span class="ptr-val" id="qRearBadge">-1</span>
+                                        </div>
+                                        <div class="ptr-badge">
+                                            <span class="ptr-name">size</span>
+                                            <span class="ptr-val" id="qSizeBadge">0 / 6</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Log -->
+                                <div class="viz-log" style="margin-top:16px;">
+                                    <div class="viz-log-header">Log Output</div>
+                                    <div class="viz-log-body" id="qVizLog">
+                                        <span class="log-info">// Siap! Coba Enqueue atau Dequeue...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DEKLARASI -->
+                    <div class="sub-section" id="queue-struct">
+                        <h3>Deklarasi Array &amp; Variabel Global</h3>
+                        <p>Queue diimplementasikan menggunakan array global dengan dua pointer: <code>front</code> dan
+                            <code>rear</code>. Nilai awal keduanya <code>-1</code> menandakan queue kosong.
+                        </p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">#define MAX 5       // ukuran maksimal queue
+
+int queue[MAX];     // array penampung elemen queue
+int front = -1;     // pointer depan; -1 = queue kosong
+int rear  = -1;     // pointer belakang; -1 = queue kosong</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Perbedaan Queue vs Stack — Variabel Global:</strong>
+                            <ul>
+                                <li>Stack: 1 pointer (<code>top</code>)</li>
+                                <li>Queue: 2 pointer (<code>front</code> dan <code>rear</code>)</li>
+                                <li><code>front</code> → indeks elemen terdepan yang akan keluar saat dequeue</li>
+                                <li><code>rear</code> → indeks elemen paling belakang; posisi berikutnya saat enqueue
+                                    adalah <code>rear+1</code></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ENQUEUE -->
+                    <div class="sub-section" id="queue-enqueue">
+                        <h3>Enqueue</h3>
+                        <p>Fungsi <code>enqueue()</code> menambahkan elemen baru di belakang queue (REAR). Jika queue
+                            masih kosong (<code>front == -1</code>), set <code>front = 0</code> terlebih dahulu. Operasi
+                            O(1).</p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">void enqueue(int data) {
+    if (rear == MAX - 1) {
+        cout << "Queue Overflow! Queue penuh." << endl;
+    } else {
+        if (front == -1)   // jika queue masih kosong
+            front = 0;     // set front ke indeks pertama
+        rear++;
+        queue[rear] = data;
+    }
+}</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Alur Eksekusi Enqueue:</strong>
+                            <ul>
+                                <li>Cek <code>rear == MAX - 1</code> → jika ya: Queue Overflow, tolak</li>
+                                <li>Jika <code>front == -1</code> (pertama kali enqueue): set <code>front = 0</code>
+                                </li>
+                                <li><code>rear++</code> → geser pointer belakang</li>
+                                <li><code>queue[rear] = data</code> → simpan data di posisi baru</li>
+                            </ul>
+                        </div>
+                        <h4>Visualisasi</h4>
+                        <div class="output-block">
+                            <pre>Awal: front=-1, rear=-1
+
+enqueue(1): front=0, rear=0 → queue[0]=1
+enqueue(2): front=0, rear=1 → queue[1]=2
+enqueue(3): front=0, rear=2 → queue[2]=3
+
+State:  [0]=1  [1]=2  [2]=3
+         ↑front          ↑rear</pre>
+                        </div>
+                    </div>
+
+                    <!-- DEQUEUE -->
+                    <div class="sub-section" id="queue-dequeue">
+                        <h3>Dequeue</h3>
+                        <p>Fungsi <code>dequeue()</code> menghapus elemen dari depan queue (FRONT). Kondisi kosong dicek
+                            dengan <code>front == -1</code> atau <code>front &gt; rear</code>. Operasi O(1).</p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">void dequeue() {
+    if (front == -1 || front > rear) {
+        cout << "Queue Underflow! Queue kosong." << endl;
+    } else {
+        cout << "Elemen keluar: " << queue[front] << endl;
+        front++; // geser front ke depan; elemen lama tidak diakses lagi
+    }
+}</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Alur Eksekusi Dequeue:</strong>
+                            <ul>
+                                <li>Cek <code>front == -1 || front &gt; rear</code> → jika ya: Queue Underflow</li>
+                                <li>Tampilkan <code>queue[front]</code> → elemen yang keluar</li>
+                                <li><code>front++</code> → geser pointer ke depan; elemen sebelumnya tidak dapat diakses
+                                    lagi</li>
+                            </ul>
+                        </div>
+                        <div class="note">
+                            <strong>⚠ Keterbatasan Queue Array Biasa:</strong>
+                            <ul>
+                                <li>Setelah banyak enqueue &amp; dequeue, <code>front</code> terus bergerak ke kanan
+                                </li>
+                                <li>Slot di kiri <code>front</code> tidak bisa dipakai lagi meskipun kosong</li>
+                                <li>Solusi: gunakan <strong>Circular Queue</strong> untuk memanfaatkan kembali slot
+                                    kosong di awal array</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- DISPLAY -->
+                    <div class="sub-section" id="queue-display">
+                        <h3>Display</h3>
+                        <p>Fungsi <code>display()</code> menampilkan semua elemen dalam queue dari FRONT hingga REAR.
+                            Operasi O(n).</p>
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">void display() {
+    if (front == -1 || front > rear) {
+        cout << "Queue kosong." << endl;
+    } else {
+        cout << "Isi queue (front → rear):" << endl;
+        for (int i = front; i <= rear; i++) {
+            cout << queue[i] << " ";
+        }
+        cout << endl;
+    }
+}</code></pre>
+                        </div>
+                        <div class="info-box">
+                            <strong>Poin Penting:</strong>
+                            <ul>
+                                <li>Loop dari <code>i = front</code> bukan dari <code>i = 0</code> — karena elemen
+                                    sebelum front sudah didequeue</li>
+                                <li>Loop berhenti di <code>i &lt;= rear</code></li>
+                                <li>Kompleksitas O(n)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- KODE LENGKAP QUEUE -->
+                    <div class="sub-section" id="queue-full">
+                        <h3>Kode Lengkap Queue</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+#define MAX 5
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+void enqueue(int data) {
+    if (rear == MAX - 1) {
+        cout &lt;&lt; "penuh" &lt;&lt; endl;
+    } else {
+        if (front == -1) front = 0;
+        rear++;
+        queue[rear] = data;
+    }
+}
+
+void dequeue() {
+    if (front == -1 || front &gt; rear) {
+        cout &lt;&lt; "kosong" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "keluar: " &lt;&lt; queue[front] &lt;&lt; endl;
+        front++;
+    }
+}
+
+void display() {
+    if (front == -1 || front &gt; rear) {
+        cout &lt;&lt; "kosong" &lt;&lt; endl;
+    } else {
+        for (int i = front; i &lt;= rear; i++) {
+            cout &lt;&lt; queue[i] &lt;&lt; endl;
+        }
+    }
+}
+
+int main() {
+    enqueue(1);
+    enqueue(2);
+    enqueue(3);
+    display();   // 1 2 3
+    dequeue();   // keluar: 1
+    display();   // 2 3
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="output-block">
+                            <pre>Output:
+1
+2
+3
+keluar: 1
+2
+3</pre>
+                        </div>
+                    </div>
+
+                </div><!-- end accordion-body Queue -->
+            </div><!-- end accordion-group Queue -->
+
+
+            <!-- KESIMPULAN -->
+            <div class="section" style="margin-top: 40px;">
+                <h2>Kesimpulan — Perbandingan Stack vs Queue</h2>
+                <div class="info-box">
+                    <strong>Perbedaan Kunci Stack dan Queue:</strong>
+                    <ul>
+                        <li><strong>Prinsip</strong> → Stack: LIFO. Queue: FIFO</li>
+                        <li><strong>Pointer</strong> → Stack: 1 (<code>top</code>). Queue: 2 (<code>front</code> &amp;
+                            <code>rear</code>)
+                        </li>
+                        <li><strong>Insert</strong> → Stack: di TOP. Queue: di REAR</li>
+                        <li><strong>Delete</strong> → Stack: dari TOP. Queue: dari FRONT</li>
+                        <li><strong>Operasi insert</strong> → Stack: <code>push()</code>. Queue: <code>enqueue()</code>
+                        </li>
+                        <li><strong>Operasi delete</strong> → Stack: <code>pop()</code>. Queue: <code>dequeue()</code>
+                        </li>
+                        <li><strong>Cek kosong</strong> → Stack: <code>top == -1</code>. Queue:
+                            <code>front == -1 || front &gt; rear</code>
+                        </li>
+                        <li><strong>Cek penuh</strong> → Stack: <code>top == MAX - 1</code>. Queue:
+                            <code>rear == MAX - 1</code>
+                        </li>
+                        <li><strong>Time complexity</strong> → Semua operasi utama O(1); display O(n)</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div><!-- end .content -->
+
+        <footer>
+            <p>&copy; jossye, 2026 Dokumentasi C++ | dibuat untuk nyantui...</p>
+        </footer>
+
+    </div><!-- end .container -->
+
+    <script>
+        /* ── ACCORDION ─────────────────────────────────────── */
+        function toggleAccordion(btn) {
+            const body = btn.nextElementSibling;
+            const isOpen = body.classList.contains('open');
+            document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
+            document.querySelectorAll('.accordion-toggle').forEach(b => b.classList.remove('open'));
+            if (!isOpen) {
+                body.classList.add('open');
+                btn.classList.add('open');
+            }
+        }
+
+        /* ── COPY CODE ─────────────────────────────────────── */
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('pre').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin';
+                button.classList.add('copied');
+                setTimeout(() => { button.innerHTML = originalHTML; button.classList.remove('copied'); }, 2000);
+            });
+        }
+
+        /* ── VIDEO ─────────────────────────────────────────── */
+        function playStackVideo() {
+            const thumb = document.getElementById('videoThumb');
+            const fallback = document.getElementById('videoFallback');
+            const video = document.getElementById('stackVideoEl');
+            thumb.style.display = 'none';
+            fallback.style.display = 'none';
+            video.style.display = 'block';
+            video.play().catch(() => { });
+        }
+
+        /* ── STACK VISUALIZER ──────────────────────────────── */
+        const VIZ_MAX = 6;
+        let vizStack = [];
+
+        function renderStack() {
+            const t = document.getElementById('stackTower');
+            const indexCol = document.getElementById('indexCol');
+            const emptyMsg = document.getElementById('emptyMsg');
+
+            t.querySelectorAll('.stack-cell').forEach(c => c.remove());
+            emptyMsg.style.display = vizStack.length === 0 ? 'flex' : 'none';
+
+            for (let i = vizStack.length - 1; i >= 0; i--) {
+                const cell = document.createElement('div');
+                const isTop = (i === vizStack.length - 1);
+                cell.className = 'stack-cell' + (isTop ? ' is-top' : '');
+                cell.id = 'cell-' + i;
+
+                const valSpan = document.createElement('span');
+                valSpan.textContent = vizStack[i];
+                cell.appendChild(valSpan);
+
+                const badge = document.createElement('span');
+                badge.className = 'top-badge';
+                badge.textContent = 'TOP';
+                cell.appendChild(badge);
+
+                t.appendChild(cell);
+            }
+
+            indexCol.innerHTML = '';
+            for (let i = vizStack.length - 1; i >= 0; i--) {
+                const ic = document.createElement('div');
+                ic.className = 'stack-index-cell';
+                ic.textContent = i;
+                indexCol.appendChild(ic);
+            }
+
+            document.getElementById('topBadge').textContent = vizStack.length === 0 ? '-1' : String(vizStack.length - 1);
+            document.getElementById('sizeBadge').textContent = vizStack.length + ' / ' + VIZ_MAX;
+        }
+
+        function addLog(msg, type) {
+            const log = document.getElementById('vizLog');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry ' + (type || 'log-ok');
+            entry.textContent = '> ' + msg;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function vizPush() {
+            const input = document.getElementById('vizInput');
+            let val = input.value.trim();
+            if (val === '') {
+                val = vizStack.length > 0 ? Math.max(...vizStack) + 1 : 10;
+            } else {
+                val = parseInt(val);
+                if (isNaN(val)) { addLog('Input tidak valid!', 'log-err'); return; }
+            }
+
+            if (vizStack.length >= VIZ_MAX) {
+                addLog('Stack Overflow! Stack penuh (MAX=' + VIZ_MAX + ')', 'log-err');
+                return;
+            }
+
+            vizStack.push(val);
+            renderStack();
+
+            const topCell = document.getElementById('stackTower').querySelector('.stack-cell.is-top');
+            if (topCell) {
+                topCell.classList.add('push-anim');
+                setTimeout(() => topCell.classList.remove('push-anim'), 380);
+            }
+
+            addLog('push(' + val + ') → top = ' + (vizStack.length - 1), 'log-ok');
+            input.value = '';
+        }
+
+        function vizPop() {
+            if (vizStack.length === 0) {
+                addLog('Stack Underflow! Stack kosong.', 'log-err');
+                return;
+            }
+
+            const topCell = document.getElementById('stackTower').querySelector('.stack-cell.is-top');
+            const popped = vizStack[vizStack.length - 1];
+
+            if (topCell) {
+                topCell.classList.add('pop-anim');
+                setTimeout(() => {
+                    vizStack.pop();
+                    renderStack();
+                }, 280);
+            } else {
+                vizStack.pop();
+                renderStack();
+            }
+
+            addLog('pop() → keluar: ' + popped + ' | top = ' + (vizStack.length - 2), 'log-ok');
+        }
+
+        function vizPeek() {
+            if (vizStack.length === 0) {
+                addLog('Stack kosong — tidak ada elemen puncak.', 'log-err');
+                return;
+            }
+            const topVal = vizStack[vizStack.length - 1];
+
+            const topCell = document.getElementById('stackTower').querySelector('.stack-cell.is-top');
+            if (topCell) {
+                topCell.style.outline = '3px solid black';
+                topCell.style.outlineOffset = '-3px';
+                setTimeout(() => { topCell.style.outline = ''; topCell.style.outlineOffset = ''; }, 700);
+            }
+
+            addLog('peek() → TOP = stack[' + (vizStack.length - 1) + '] = ' + topVal, 'log-info');
+        }
+
+        function vizDisplay() {
+            if (vizStack.length === 0) {
+                addLog('Stack kosong.', 'log-err');
+                return;
+            }
+            addLog('tampilan() → [' + vizStack.join(', ') + ']  (bottom → top)', 'log-info');
+        }
+
+        function vizClear() {
+            vizStack = [];
+            renderStack();
+            addLog('Stack dikosongkan.', 'log-info');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const inp = document.getElementById('vizInput');
+            if (inp) {
+                inp.addEventListener('keydown', e => { if (e.key === 'Enter') vizPush(); });
+            }
+            const qInp = document.getElementById('qVizInput');
+            if (qInp) {
+                qInp.addEventListener('keydown', e => { if (e.key === 'Enter') qVizEnqueue(); });
+            }
+            renderStack();
+            qRenderQueue();
+        });
+
+        /* ── QUEUE VISUALIZER ──────────────────────────────── */
+        const Q_MAX = 6;
+        let qArr = [];
+        let qFront = -1;
+        let qRear = -1;
+        let qCounter = 1;
+
+        function qRenderQueue() {
+            const track = document.getElementById('queueTrack');
+            if (!track) return;
+            const indexRow = document.getElementById('qIndexRow');
+            const topArrows = document.getElementById('qTopArrowRow');
+            const emptyMsg = document.getElementById('qEmptyMsg');
+
+            track.querySelectorAll('.q-cell').forEach(c => c.remove());
+            indexRow.innerHTML = '';
+            topArrows.innerHTML = '';
+
+            const isEmpty = qArr.length === 0;
+            emptyMsg.style.display = isEmpty ? 'flex' : 'none';
+
+            const CELL_W = 56; // px — must match min-width below
+
+            qArr.forEach((val, i) => {
+                const isFront = (i === 0);
+                const isRear = (i === qArr.length - 1);
+                const isBoth = isFront && isRear;
+
+                /* ── Cell ── */
+                const cell = document.createElement('div');
+                cell.className = 'q-cell';
+                cell.style.cssText = [
+                    'min-width:' + CELL_W + 'px',
+                    'height:48px',
+                    'display:flex', 'align-items:center', 'justify-content:center',
+                    'border:2px solid black',
+                    'font-weight:700', 'font-size:1em',
+                    "font-family:'Courier New',monospace",
+                    'position:relative', 'flex-shrink:0',
+                    /* FRONT = black fill, REAR = white with thick border, BOTH = black */
+                    'background:' + (isFront ? 'black' : 'white'),
+                    'color:' + (isFront ? 'white' : 'black'),
+                    isRear && !isFront ? 'border:3px solid black' : '',
+                ].filter(Boolean).join(';');
+                cell.textContent = val;
+                track.appendChild(cell);
+
+                /* ── Top-arrow spacer (same width as cell) ── */
+                const arrowSlot = document.createElement('div');
+                arrowSlot.style.cssText = 'min-width:' + CELL_W + 'px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:28px;';
+
+                if (isBoth) {
+                    // Single element: show both labels side-by-side in one slot
+                    arrowSlot.innerHTML =
+                        '<div style="display:flex;gap:4px;align-items:center;">' +
+                        '<span style="font-size:0.6em;font-weight:800;letter-spacing:0.06em;background:black;color:white;padding:1px 5px;">F</span>' +
+                        '<span style="font-size:0.6em;font-weight:800;letter-spacing:0.06em;border:1px solid black;padding:1px 5px;">R</span>' +
+                        '</div>' +
+                        '<div style="font-size:0.8em;line-height:1;">▼</div>';
+                } else if (isFront) {
+                    arrowSlot.innerHTML =
+                        '<span style="font-size:0.6em;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;background:black;color:white;padding:1px 6px;">FRONT</span>' +
+                        '<div style="font-size:0.8em;line-height:1;">▼</div>';
+                } else if (isRear) {
+                    arrowSlot.innerHTML =
+                        '<span style="font-size:0.6em;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;border:1px solid black;padding:1px 6px;">REAR</span>' +
+                        '<div style="font-size:0.8em;line-height:1;">▼</div>';
+                }
+                // middle cells get empty spacer (keeps alignment)
+                topArrows.appendChild(arrowSlot);
+
+                /* ── Index label ── */
+                const idx = document.createElement('div');
+                idx.style.cssText = 'min-width:' + CELL_W + 'px;text-align:center;font-size:0.62em;color:#999;font-family:\'Courier New\',monospace;font-weight:700;flex-shrink:0;';
+                idx.textContent = qFront + i;
+                indexRow.appendChild(idx);
+            });
+
+            document.getElementById('qFrontBadge').textContent = qFront === -1 ? '-1' : String(qFront);
+            document.getElementById('qRearBadge').textContent = qRear === -1 ? '-1' : String(qRear);
+            document.getElementById('qSizeBadge').textContent = qArr.length + ' / ' + Q_MAX;
+        }
+
+        function qAddLog(msg, type) {
+            const log = document.getElementById('qVizLog');
+            if (!log) return;
+            const entry = document.createElement('div');
+            entry.className = 'log-entry ' + (type || 'log-ok');
+            entry.textContent = '> ' + msg;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function qVizEnqueue() {
+            const input = document.getElementById('qVizInput');
+            let val = input.value.trim();
+            if (val === '') { val = qCounter++; }
+            else { val = parseInt(val); if (isNaN(val)) { qAddLog('Input tidak valid!', 'log-err'); return; } qCounter = val + 1; }
+
+            if (qArr.length >= Q_MAX) { qAddLog('Queue Overflow! Queue penuh (MAX=' + Q_MAX + ')', 'log-err'); return; }
+
+            if (qFront === -1) qFront = 0;
+            qRear++;
+            qArr.push(val);
+            qRenderQueue();
+
+            const cells = document.getElementById('queueTrack').querySelectorAll('.q-cell');
+            const last = cells[cells.length - 1];
+            if (last) {
+                last.style.animation = 'qEnterAnim 0.32s ease-out';
+                setTimeout(() => { if (last) last.style.animation = ''; }, 360);
+            }
+            qAddLog('enqueue(' + val + ') → front=' + qFront + ', rear=' + qRear, 'log-ok');
+            input.value = '';
+        }
+
+        function qVizDequeue() {
+            if (qArr.length === 0) { qAddLog('Queue Underflow! Queue kosong.', 'log-err'); return; }
+            const cells = document.getElementById('queueTrack').querySelectorAll('.q-cell');
+            const first = cells[0];
+            const dequeued = qArr[0];
+            const doDequeue = () => {
+                qArr.shift();
+                if (qArr.length === 0) { qFront = -1; qRear = -1; }
+                else qFront++;
+                qRenderQueue();
+                qAddLog('dequeue() → keluar: ' + dequeued + ' | front=' + qFront + ', rear=' + qRear, 'log-ok');
+            };
+            if (first) { first.style.animation = 'qExitAnim 0.28s ease-in forwards'; setTimeout(doDequeue, 280); }
+            else doDequeue();
+        }
+
+        function qVizFront() {
+            if (qArr.length === 0) { qAddLog('Queue kosong.', 'log-err'); return; }
+            const cells = document.getElementById('queueTrack').querySelectorAll('.q-cell');
+            if (cells[0]) {
+                cells[0].style.outline = '3px solid black';
+                cells[0].style.outlineOffset = '-3px';
+                setTimeout(() => { if (cells[0]) { cells[0].style.outline = ''; cells[0].style.outlineOffset = ''; } }, 700);
+            }
+            qAddLog('front() → queue[' + qFront + '] = ' + qArr[0], 'log-info');
+        }
+
+        function qVizDisplay() {
+            if (qArr.length === 0) { qAddLog('Queue kosong.', 'log-err'); return; }
+            qAddLog('display() → [' + qArr.join(', ') + ']  (front → rear)', 'log-info');
+        }
+
+        function qVizClear() {
+            qArr = []; qFront = -1; qRear = -1; qCounter = 1;
+            qRenderQueue();
+            qAddLog('Queue dikosongkan.', 'log-info');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const target = document.querySelector(hash);
+                if (target) {
+                    const body = target.closest('.accordion-body');
+                    if (body) {
+                        body.classList.add('open');
+                        body.previousElementSibling.classList.add('open');
+                        setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
