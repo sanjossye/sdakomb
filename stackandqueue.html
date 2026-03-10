@@ -283,6 +283,18 @@
             margin: 20px 0;
         }
 
+        /* STL highlight box */
+        .stl-box {
+            background: #f5f5f5;
+            border: 2px solid black;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .stl-box strong {
+            color: black;
+        }
+
         ul {
             margin: 15px 0 15px 30px;
         }
@@ -903,6 +915,19 @@
             background: #333 !important;
             color: white !important;
         }
+
+        /* STL badge label */
+        .stl-label {
+            display: inline-block;
+            background: black;
+            color: white;
+            font-size: 0.72em;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -940,6 +965,7 @@
                     <a href="#stack-peek">Peek / Top</a>
                     <a href="#stack-display">Display / Tampilan</a>
                     <a href="#stack-full">Kode Lengkap</a>
+                    <a href="#stack-stl">STL &lt;stack&gt;</a>
                 </div>
             </div>
 
@@ -948,12 +974,14 @@
                 <div class="dropdown-content">
                     <a href="#queue">Buka Queue</a>
                     <a href="#queue-intro">Apa itu Queue?</a>
+                    <a href="#queue-video">Video</a>
                     <a href="#queue-viz">Visualisasi</a>
                     <a href="#queue-struct">Deklarasi &amp; Global</a>
                     <a href="#queue-enqueue">Enqueue</a>
                     <a href="#queue-dequeue">Dequeue</a>
                     <a href="#queue-display">Display</a>
                     <a href="#queue-full">Kode Lengkap</a>
+                    <a href="#queue-stl">STL &lt;queue&gt;</a>
                 </div>
             </div>
         </nav>
@@ -1030,7 +1058,6 @@ Dequeue → keluar 1 (yang pertama masuk)</pre>
                         <div class="video-section">
                             <div class="video-section-header">Tutorial Visual — Stack LIFO</div>
                             <div class="video-layout">
-                                <!-- Video side -->
                                 <div class="video-wrap" id="videoWrap">
                                     <div class="video-thumbnail-wrap" id="videoThumb" onclick="playStackVideo()">
                                         <img src="image/stack.jpg" alt="Stack thumbnail"
@@ -1051,20 +1078,10 @@ Dequeue → keluar 1 (yang pertama masuk)</pre>
                                         Browser tidak mendukung video.
                                     </video>
                                 </div>
-
-                                <!-- Meta side -->
                                 <div class="video-meta">
                                     <h4>Tutorial Visual Stack</h4>
                                     <p>Video ini menjelaskan konsep dasar Stack secara visual, mulai dari prinsip LIFO
                                         hingga implementasi operasi Push, Pop, dan Peek dalam C++.</p>
-                                    <div class="video-keypoints">
-                                        <h5>Yang dipelajari:</h5>
-                                        <div class="keypoint-item">Prinsip LIFO — Last In First Out</div>
-                                        <div class="keypoint-item">Demonstrasi operasi Push dan Pop</div>
-                                        <div class="keypoint-item">Peek / melihat elemen puncak</div>
-                                        <div class="keypoint-item">Implementasi dengan array C++</div>
-                                        <div class="keypoint-item">Aplikasi Stack di dunia nyata</div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1075,19 +1092,18 @@ Dequeue → keluar 1 (yang pertama masuk)</pre>
                         <h3>Visualisasi Interaktif</h3>
                         <p>Gunakan tombol di bawah untuk mencoba operasi Stack secara langsung. Masukkan nilai lalu klik
                             <strong>PUSH</strong>, atau coba <strong>POP</strong>, <strong>PEEK</strong>, dan
-                            <strong>DISPLAY</strong>.</p>
+                            <strong>DISPLAY</strong>.
+                        </p>
 
                         <div class="viz-section">
                             <div class="viz-header">Stack Simulator — MAX = 6</div>
                             <div class="viz-body">
                                 <div class="stack-arena">
-                                    <!-- Index column -->
                                     <div
                                         style="display:flex; flex-direction:column; align-items:center; gap:0; padding-top:28px;">
                                         <div class="stack-index-col" id="indexCol"></div>
                                     </div>
 
-                                    <!-- The tower -->
                                     <div>
                                         <div class="stack-visual-label">STACK</div>
                                         <div class="stack-tower" id="stackTower">
@@ -1095,7 +1111,6 @@ Dequeue → keluar 1 (yang pertama masuk)</pre>
                                         </div>
                                     </div>
 
-                                    <!-- Controls -->
                                     <div class="viz-controls">
                                         <div class="viz-input-row">
                                             <input class="viz-input" id="vizInput" type="number"
@@ -1111,7 +1126,6 @@ Dequeue → keluar 1 (yang pertama masuk)</pre>
                                             <button class="viz-btn danger" onclick="vizClear()">✕ CLEAR</button>
                                         </div>
 
-                                        <!-- Pointer badges -->
                                         <div class="ptr-display">
                                             <div class="ptr-badge">
                                                 <span class="ptr-name">top</span>
@@ -1125,7 +1139,6 @@ Dequeue → keluar 1 (yang pertama masuk)</pre>
                                     </div>
                                 </div>
 
-                                <!-- Log -->
                                 <div class="viz-log">
                                     <div class="viz-log-header">Log Output</div>
                                     <div class="viz-log-body" id="vizLog">
@@ -1418,6 +1431,105 @@ keluar: 30
                         </div>
                     </div>
 
+                    <!-- ══════════════════════════════════════════ -->
+                    <!--  STL <stack> — TAMBAHAN BARU              -->
+                    <!-- ══════════════════════════════════════════ -->
+                    <div class="sub-section" id="stack-stl">
+                        <h3>Stack Menggunakan STL &lt;stack&gt;</h3>
+                        <span class="stl-label">STL — Standard Template Library</span>
+                        <p>
+                            Selain implementasi manual dengan array, C++ menyediakan <strong>Standard Template Library
+                                (STL)</strong> yang sudah memiliki struktur data <code>stack</code> siap pakai.
+                            Cukup tambahkan header <code>#include &lt;stack&gt;</code> — tidak perlu mengelola pointer
+                            <code>top</code> atau ukuran array secara manual.
+                        </p>
+
+                        <div class="stl-box">
+                            <strong>Metode Utama <code>std::stack</code>:</strong>
+                            <ul>
+                                <li><code>st.push(val)</code> → menambahkan elemen ke puncak stack</li>
+                                <li><code>st.pop()</code> → menghapus elemen puncak (<em>tidak mengembalikan nilai</em>)
+                                </li>
+                                <li><code>st.top()</code> → mengakses elemen puncak tanpa menghapus</li>
+                                <li><code>st.empty()</code> → mengembalikan <code>true</code> jika stack kosong</li>
+                                <li><code>st.size()</code> → mengembalikan jumlah elemen saat ini</li>
+                            </ul>
+                        </div>
+
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+using namespace std;
+
+int main() {
+    stack&lt;int&gt; st;
+
+    st.push(10);
+    st.push(5);
+
+    // Accessing top element
+    cout &lt;&lt; "Top element: " &lt;&lt; st.top() &lt;&lt; endl;
+
+    // Popping an element
+    st.pop();
+    cout &lt;&lt; "Top element after pop: " &lt;&lt; st.top() &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+                        </div>
+
+                        <div class="output-block">
+                            <pre>Output:
+Top element: 5
+Top element after pop: 10</pre>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>Perbandingan: Manual Array vs STL &lt;stack&gt;</strong>
+                            <ul>
+                                <li><strong>Ukuran</strong> → Array manual: tetap (<code>MAX</code>). STL: dinamis,
+                                    tumbuh otomatis</li>
+                                <li><strong>Overflow</strong> → Array manual: perlu cek sendiri. STL: tidak pernah
+                                    overflow (selama memori tersedia)</li>
+                                <li><strong>Kode</strong> → Array manual: lebih panjang, harus kelola pointer
+                                    <code>top</code>. STL: lebih singkat dan aman</li>
+                                <li><strong>pop()</strong> → Array manual: bisa menampilkan nilai yang dihapus. STL
+                                    <code>pop()</code>: <em>tidak mengembalikan nilai</em> — gunakan <code>top()</code>
+                                    sebelum <code>pop()</code></li>
+                                <li><strong>Kapan pakai STL?</strong> → Saat tidak ada batasan memori khusus dan ingin
+                                    kode lebih bersih &amp; cepat ditulis</li>
+                            </ul>
+                        </div>
+
+                        <div class="note">
+                            <strong>⚠ Catatan Penting STL pop():</strong>
+                            <ul>
+                                <li><code>st.pop()</code> pada STL <strong>tidak mengembalikan nilai</strong> — berbeda
+                                    dengan pop manual yang mencetak elemen keluar</li>
+                                <li>Pola yang benar: simpan dulu dengan <code>st.top()</code>, baru panggil
+                                    <code>st.pop()</code></li>
+                            </ul>
+                            <div style="margin-top:10px;">
+                                <pre
+                                    style="background:#f5f5f5; padding:10px; font-family:'Courier New',monospace; font-size:0.88em; border:1px solid #ccc;">int val = st.top(); // simpan dulu
+st.pop();           // baru hapus
+cout &lt;&lt; val;        // lalu tampilkan</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ══ END STL STACK ══ -->
+
                 </div><!-- end accordion-body Stack -->
             </div><!-- end accordion-group Stack -->
 
@@ -1464,17 +1576,52 @@ FRONT ──► [ 2 ] [ 3 ] [ 4 ] [ 5 ] ◄── REAR
                         </div>
                     </div>
 
+                    <!-- VIDEO SECTION -->
+                    <div class="sub-section" id="queue-video">
+                        <h3>Video Penjelasan Queue</h3>
+                        <div class="video-section">
+                            <div class="video-section-header">Tutorial Visual — Queue FIFO</div>
+                            <div class="video-layout">
+                                <div class="video-wrap" id="queueVideoWrap">
+                                    <div class="video-thumbnail-wrap" id="queueVideoThumb" onclick="playQueueVideo()">
+                                        <img src="image/queue.jpg" alt="Queue thumbnail"
+                                            onerror="this.parentElement.style.display='none'; document.getElementById('queueVideoFallback').style.display='flex'">
+                                        <div class="video-play-overlay">
+                                            <div class="play-btn-circle"></div>
+                                            <span class="play-label">Klik untuk memutar</span>
+                                        </div>
+                                    </div>
+                                    <div class="video-placeholder" id="queueVideoFallback" style="display:none;"
+                                        onclick="playQueueVideo()">
+                                        <div class="video-placeholder-icon"></div>
+                                        <span>Klik untuk memutar<br>video/queue.mp4</span>
+                                    </div>
+                                    <video id="queueVideoEl"
+                                        style="display:none; width:100%; height:100%; object-fit:cover;" controls>
+                                        <source src="video/queue.mp4" type="video/mp4">
+                                        Browser tidak mendukung video.
+                                    </video>
+                                </div>
+                                <div class="video-meta">
+                                    <h4>Tutorial Visual Queue</h4>
+                                    <p>Video ini menjelaskan konsep dasar Queue secara visual, mulai dari prinsip FIFO
+                                        hingga implementasi operasi Enqueue dan Dequeue dalam C++.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- QUEUE INTERACTIVE VISUALIZATION -->
                     <div class="sub-section" id="queue-viz">
                         <h3>Visualisasi Interaktif</h3>
                         <p>Gunakan tombol di bawah untuk mencoba operasi Queue secara langsung. Elemen masuk dari
-                            <strong>REAR</strong> dan keluar dari <strong>FRONT</strong>.</p>
+                            <strong>REAR</strong> dan keluar dari <strong>FRONT</strong>.
+                        </p>
 
                         <div class="viz-section">
                             <div class="viz-header">Queue Simulator — MAX = 6</div>
                             <div class="viz-body" style="background:white; padding:28px 24px;">
 
-                                <!-- Queue lane -->
                                 <div style="margin-bottom:18px;">
                                     <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
                                         <span
@@ -1485,11 +1632,9 @@ FRONT ──► [ 2 ] [ 3 ] [ 4 ] [ 5 ] ◄── REAR
                                             REAR ►</span>
                                     </div>
 
-                                    <!-- Arrow row ATAS (pointer label) -->
                                     <div style="display:flex; gap:4px; margin-bottom:2px; min-height:28px;"
                                         id="qTopArrowRow"></div>
 
-                                    <!-- Queue track -->
                                     <div style="position:relative; border-top:2px solid black; border-bottom:2px solid black; min-height:56px; display:flex; align-items:center; padding:6px 4px; gap:4px;"
                                         id="queueTrack">
                                         <div id="qEmptyMsg"
@@ -1497,14 +1642,10 @@ FRONT ──► [ 2 ] [ 3 ] [ 4 ] [ 5 ] ◄── REAR
                                             — kosong —</div>
                                     </div>
 
-                                    <!-- Index row -->
                                     <div style="display:flex; gap:4px; margin-top:3px;" id="qIndexRow"></div>
                                 </div>
 
-                                <!-- Controls + pointers row -->
                                 <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start;">
-
-                                    <!-- Buttons -->
                                     <div style="display:flex; flex-direction:column; gap:8px;">
                                         <div style="display:flex; gap:6px; flex-wrap:wrap;">
                                             <button class="viz-btn primary" onclick="qVizEnqueue()">► ENQUEUE</button>
@@ -1515,12 +1656,10 @@ FRONT ──► [ 2 ] [ 3 ] [ 4 ] [ 5 ] ◄── REAR
                                             <button class="viz-btn" onclick="qVizDisplay()">☰ DISPLAY</button>
                                             <button class="viz-btn danger" onclick="qVizClear()">✕ CLEAR</button>
                                         </div>
-                                        <!-- Input -->
                                         <input class="viz-input" id="qVizInput" type="number"
                                             placeholder="Nilai (kosongkan = auto)">
                                     </div>
 
-                                    <!-- Pointer badges -->
                                     <div style="display:flex; flex-direction:column; gap:8px; justify-content:center;">
                                         <div class="ptr-badge">
                                             <span class="ptr-name">front</span>
@@ -1537,7 +1676,6 @@ FRONT ──► [ 2 ] [ 3 ] [ 4 ] [ 5 ] ◄── REAR
                                     </div>
                                 </div>
 
-                                <!-- Log -->
                                 <div class="viz-log" style="margin-top:16px;">
                                     <div class="viz-log-header">Log Output</div>
                                     <div class="viz-log-body" id="qVizLog">
@@ -1794,6 +1932,105 @@ keluar: 1
                         </div>
                     </div>
 
+                    <!-- ══════════════════════════════════════════ -->
+                    <!--  STL <queue> — TAMBAHAN BARU              -->
+                    <!-- ══════════════════════════════════════════ -->
+                    <div class="sub-section" id="queue-stl">
+                        <h3>Queue Menggunakan STL &lt;queue&gt;</h3>
+                        <span class="stl-label">STL — Standard Template Library</span>
+                        <p>
+                            C++ STL juga menyediakan <code>queue</code> siap pakai melalui header
+                            <code>#include &lt;queue&gt;</code>. Tidak perlu mengelola pointer <code>front</code> dan
+                            <code>rear</code> secara manual — semua sudah ditangani oleh library.
+                        </p>
+
+                        <div class="stl-box">
+                            <strong>Metode Utama <code>std::queue</code>:</strong>
+                            <ul>
+                                <li><code>q.push(val)</code> → menambahkan elemen ke REAR queue</li>
+                                <li><code>q.pop()</code> → menghapus elemen dari FRONT (<em>tidak mengembalikan
+                                        nilai</em>)</li>
+                                <li><code>q.front()</code> → mengakses elemen paling depan (FRONT) tanpa menghapus</li>
+                                <li><code>q.back()</code> → mengakses elemen paling belakang (REAR) tanpa menghapus</li>
+                                <li><code>q.empty()</code> → mengembalikan <code>true</code> jika queue kosong</li>
+                                <li><code>q.size()</code> → mengembalikan jumlah elemen saat ini</li>
+                            </ul>
+                        </div>
+
+                        <h4>Kode Program</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">C++</span>
+                                <button class="copy-button" onclick="copyCode(this)">
+                                    <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                                        </path>
+                                    </svg> Salin Kode
+                                </button>
+                            </div>
+                            <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+int main() {
+    queue&lt;int&gt; q;
+
+    q.push(3);
+    q.push(4);
+    q.push(5);
+
+    // Accessing the front and back elements
+    cout &lt;&lt; q.front() &lt;&lt; endl;
+    cout &lt;&lt; q.back();
+
+    return 0;
+}</code></pre>
+                        </div>
+
+                        <div class="output-block">
+                            <pre>Output:
+3
+5</pre>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>Perbandingan: Manual Array vs STL &lt;queue&gt;</strong>
+                            <ul>
+                                <li><strong>Ukuran</strong> → Array manual: tetap (<code>MAX</code>). STL: dinamis,
+                                    tumbuh otomatis</li>
+                                <li><strong>Pointer</strong> → Array manual: kelola <code>front</code> &amp;
+                                    <code>rear</code> sendiri. STL: otomatis</li>
+                                <li><strong>front()</strong> → Array manual: <code>queue[front]</code>. STL:
+                                    <code>q.front()</code></li>
+                                <li><strong>back()</strong> → Array manual: <code>queue[rear]</code>. STL:
+                                    <code>q.back()</code> — fitur tambahan yang tidak ada di implementasi manual
+                                    sederhana</li>
+                                <li><strong>Overflow</strong> → Array manual: perlu cek <code>rear == MAX-1</code>. STL:
+                                    tidak pernah overflow</li>
+                                <li><strong>Kapan pakai STL?</strong> → Saat tidak ada kebutuhan implementasi manual
+                                    (tugas/ujian) dan ingin kode lebih ringkas</li>
+                            </ul>
+                        </div>
+
+                        <div class="note">
+                            <strong>⚠ Catatan Penting STL pop():</strong>
+                            <ul>
+                                <li><code>q.pop()</code> pada STL queue <strong>tidak mengembalikan nilai</strong> —
+                                    hanya menghapus elemen FRONT</li>
+                                <li>Gunakan <code>q.front()</code> terlebih dahulu untuk membaca nilai sebelum menghapus
+                                </li>
+                            </ul>
+                            <div style="margin-top:10px;">
+                                <pre
+                                    style="background:#f5f5f5; padding:10px; font-family:'Courier New',monospace; font-size:0.88em; border:1px solid #ccc;">int val = q.front(); // baca dulu
+q.pop();             // baru hapus
+cout &lt;&lt; val;         // lalu tampilkan</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ══ END STL QUEUE ══ -->
+
                 </div><!-- end accordion-body Queue -->
             </div><!-- end accordion-group Queue -->
 
@@ -1821,6 +2058,9 @@ keluar: 1
                             <code>rear == MAX - 1</code>
                         </li>
                         <li><strong>Time complexity</strong> → Semua operasi utama O(1); display O(n)</li>
+                        <li><strong>Versi STL</strong> → Stack: <code>#include &lt;stack&gt;</code> dengan
+                            <code>st.top()</code>. Queue: <code>#include &lt;queue&gt;</code> dengan
+                            <code>q.front()</code> &amp; <code>q.back()</code></li>
                     </ul>
                 </div>
             </div>
@@ -1863,6 +2103,16 @@ keluar: 1
             const thumb = document.getElementById('videoThumb');
             const fallback = document.getElementById('videoFallback');
             const video = document.getElementById('stackVideoEl');
+            thumb.style.display = 'none';
+            fallback.style.display = 'none';
+            video.style.display = 'block';
+            video.play().catch(() => { });
+        }
+
+        function playQueueVideo() {
+            const thumb = document.getElementById('queueVideoThumb');
+            const fallback = document.getElementById('queueVideoFallback');
+            const video = document.getElementById('queueVideoEl');
             thumb.style.display = 'none';
             fallback.style.display = 'none';
             video.style.display = 'block';
@@ -2036,14 +2286,13 @@ keluar: 1
             const isEmpty = qArr.length === 0;
             emptyMsg.style.display = isEmpty ? 'flex' : 'none';
 
-            const CELL_W = 56; // px — must match min-width below
+            const CELL_W = 56;
 
             qArr.forEach((val, i) => {
                 const isFront = (i === 0);
                 const isRear = (i === qArr.length - 1);
                 const isBoth = isFront && isRear;
 
-                /* ── Cell ── */
                 const cell = document.createElement('div');
                 cell.className = 'q-cell';
                 cell.style.cssText = [
@@ -2054,7 +2303,6 @@ keluar: 1
                     'font-weight:700', 'font-size:1em',
                     "font-family:'Courier New',monospace",
                     'position:relative', 'flex-shrink:0',
-                    /* FRONT = black fill, REAR = white with thick border, BOTH = black */
                     'background:' + (isFront ? 'black' : 'white'),
                     'color:' + (isFront ? 'white' : 'black'),
                     isRear && !isFront ? 'border:3px solid black' : '',
@@ -2062,12 +2310,10 @@ keluar: 1
                 cell.textContent = val;
                 track.appendChild(cell);
 
-                /* ── Top-arrow spacer (same width as cell) ── */
                 const arrowSlot = document.createElement('div');
                 arrowSlot.style.cssText = 'min-width:' + CELL_W + 'px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:28px;';
 
                 if (isBoth) {
-                    // Single element: show both labels side-by-side in one slot
                     arrowSlot.innerHTML =
                         '<div style="display:flex;gap:4px;align-items:center;">' +
                         '<span style="font-size:0.6em;font-weight:800;letter-spacing:0.06em;background:black;color:white;padding:1px 5px;">F</span>' +
@@ -2083,10 +2329,8 @@ keluar: 1
                         '<span style="font-size:0.6em;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;border:1px solid black;padding:1px 6px;">REAR</span>' +
                         '<div style="font-size:0.8em;line-height:1;">▼</div>';
                 }
-                // middle cells get empty spacer (keeps alignment)
                 topArrows.appendChild(arrowSlot);
 
-                /* ── Index label ── */
                 const idx = document.createElement('div');
                 idx.style.cssText = 'min-width:' + CELL_W + 'px;text-align:center;font-size:0.62em;color:#999;font-family:\'Courier New\',monospace;font-weight:700;flex-shrink:0;';
                 idx.textContent = qFront + i;
