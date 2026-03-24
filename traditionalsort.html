@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Traditional Sort C++</title>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: white;
+            color: black;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: black;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid black;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        header p  { font-size: 1.1em; opacity: 0.85; }
+
+        /* ── NAV ── */
+        nav {
+            background: black;
+            padding: 0 30px;
+            border-bottom: 2px solid black;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        nav a, .dropbtn {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            font-family: inherit;
+            padding: 14px 12px;
+            display: inline-block;
+            border-bottom: 3px solid transparent;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        nav a:hover, .dropbtn:hover {
+            border-bottom: 3px solid white;
+        }
+
+        /* ── DROPDOWN ── */
+        .dropdown { position: relative; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1a1a1a;
+            min-width: 180px;
+            border: 1px solid #444;
+            z-index: 99;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 10px 16px;
+            font-size: 0.88em;
+            color: #ccc;
+            border-bottom: none;
+        }
+        .dropdown-content a:hover {
+            background: #2a2a2a;
+            color: white;
+            border-bottom: none;
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* ── CONTENT ── */
+        .content { padding: 40px; background: white; }
+
+        .section { margin-bottom: 50px; }
+
+        .section h2 {
+            color: black;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid black;
+        }
+        .section h3 {
+            color: black;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+        }
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* ── CODE BLOCK ── */
+        .code-block {
+            border: 1px solid black;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .code-header {
+            background: #21252b;
+            padding: 10px 15px;
+            border-bottom: 1px solid #181a1f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .code-language { color: #abb2bf; font-size: 0.85em; font-weight: 600; }
+
+        .copy-button {
+            background: #3e4451;
+            color: #abb2bf;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+        .copy-button:hover { background: #4e5461; }
+        .copy-button.copied { background: #2ea043; color: white; }
+        .copy-icon { width: 14px; height: 14px; }
+
+        .code-block .hljs {
+            padding: 20px !important;
+            font-size: 0.95em !important;
+            line-height: 1.6 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+        }
+
+        /* ── OUTPUT BLOCK ── */
+        .output-block {
+            background: black;
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid black;
+            overflow-x: auto;
+        }
+        .output-block pre { margin: 0; }
+
+        /* ── INFO / NOTE BOX ── */
+        .info-box {
+            background: white;
+            border: 1px solid black;
+            border-left: 4px solid black;
+            padding: 15px 18px;
+            margin: 20px 0;
+        }
+        .info-box strong { color: black; }
+
+        .note {
+            background: #f9f9f9;
+            border: 1px solid black;
+            border-left: 4px solid #555;
+            padding: 15px 18px;
+            margin: 20px 0;
+        }
+        .note strong { color: black; }
+
+        .info-box ul, .note ul {
+            margin: 8px 0 0 20px;
+        }
+        .info-box ul li, .note ul li {
+            margin-bottom: 6px;
+        }
+
+        /* inline code */
+        code {
+            background: #f0f0f0;
+            padding: 0.1em 0.35em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.88em;
+            color: black;
+            border: 1px solid #ddd;
+        }
+
+        ul { padding-left: 1.25rem; }
+        ul li { margin-bottom: 0.25rem; }
+
+        /* ── SIMULASI STYLES ── */
+        .sim-box {
+            background: #f5f5f5;
+            border: 2px solid black;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .sim-title {
+            font-size: 0.85rem;
+            color: black;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 0.5rem;
+        }
+
+        .sim-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .sim-input {
+            background: white;
+            border: 1px solid black;
+            color: black;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.88rem;
+            font-family: 'Courier New', monospace;
+            outline: none;
+            flex: 1;
+            min-width: 180px;
+        }
+        .sim-input:focus { outline: 2px solid black; }
+
+        .sim-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 600;
+            font-family: inherit;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+        .sim-btn:hover { opacity: 0.75; }
+        .sim-btn:disabled { background: #888; cursor: not-allowed; }
+
+        .sim-btn.secondary {
+            background: white;
+            color: black;
+            border: 1px solid black;
+        }
+        .sim-btn.secondary:hover { background: #f0f0f0; }
+
+        .sim-speed {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: #555;
+        }
+        .sim-speed input[type=range] { width: 80px; accent-color: black; }
+
+        .sim-array-area {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 6px;
+            height: 130px;
+            margin: 1rem 0;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .sim-bar-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sim-bar {
+            width: 36px;
+            border-radius: 0;
+            transition: height 0.25s ease, background 0.2s;
+            background: black;
+        }
+        .sim-bar.comparing { background: #666; }
+        .sim-bar.swapping  { background: #222; outline: 2px solid black; }
+        .sim-bar.sorted    { background: #999; }
+        .sim-bar.key       { background: #333; outline: 2px dashed black; }
+        .sim-bar.min       { background: #444; outline: 2px solid #888; }
+
+        .sim-bar-label {
+            font-size: 0.78rem;
+            color: #444;
+            font-family: monospace;
+        }
+
+        .sim-log {
+            background: white;
+            border: 1px solid black;
+            padding: 0.75rem 1rem;
+            font-size: 0.82rem;
+            color: #333;
+            min-height: 2.5rem;
+            font-family: 'Courier New', monospace;
+        }
+        .sim-log span.hl   { color: black; font-weight: bold; text-decoration: underline; }
+        .sim-log span.ok   { color: black; font-weight: bold; }
+        .sim-log span.info { color: #555; }
+
+        .sim-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.75rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .sim-step-item {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.78rem;
+            font-family: monospace;
+            color: #555;
+        }
+        .sim-step-item.active {
+            border-color: black;
+            color: black;
+        }
+        .sim-step-item.done {
+            border-color: black;
+            color: black;
+            background: #f0f0f0;
+        }
+
+        .legend {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.78rem;
+            color: #555;
+        }
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .content { padding: 20px; }
+            header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <header>
+        <h1>Dokumentasi Traditional Sort C++</h1>
+        <p>Selection Sort, Bubble Sort, dan Insertion Sort — dari konsep hingga simulasi</p>
+    </header>
+
+    <nav>
+        <a href="index.html">&larr; </a>
+
+        <div class="dropdown">
+            <button class="dropbtn">Materi ▼</button>
+            <div class="dropdown-content">
+                <a href="array-documentation.html">Array</a>
+                <a href="ps-documentation.html">Pointer &amp; Struct</a>
+                <a href="linkedlist.html">Linked List</a>
+                <a href="stackandqueue.html">Stack &amp; Queue</a>
+                <a href="sort-documentation.html">Traditional Sort</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Sort ▼</button>
+            <div class="dropdown-content">
+                <a href="#s1">Selection Sort</a>
+                <a href="#s2">Bubble Sort</a>
+                <a href="#s3">Insertion Sort</a>
+                <a href="#s4">Kode Lengkap</a>
+                <a href="#s5">Perbandingan</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+
+        <!-- ===================== SELECTION SORT ===================== -->
+        <div class="section" id="s1">
+            <h2>1. Selection Sort</h2>
+            <p>
+                <strong>Selection Sort</strong> bekerja dengan cara mencari elemen <strong>terkecil</strong> dari
+                bagian array yang belum tersortir, lalu menukarnya ke posisi paling depan. Prosesnya berulang
+                hingga seluruh array tersusun secara <em>ascending</em>.
+            </p>
+
+            <h3>Kode Program</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code class="language-cpp">void selectionSort(int arr[], int length)
+{
+    int minIndex;
+    for (int i = 0; i < length - 1; i++)
+    {
+        minIndex = i;
+
+        // Cari index elemen terkecil di sisa array
+        for (int j = i + 1; j < length; j++)
+        {
+            if (arr[minIndex] > arr[j])
+            {
+                minIndex = j;
+            }
+        }
+
+        // Tukar elemen terkecil ke posisi i
+        swap(arr[i], arr[minIndex]);
+    }
+}</code></pre>
+            </div>
+
+            <h3>Penjelasan Program</h3>
+            <div class="info-box">
+                <strong>Cara Kerja Selection Sort:</strong>
+                <ul>
+                    <li>Loop luar (<code>i</code>) menentukan posisi yang akan diisi — mulai dari indeks 0</li>
+                    <li><code>minIndex = i</code> → anggap elemen posisi <code>i</code> adalah yang terkecil dulu</li>
+                    <li>Loop dalam (<code>j</code>) mencari elemen yang lebih kecil dari <code>arr[minIndex]</code></li>
+                    <li>Jika ditemukan yang lebih kecil, perbarui <code>minIndex</code></li>
+                    <li>Setelah loop dalam selesai, tukar <code>arr[i]</code> dengan <code>arr[minIndex]</code></li>
+                    <li>Posisi ke-<code>i</code> kini sudah berisi elemen yang benar dan tidak akan digeser lagi</li>
+                </ul>
+            </div>
+
+            <div class="note">
+                <strong>⏱ Kompleksitas:</strong>
+                <ul>
+                    <li>Best, Average, Worst Case: <code>O(n²)</code> — selalu dua loop bersarang</li>
+                    <li>Jumlah perbandingan selalu sama terlepas dari kondisi awal array</li>
+                    <li>Jumlah swap maksimal hanya <code>n-1</code> kali — lebih sedikit dari Bubble Sort</li>
+                </ul>
+            </div>
+
+            <h3>Contoh Output</h3>
+            <div class="output-block">
+                <pre>Array awal: [ 7, 3, 5, 9, 2, 1, 8 ]
+Langkah ke-1: [ 1, 3, 5, 9, 2, 7, 8 ]   ← 1 (min) tukar ke posisi 0
+Langkah ke-2: [ 1, 2, 5, 9, 3, 7, 8 ]   ← 2 (min) tukar ke posisi 1
+Langkah ke-3: [ 1, 2, 3, 9, 5, 7, 8 ]   ← 3 (min) tukar ke posisi 2
+Langkah ke-4: [ 1, 2, 3, 5, 9, 7, 8 ]   ← 5 (min) tukar ke posisi 3
+Langkah ke-5: [ 1, 2, 3, 5, 7, 9, 8 ]   ← 7 (min) tukar ke posisi 4
+Langkah ke-6: [ 1, 2, 3, 5, 7, 8, 9 ]   ← 8 (min) tukar ke posisi 5
+Hasil akhir:  [ 1, 2, 3, 5, 7, 8, 9 ]</pre>
+            </div>
+
+            <h3>Simulasi Interaktif</h3>
+            <div class="sim-box">
+                <div class="sim-title">▶ Simulasi Selection Sort</div>
+                <div class="sim-controls">
+                    <input class="sim-input" id="sel-input" type="text" value="7, 3, 5, 9, 2, 1, 8" placeholder="Masukkan angka, pisahkan koma">
+                    <button class="sim-btn" id="sel-start" onclick="simStart('sel')">Mulai</button>
+                    <button class="sim-btn secondary" id="sel-reset" onclick="simReset('sel')">Reset</button>
+                    <div class="sim-speed">
+                        <span>Kecepatan:</span>
+                        <input type="range" id="sel-speed" min="100" max="1200" value="700" step="100">
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot" style="background:black"></div> Normal</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#444;outline:2px solid #888"></div> Min saat ini</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#666"></div> Sedang dibandingkan</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#222;outline:2px solid black"></div> Sedang ditukar</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#999"></div> Sudah tersortir</div>
+                </div>
+                <div class="sim-array-area" id="sel-bars"></div>
+                <div class="sim-log" id="sel-log">Masukkan angka dan tekan Mulai.</div>
+                <div class="sim-steps" id="sel-steps"></div>
+            </div>
+        </div>
+
+        <!-- ===================== BUBBLE SORT ===================== -->
+        <div class="section" id="s2">
+            <h2>2. Bubble Sort</h2>
+            <p>
+                <strong>Bubble Sort</strong> bekerja dengan membandingkan dua elemen yang berdekatan dan menukarnya
+                jika urutannya salah. Elemen terbesar akan "mengapung" ke posisi akhir seperti gelembung.
+                Terdapat optimasi dengan flag <code>swapped</code> agar berhenti lebih awal jika array sudah tersortir.
+            </p>
+
+            <h3>Kode Program</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code class="language-cpp">void bubbleSort(int arr[], int length)
+{
+    for (int i = 0; i < length - 1; i++)
+    {
+        bool swapped = false;
+
+        // Bandingkan pasangan elemen berdekatan
+        for (int j = 0; j < length - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                swap(arr[j], arr[j + 1]);
+                swapped = true;
+            }
+        }
+
+        // Jika tidak ada pertukaran, array sudah tersortir
+        if (!swapped)
+            break;
+    }
+}</code></pre>
+            </div>
+
+            <h3>Penjelasan Program</h3>
+            <div class="info-box">
+                <strong>Cara Kerja Bubble Sort:</strong>
+                <ul>
+                    <li>Loop luar (<code>i</code>) menentukan berapa elemen di akhir yang sudah tersortir</li>
+                    <li>Loop dalam (<code>j</code>) membandingkan <code>arr[j]</code> dengan <code>arr[j+1]</code></li>
+                    <li>Jika <code>arr[j] > arr[j+1]</code>, lakukan swap → elemen besar "gelembung" ke kanan</li>
+                    <li>Setiap iterasi loop luar, elemen terbesar sudah berada di posisi akhir yang benar</li>
+                    <li>Flag <code>swapped</code>: jika satu putaran penuh tidak ada swap, array sudah terurut → berhenti</li>
+                </ul>
+            </div>
+
+            <div class="note">
+                <strong>⏱ Kompleksitas:</strong>
+                <ul>
+                    <li>Best Case: <code>O(n)</code> — jika array sudah terurut (berkat flag <code>swapped</code>)</li>
+                    <li>Average &amp; Worst Case: <code>O(n²)</code></li>
+                    <li>Jumlah swap bisa sangat banyak dibanding Selection Sort</li>
+                </ul>
+            </div>
+
+            <h3>Contoh Output</h3>
+            <div class="output-block">
+                <pre>Array awal: [ 7, 3, 5, 9, 2, 1, 8 ]
+Langkah ke-1: [ 3, 5, 7, 2, 1, 8, 9 ]   ← 9 mengapung ke ujung
+Langkah ke-2: [ 3, 5, 2, 1, 7, 8, 9 ]   ← 8 mengapung ke posisinya
+Langkah ke-3: [ 3, 2, 1, 5, 7, 8, 9 ]
+Langkah ke-4: [ 2, 1, 3, 5, 7, 8, 9 ]
+Langkah ke-5: [ 1, 2, 3, 5, 7, 8, 9 ]
+Hasil akhir:  [ 1, 2, 3, 5, 7, 8, 9 ]</pre>
+            </div>
+
+            <h3>Simulasi Interaktif</h3>
+            <div class="sim-box">
+                <div class="sim-title">▶ Simulasi Bubble Sort</div>
+                <div class="sim-controls">
+                    <input class="sim-input" id="bub-input" type="text" value="7, 3, 5, 9, 2, 1, 8" placeholder="Masukkan angka, pisahkan koma">
+                    <button class="sim-btn" id="bub-start" onclick="simStart('bub')">Mulai</button>
+                    <button class="sim-btn secondary" id="bub-reset" onclick="simReset('bub')">Reset</button>
+                    <div class="sim-speed">
+                        <span>Kecepatan:</span>
+                        <input type="range" id="bub-speed" min="100" max="1200" value="700" step="100">
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot" style="background:black"></div> Normal</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#666"></div> Sedang dibandingkan</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#222;outline:2px solid black"></div> Sedang ditukar</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#999"></div> Sudah tersortir</div>
+                </div>
+                <div class="sim-array-area" id="bub-bars"></div>
+                <div class="sim-log" id="bub-log">Masukkan angka dan tekan Mulai.</div>
+                <div class="sim-steps" id="bub-steps"></div>
+            </div>
+        </div>
+
+        <!-- ===================== INSERTION SORT ===================== -->
+        <div class="section" id="s3">
+            <h2>3. Insertion Sort</h2>
+            <p>
+                <strong>Insertion Sort</strong> bekerja seperti menyusun kartu di tangan — ambil satu kartu,
+                lalu sisipkan ke posisi yang tepat di antara kartu-kartu yang sudah tersusun.
+                Array terbagi menjadi bagian <em>tersortir</em> (kiri) dan <em>belum tersortir</em> (kanan).
+            </p>
+
+            <h3>Kode Program</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code class="language-cpp">void insertionSort(int arr[], int length)
+{
+    for (int i = 1; i < length; i++)
+    {
+        int key = arr[i];   // Elemen yang akan disisipkan
+        int j = i - 1;
+
+        // Geser elemen yang lebih besar dari key ke kanan
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+
+        // Sisipkan key ke posisi yang benar
+        arr[j + 1] = key;
+    }
+}</code></pre>
+            </div>
+
+            <h3>Penjelasan Program</h3>
+            <div class="info-box">
+                <strong>Cara Kerja Insertion Sort:</strong>
+                <ul>
+                    <li>Loop dimulai dari indeks 1 — elemen pertama dianggap sudah tersortir sendiri</li>
+                    <li><code>key = arr[i]</code> → simpan elemen yang akan disisipkan</li>
+                    <li><code>while</code>: selama elemen di kiri lebih besar dari <code>key</code>, geser ke kanan</li>
+                    <li>Setelah loop while, posisi <code>j+1</code> adalah tempat yang tepat untuk <code>key</code></li>
+                    <li>Sisipkan <code>key</code> ke posisi tersebut</li>
+                </ul>
+            </div>
+
+            <div class="note">
+                <strong>⏱ Kompleksitas:</strong>
+                <ul>
+                    <li>Best Case: <code>O(n)</code> — jika array sudah hampir terurut, loop while hampir tidak berjalan</li>
+                    <li>Average &amp; Worst Case: <code>O(n²)</code></li>
+                    <li>Paling efisien untuk array kecil atau array yang hampir tersortir</li>
+                </ul>
+            </div>
+
+            <h3>Contoh Output</h3>
+            <div class="output-block">
+                <pre>Array awal: [ 7, 3, 5, 9, 2, 1, 8 ]
+Langkah ke-1: [ 3, 7, 5, 9, 2, 1, 8 ]   ← key=3, sisipkan sebelum 7
+Langkah ke-2: [ 3, 5, 7, 9, 2, 1, 8 ]   ← key=5, sisipkan antara 3 dan 7
+Langkah ke-3: [ 3, 5, 7, 9, 2, 1, 8 ]   ← key=9, sudah di posisi benar
+Langkah ke-4: [ 2, 3, 5, 7, 9, 1, 8 ]   ← key=2, sisipkan di depan
+Langkah ke-5: [ 1, 2, 3, 5, 7, 9, 8 ]   ← key=1, sisipkan paling depan
+Langkah ke-6: [ 1, 2, 3, 5, 7, 8, 9 ]   ← key=8, sisipkan antara 7 dan 9
+Hasil akhir:  [ 1, 2, 3, 5, 7, 8, 9 ]</pre>
+            </div>
+
+            <h3>Simulasi Interaktif</h3>
+            <div class="sim-box">
+                <div class="sim-title">▶ Simulasi Insertion Sort</div>
+                <div class="sim-controls">
+                    <input class="sim-input" id="ins-input" type="text" value="7, 3, 5, 9, 2, 1, 8" placeholder="Masukkan angka, pisahkan koma">
+                    <button class="sim-btn" id="ins-start" onclick="simStart('ins')">Mulai</button>
+                    <button class="sim-btn secondary" id="ins-reset" onclick="simReset('ins')">Reset</button>
+                    <div class="sim-speed">
+                        <span>Kecepatan:</span>
+                        <input type="range" id="ins-speed" min="100" max="1200" value="700" step="100">
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot" style="background:black"></div> Normal</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#333;outline:2px dashed black"></div> Key (elemen aktif)</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#666"></div> Sedang dibandingkan</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#222;outline:2px solid black"></div> Digeser</div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#999"></div> Sudah tersortir</div>
+                </div>
+                <div class="sim-array-area" id="ins-bars"></div>
+                <div class="sim-log" id="ins-log">Masukkan angka dan tekan Mulai.</div>
+                <div class="sim-steps" id="ins-steps"></div>
+            </div>
+        </div>
+
+        <!-- ===================== KODE LENGKAP ===================== -->
+        <div class="section" id="s4">
+            <h2>4. Kode Lengkap</h2>
+            <p>Berikut kode lengkap ketiga algoritma digabung dalam satu program dengan fungsi bantu
+                <code>printChanges</code> dan <code>display</code>.</p>
+
+            <h3>Kode Program</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void printChanges(int arr[], int length, int step)
+{
+    cout &lt;&lt; "Langkah ke-" &lt;&lt; step &lt;&lt; ": [ ";
+    for (int i = 0; i &lt; length; i++)
+    {
+        cout &lt;&lt; arr[i];
+        if (i &lt; length - 1) cout &lt;&lt; ", ";
+    }
+    cout &lt;&lt; " ]" &lt;&lt; endl;
+}
+
+void display(int arr[], int length)
+{
+    cout &lt;&lt; "Hasil akhir: [ ";
+    for (int i = 0; i &lt; length; i++)
+    {
+        cout &lt;&lt; arr[i];
+        if (i &lt; length - 1) cout &lt;&lt; ", ";
+    }
+    cout &lt;&lt; " ]" &lt;&lt; endl;
+    cout &lt;&lt; "==========================================" &lt;&lt; endl;
+}
+
+void selectionSort(int arr[], int length)
+{
+    int minIndex;
+    for (int i = 0; i &lt; length - 1; i++)
+    {
+        minIndex = i;
+        for (int j = i + 1; j &lt; length; j++)
+            if (arr[minIndex] &gt; arr[j]) minIndex = j;
+        swap(arr[i], arr[minIndex]);
+        printChanges(arr, length, i + 1);
+    }
+}
+
+void bubbleSort(int arr[], int length)
+{
+    for (int i = 0; i &lt; length - 1; i++)
+    {
+        bool swapped = false;
+        for (int j = 0; j &lt; length - i - 1; j++)
+        {
+            if (arr[j] &gt; arr[j + 1])
+            {
+                swap(arr[j], arr[j + 1]);
+                swapped = true;
+            }
+        }
+        printChanges(arr, length, i + 1);
+        if (!swapped) break;
+    }
+}
+
+void insertionSort(int arr[], int length)
+{
+    for (int i = 1; i &lt; length; i++)
+    {
+        int key = arr[i];
+        int j = i - 1;
+        while (j &gt;= 0 &amp;&amp; arr[j] &gt; key)
+        {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+        printChanges(arr, length, i);
+    }
+}
+
+int main()
+{
+    int arr[]  = {7, 3, 5, 9, 2, 1, 8};
+    int arr2[] = {7, 3, 5, 9, 2, 1, 8};
+    int arr3[] = {7, 3, 5, 9, 2, 1, 8};
+    int length = sizeof(arr) / sizeof(int);
+
+    cout &lt;&lt; "Proses Selection Sort:" &lt;&lt; endl;
+    selectionSort(arr, length);
+    display(arr, length);
+
+    cout &lt;&lt; "\nProses Bubble Sort:" &lt;&lt; endl;
+    bubbleSort(arr2, length);
+    display(arr2, length);
+
+    cout &lt;&lt; "\nProses Insertion Sort:" &lt;&lt; endl;
+    insertionSort(arr3, length);
+    display(arr3, length);
+
+    return 0;
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- ===================== PERBANDINGAN ===================== -->
+        <div class="section" id="s5">
+            <h2>5. Perbandingan Ketiga Algoritma</h2>
+
+            <div class="info-box">
+                <strong>Ringkasan Perbandingan:</strong>
+                <ul>
+                    <li><strong>Selection Sort</strong> → swap paling sedikit (<code>n-1</code> kali), cocok jika operasi swap mahal. Selalu <code>O(n²)</code>.</li>
+                    <li><strong>Bubble Sort</strong> → paling mudah dipahami, bisa berhenti lebih awal (best case <code>O(n)</code>), tapi swap terbanyak.</li>
+                    <li><strong>Insertion Sort</strong> → sangat efisien untuk data hampir terurut, best case <code>O(n)</code>, stabil dan praktis untuk array kecil.</li>
+                </ul>
+            </div>
+
+            <h3>Tabel Kompleksitas</h3>
+            <div class="output-block">
+                <pre>┌──────────────────┬────────────┬─────────────┬────────────┬─────────┐
+│ Algoritma        │ Best Case  │ Average     │ Worst Case │ Stabil? │
+├──────────────────┼────────────┼─────────────┼────────────┼─────────┤
+│ Selection Sort   │ O(n²)      │ O(n²)       │ O(n²)      │ Tidak   │
+│ Bubble Sort      │ O(n)       │ O(n²)       │ O(n²)      │ Ya      │
+│ Insertion Sort   │ O(n)       │ O(n²)       │ O(n²)      │ Ya      │
+└──────────────────┴────────────┴─────────────┴────────────┴─────────┘</pre>
+            </div>
+
+            <div class="note">
+                <strong>💡 Kapan Pakai yang Mana?</strong>
+                <ul>
+                    <li>Data kecil (&lt; 20 elemen) → ketiganya setara, pilih yang paling mudah dibaca</li>
+                    <li>Data hampir tersortir → <strong>Insertion Sort</strong> paling cepat</li>
+                    <li>Ingin minimasi swap → <strong>Selection Sort</strong></li>
+                    <li>Data besar → lebih baik pakai Quick Sort atau Merge Sort (<code>O(n log n)</code>)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- KESIMPULAN -->
+        <div class="section">
+            <h2>Kesimpulan</h2>
+            <p>Ketiga algoritma traditional sort memiliki kompleksitas <code>O(n²)</code> di kasus rata-rata dan terburuk, sehingga kurang cocok untuk data dalam jumlah besar. Namun, memahaminya sangat penting sebagai fondasi berpikir algoritmik sebelum mempelajari algoritma yang lebih canggih.</p>
+            <div class="info-box">
+                <strong>Poin-Poin Penting:</strong>
+                <ul>
+                    <li><strong>Selection Sort:</strong> Cari minimum → tukar ke posisi benar. Swap paling hemat.</li>
+                    <li><strong>Bubble Sort:</strong> Bandingkan tetangga → gelembungkan yang besar. Ada optimasi early exit.</li>
+                    <li><strong>Insertion Sort:</strong> Ambil satu elemen → sisipkan ke posisi yang tepat di bagian tersortir.</li>
+                    <li>Semua menggunakan dua loop bersarang → <code>O(n²)</code> average case.</li>
+                    <li>Bubble &amp; Insertion Sort bisa <code>O(n)</code> di best case jika data hampir terurut.</li>
+                    <li>Selection Sort <strong>tidak stabil</strong>; Bubble &amp; Insertion Sort <strong>stabil</strong>.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div><!-- end .content -->
+
+    <footer>
+        <p>&copy; jossye, 2026 Dokumentasi C++ | dibuat untuk nyantui...</p>
+    </footer>
+
+</div><!-- end .container -->
+
+<script>
+    function copyCode(button) {
+        const codeBlock = button.closest('.code-block');
+        const code = codeBlock.querySelector('pre').textContent;
+        navigator.clipboard.writeText(code).then(() => {
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin';
+            button.classList.add('copied');
+            setTimeout(() => { button.innerHTML = originalHTML; button.classList.remove('copied'); }, 2000);
+        });
+    }
+
+    const simState = {};
+
+    function parseInput(id) {
+        return document.getElementById(id+'-input').value.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n));
+    }
+    function getDelay(id) { return 1300 - parseInt(document.getElementById(id+'-speed').value); }
+
+    function renderBars(id, arr, states) {
+        const area = document.getElementById(id+'-bars');
+        area.innerHTML = '';
+        const maxVal = Math.max(...arr, 1);
+        arr.forEach((val, i) => {
+            const wrap = document.createElement('div');
+            wrap.className = 'sim-bar-wrap';
+            const bar = document.createElement('div');
+            bar.className = 'sim-bar';
+            bar.style.height = Math.max(12, Math.round((val/maxVal)*110))+'px';
+            if (states && states[i]) bar.classList.add(states[i]);
+            const label = document.createElement('div');
+            label.className = 'sim-bar-label';
+            label.textContent = val;
+            wrap.appendChild(bar); wrap.appendChild(label); area.appendChild(wrap);
+        });
+    }
+
+    function setLog(id, html) { document.getElementById(id+'-log').innerHTML = html; }
+    function addStep(id, text, state) {
+        const c = document.getElementById(id+'-steps');
+        const item = document.createElement('div');
+        item.className = 'sim-step-item' + (state === 'done' ? ' done' : state === 'active' ? ' active' : '');
+        item.textContent = text;
+        c.appendChild(item); c.scrollTop = c.scrollHeight;
+    }
+    function clearSteps(id) { document.getElementById(id+'-steps').innerHTML = ''; }
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+    function arrStr(arr) { return '[ ' + arr.join(', ') + ' ]'; }
+
+    async function simStart(id) {
+        const arr = parseInput(id);
+        if (arr.length < 2) { setLog(id,'<span class="hl">Minimal 2 angka diperlukan!</span>'); return; }
+        if (arr.length > 12) { setLog(id,'<span class="hl">Maksimal 12 angka.</span>'); return; }
+        if (simState[id]) simState[id].stop = true;
+        const token = { stop: false };
+        simState[id] = token;
+        document.getElementById(id+'-start').disabled = true;
+        clearSteps(id);
+        if (id==='sel') await runSelectionSort(arr, id, token);
+        else if (id==='bub') await runBubbleSort(arr, id, token);
+        else if (id==='ins') await runInsertionSort(arr, id, token);
+        if (!token.stop) document.getElementById(id+'-start').disabled = false;
+    }
+
+    function simReset(id) {
+        if (simState[id]) simState[id].stop = true;
+        document.getElementById(id+'-start').disabled = false;
+        document.getElementById(id+'-bars').innerHTML = '';
+        document.getElementById(id+'-log').textContent = 'Masukkan angka dan tekan Mulai.';
+        clearSteps(id);
+    }
+
+    async function runSelectionSort(arr, id, token) {
+        const a = [...arr], n = a.length;
+        const sortedUpto = new Array(n).fill(false);
+        renderBars(id, a, null);
+        setLog(id, `<span class="info">Selection Sort dimulai.</span> Array: <span class="hl">${arrStr(a)}</span>`);
+        await sleep(getDelay(id));
+        for (let i = 0; i < n-1; i++) {
+            if (token.stop) return;
+            let minIdx = i;
+            for (let j = i+1; j < n; j++) {
+                if (token.stop) return;
+                renderBars(id, a, a.map((_,k) => sortedUpto[k]?'sorted':k===minIdx?'min':k===j?'comparing':null));
+                setLog(id, `Iterasi <span class="hl">i=${i}</span> — Membandingkan arr[<span class="hl">${minIdx}</span>]=${a[minIdx]} dengan arr[<span class="hl">${j}</span>]=${a[j]}`);
+                await sleep(getDelay(id));
+                if (a[minIdx] > a[j]) minIdx = j;
+            }
+            if (minIdx !== i) {
+                renderBars(id, a, a.map((_,k) => sortedUpto[k]?'sorted':(k===i||k===minIdx)?'swapping':null));
+                setLog(id, `Tukar arr[<span class="hl">${i}</span>]=${a[i]} ↔ arr[<span class="hl">${minIdx}</span>]=${a[minIdx]}`);
+                await sleep(getDelay(id));
+                [a[i], a[minIdx]] = [a[minIdx], a[i]];
+            }
+            sortedUpto[i] = true;
+            addStep(id, `Step ${i+1}: ${arrStr(a)}`, 'done');
+            renderBars(id, a, a.map((_,k) => sortedUpto[k]?'sorted':null));
+            setLog(id, `<span class="ok">Posisi ${i} selesai.</span> arr[${i}] = ${a[i]}`);
+            await sleep(getDelay(id));
+        }
+        sortedUpto[n-1] = true;
+        renderBars(id, a, a.map(()=>'sorted'));
+        setLog(id, `<span class="ok">✅ Selection Sort selesai!</span> Hasil: <span class="hl">${arrStr(a)}</span>`);
+        addStep(id, `Selesai: ${arrStr(a)}`, 'done');
+    }
+
+    async function runBubbleSort(arr, id, token) {
+        const a = [...arr], n = a.length;
+        renderBars(id, a, null);
+        setLog(id, `<span class="info">Bubble Sort dimulai.</span> Array: <span class="hl">${arrStr(a)}</span>`);
+        await sleep(getDelay(id));
+        for (let i = 0; i < n-1; i++) {
+            if (token.stop) return;
+            let swapped = false;
+            for (let j = 0; j < n-i-1; j++) {
+                if (token.stop) return;
+                renderBars(id, a, a.map((_,k) => k>=n-i?'sorted':(k===j||k===j+1)?'comparing':null));
+                setLog(id, `Membandingkan arr[<span class="hl">${j}</span>]=${a[j]} dan arr[<span class="hl">${j+1}</span>]=${a[j+1]}`);
+                await sleep(getDelay(id));
+                if (a[j] > a[j+1]) {
+                    renderBars(id, a, a.map((_,k) => k>=n-i?'sorted':(k===j||k===j+1)?'swapping':null));
+                    setLog(id, `Tukar arr[<span class="hl">${j}</span>]=${a[j]} ↔ arr[<span class="hl">${j+1}</span>]=${a[j+1]}`);
+                    await sleep(getDelay(id));
+                    [a[j], a[j+1]] = [a[j+1], a[j]]; swapped = true;
+                }
+            }
+            addStep(id, `Pass ${i+1}: ${arrStr(a)}`, 'done');
+            renderBars(id, a, a.map((_,k) => k>=n-i-1?'sorted':null));
+            setLog(id, `<span class="ok">Pass ${i+1} selesai.</span>${!swapped?' <span class="ok">Tidak ada swap — sudah terurut!</span>':''}`);
+            await sleep(getDelay(id));
+            if (!swapped) break;
+        }
+        renderBars(id, a, a.map(()=>'sorted'));
+        setLog(id, `<span class="ok">✅ Bubble Sort selesai!</span> Hasil: <span class="hl">${arrStr(a)}</span>`);
+        addStep(id, `Selesai: ${arrStr(a)}`, 'done');
+    }
+
+    async function runInsertionSort(arr, id, token) {
+        const a = [...arr], n = a.length;
+        renderBars(id, a, null);
+        setLog(id, `<span class="info">Insertion Sort dimulai.</span> Array: <span class="hl">${arrStr(a)}</span>`);
+        await sleep(getDelay(id));
+        for (let i = 1; i < n; i++) {
+            if (token.stop) return;
+            const key = a[i]; let j = i-1;
+            renderBars(id, a, a.map((_,k) => k<i?'sorted':k===i?'key':null));
+            setLog(id, `Key = <span class="hl">${key}</span> (arr[${i}]). Mencari posisi yang tepat...`);
+            await sleep(getDelay(id));
+            while (j >= 0 && a[j] > key) {
+                if (token.stop) return;
+                renderBars(id, a, a.map((_,k) => k<j?'sorted':k===j?'comparing':k===j+1?'swapping':null));
+                setLog(id, `arr[<span class="hl">${j}</span>]=${a[j]} > key=${key} → Geser ke kanan`);
+                await sleep(getDelay(id));
+                a[j+1] = a[j]; j--;
+            }
+            a[j+1] = key;
+            addStep(id, `Step ${i}: ${arrStr(a)}`, 'done');
+            renderBars(id, a, a.map((_,k) => k<=i?'sorted':null));
+            setLog(id, `<span class="ok">Sisipkan key=${key} ke posisi ${j+1}.</span>`);
+            await sleep(getDelay(id));
+        }
+        renderBars(id, a, a.map(()=>'sorted'));
+        setLog(id, `<span class="ok">✅ Insertion Sort selesai!</span> Hasil: <span class="hl">${arrStr(a)}</span>`);
+        addStep(id, `Selesai: ${arrStr(a)}`, 'done');
+    }
+</script>
+
+</body>
+</html>
