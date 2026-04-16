@@ -1,0 +1,1308 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        background: white;
+        color: black;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: white;
+        border: 1px solid black;
+        overflow: hidden;
+    }
+
+    header {
+        background: black;
+        color: white;
+        padding: 30px;
+        text-align: center;
+        border-bottom: 2px solid black;
+    }
+
+    header h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    header p {
+        font-size: 1em;
+        opacity: .85;
+    }
+
+    nav {
+        background: black;
+        padding: 0 30px;
+        border-bottom: 2px solid black;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+
+    nav a,
+    .dropbtn {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: .9em;
+        font-family: inherit;
+        padding: 14px 12px;
+        display: inline-block;
+        border-bottom: 3px solid transparent;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        cursor: pointer;
+        transition: border-color .2s;
+    }
+
+    nav a:hover,
+    .dropbtn:hover {
+        border-bottom: 3px solid white;
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #1a1a1a;
+        min-width: 180px;
+        border: 1px solid #444;
+        z-index: 99;
+    }
+
+    .dropdown-content a {
+        display: block;
+        padding: 10px 16px;
+        font-size: .88em;
+        color: #ccc;
+        border-bottom: none;
+    }
+
+    .dropdown-content a:hover {
+        background: #2a2a2a;
+        color: white;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .content {
+        padding: 40px;
+        background: white;
+    }
+
+    .section {
+        margin-bottom: 50px;
+    }
+
+    .section h2 {
+        color: black;
+        font-size: 2em;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid black;
+    }
+
+    .section h3 {
+        color: black;
+        font-size: 1.3em;
+        margin: 25px 0 15px 0;
+    }
+
+    .section p {
+        margin-bottom: 15px;
+        text-align: justify;
+    }
+
+    .code-block {
+        border: 1px solid black;
+        margin: 20px 0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .code-header {
+        background: #21252b;
+        padding: 10px 15px;
+        border-bottom: 1px solid #181a1f;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .code-language {
+        color: #abb2bf;
+        font-size: .85em;
+        font-weight: 600;
+    }
+
+    .copy-button {
+        background: #3e4451;
+        color: #abb2bf;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: .85em;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: background .2s;
+    }
+
+    .copy-button:hover {
+        background: #4e5461;
+    }
+
+    .copy-button.copied {
+        background: #2ea043;
+        color: white;
+    }
+
+    pre code {
+        display: block;
+        background: #282c34;
+        color: #abb2bf;
+        padding: 20px !important;
+        font-family: 'Courier New', monospace;
+        font-size: .9em !important;
+        line-height: 1.6 !important;
+        overflow-x: auto;
+        white-space: pre;
+    }
+
+    .output-block {
+        background: black;
+        color: white;
+        padding: 20px;
+        margin: 20px 0;
+        font-family: 'Courier New', monospace;
+        font-size: .9em;
+        border: 1px solid black;
+        overflow-x: auto;
+    }
+
+    .output-block pre {
+        margin: 0;
+    }
+
+    .info-box {
+        background: white;
+        border: 1px solid black;
+        border-left: 4px solid black;
+        padding: 15px 18px;
+        margin: 20px 0;
+    }
+
+    .info-box strong {
+        color: black;
+    }
+
+    .note {
+        background: #f9f9f9;
+        border: 1px solid black;
+        border-left: 4px solid #555;
+        padding: 15px 18px;
+        margin: 20px 0;
+    }
+
+    .note strong {
+        color: black;
+    }
+
+    .info-box ul,
+    .note ul {
+        margin: 8px 0 0 20px;
+    }
+
+    .info-box ul li,
+    .note ul li {
+        margin-bottom: 6px;
+    }
+
+    code {
+        background: #f0f0f0;
+        padding: .1em .35em;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        font-size: .88em;
+        color: black;
+        border: 1px solid #ddd;
+    }
+
+    ul {
+        padding-left: 1.25rem;
+    }
+
+    ul li {
+        margin-bottom: .25rem;
+    }
+
+    footer {
+        background: black;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: .85rem;
+    }
+
+    /* === VISUALIZER === */
+    .viz-box {
+        border: 1px solid black;
+        margin: 20px 0;
+        overflow: hidden;
+    }
+
+    .viz-header {
+        background: #21252b;
+        color: #abb2bf;
+        padding: 10px 15px;
+        font-size: .85em;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .viz-controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .viz-btn {
+        background: #3e4451;
+        color: #abb2bf;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: .82em;
+        font-family: 'Segoe UI', sans-serif;
+        transition: background .2s;
+    }
+
+    .viz-btn:hover {
+        background: #5c6370;
+    }
+
+    .viz-btn.primary {
+        background: #528bff;
+        color: white;
+    }
+
+    .viz-btn.primary:hover {
+        background: #6a9fff;
+    }
+
+    .viz-btn:disabled {
+        opacity: .4;
+        cursor: not-allowed;
+    }
+
+    .viz-speed {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #abb2bf;
+        font-size: .8em;
+    }
+
+    .viz-speed input[type=range] {
+        width: 80px;
+    }
+
+    .viz-body {
+        padding: 20px;
+        background: white;
+    }
+
+    .bars-container {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 4px;
+        height: 160px;
+        margin-bottom: 12px;
+    }
+
+    .bar-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .bar {
+        width: 36px;
+        border: 1px solid black;
+        background: white;
+        transition: height .15s, background .15s;
+        position: relative;
+    }
+
+    .bar-val {
+        font-size: 11px;
+        color: black;
+        font-weight: 600;
+        font-family: 'Courier New', monospace;
+    }
+
+    .bar-idx {
+        font-size: 10px;
+        color: #888;
+        font-family: 'Courier New', monospace;
+    }
+
+    .bar.pivot {
+        background: black;
+        border-color: black;
+    }
+
+    .bar.pivot .bar-val {
+        color: white;
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bar.comparing {
+        background: #e0e0e0;
+    }
+
+    .bar.sorted {
+        background: #444;
+    }
+
+    .bar.merging {
+        background: #888;
+    }
+
+    .bar.left-half {
+        background: #ccc;
+    }
+
+    .bar.right-half {
+        background: #555;
+    }
+
+    .viz-log {
+        background: #1a1a1a;
+        color: #ccc;
+        font-family: 'Courier New', monospace;
+        font-size: .8em;
+        padding: 12px 15px;
+        min-height: 50px;
+        max-height: 90px;
+        overflow-y: auto;
+        border-top: 1px solid black;
+    }
+
+    .viz-log span {
+        display: block;
+    }
+
+    .viz-log .log-pivot {
+        color: #f1c40f;
+    }
+
+    .viz-log .log-swap {
+        color: #e67e22;
+    }
+
+    .viz-log .log-merge {
+        color: #3498db;
+    }
+
+    .viz-log .log-done {
+        color: #2ecc71;
+    }
+
+    .viz-log .log-step {
+        color: #abb2bf;
+    }
+
+    .viz-input-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+    }
+
+    .viz-input-row label {
+        font-size: .85em;
+        color: #555;
+    }
+
+    .viz-input-row input[type=text] {
+        flex: 1;
+        min-width: 180px;
+        border: 1px solid black;
+        padding: 5px 10px;
+        font-family: 'Courier New', monospace;
+        font-size: .85em;
+        border-radius: 0;
+    }
+
+    .viz-input-row input[type=text]:focus {
+        outline: none;
+        border: 1px solid black;
+        box-shadow: 2px 2px 0 black;
+    }
+
+    .legend {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+        font-size: .78em;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .legend-dot {
+        width: 14px;
+        height: 14px;
+        border: 1px solid black;
+        flex-shrink: 0;
+    }
+
+    .legend-dot.pivot {
+        background: black;
+    }
+
+    .legend-dot.comparing {
+        background: #e0e0e0;
+    }
+
+    .legend-dot.sorted {
+        background: #444;
+    }
+
+    .legend-dot.merging {
+        background: #888;
+    }
+
+    .legend-dot.normal {
+        background: white;
+    }
+
+    .step-counter {
+        font-size: .8em;
+        color: #555;
+        margin-bottom: 8px;
+        font-family: 'Courier New', monospace;
+    }
+</style>
+
+<div class="container">
+    <header>
+        <h1>Dokumentasi Modern Sort C++</h1>
+        <p>Quick Sort dan Merge Sort — Algoritma sorting efisien berbasis Divide and Conquer</p>
+    </header>
+
+    <nav>
+        <a href="index.html"
+            style="color:white; text-decoration:none; display:flex; align-items:center; gap:5px; padding:14px 12px; border-bottom:3px solid transparent; transition:border-color .2s; font-weight:600; font-size:.9em;"
+            onmouseover="this.style.borderBottom='3px solid white'"
+            onmouseout="this.style.borderBottom='3px solid transparent'">←</a>
+        <div class="dropdown">
+            <button class="dropbtn">Materi ▼</button>
+            <div class="dropdown-content">
+                <a href="array-documentation.html">Array</a>
+                <a href="ps-documentation.html">Pointer &amp; Struct</a>
+                <a href="linkedlist.html">Linked List</a>
+                <a href="stackandqueue.html">Stack &amp; Queue</a>
+                <a href="traditionalsort.html">Traditional Sort</a>
+                <a href="modernsort.html">Modern Sort</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Sort ▼</button>
+            <div class="dropdown-content">
+                <a href="#s1">Quick Sort</a>
+                <a href="#s2">Merge Sort</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+
+        <!-- ===================== QUICK SORT ===================== -->
+        <div class="section" id="s1">
+            <h2>1. Quick Sort</h2>
+            <p>
+                <strong>Quick Sort</strong> adalah algoritma <em>Divide and Conquer</em> yang sangat efisien.
+                Algoritma ini memilih sebuah elemen sebagai <strong>pivot</strong> dan mempartisi array di sekitar pivot
+                tersebut sehingga elemen yang lebih kecil berada di kiri dan yang lebih besar berada di kanan.
+            </p>
+
+            <h3>Visualisasi Interaktif Quick Sort</h3>
+            <div class="viz-box" id="qs-viz">
+                <div class="viz-header">
+                    <span>Quick Sort Visualizer</span>
+                    <div class="viz-controls">
+                        <div class="viz-speed">
+                            <span>Kecepatan:</span>
+                            <input type="range" id="qs-speed" min="50" max="1000" value="500">
+                            <span id="qs-speed-label">500ms</span>
+                        </div>
+                        <button class="viz-btn primary" id="qs-run">▶ Jalankan</button>
+                        <button class="viz-btn" id="qs-reset">↺ Reset</button>
+                        <button class="viz-btn" id="qs-random">🎲 Acak</button>
+                    </div>
+                </div>
+                <div class="viz-body">
+                    <div class="viz-input-row">
+                        <label>Array kustom:</label>
+                        <input type="text" id="qs-custom" placeholder="misal: 70,10,80,60,90,30,50"
+                            value="70,10,80,60,90">
+                        <button class="viz-btn" id="qs-load">Muat</button>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-dot pivot"></div><span>Pivot</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot comparing"></div><span>Membandingkan</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot sorted"></div><span>Terurut</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot normal"></div><span>Normal</span>
+                        </div>
+                    </div>
+                    <div class="step-counter" id="qs-counter">Langkah: 0 | Swap: 0 | Perbandingan: 0</div>
+                    <div class="bars-container" id="qs-bars"></div>
+                    <div class="viz-log" id="qs-log"><span class="log-step">Siap. Tekan ▶ Jalankan untuk memulai
+                            visualisasi.</span></div>
+                </div>
+            </div>
+
+            <h3>Kode Program (Bagian: partition)</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code id="qs-part-code">int partition(int arr[], int low, int high)
+{
+    int pivot = arr[high]; // Pilih pivot (elemen terakhir)
+    int i = low - 1;       // Indeks elemen yang lebih kecil
+
+    for (int j = low; j &lt; high; j++)
+    {
+        if (arr[j] &lt;= pivot) // Jika elemen lebih kecil dari pivot
+        {
+            i++;
+            swap(arr[i], arr[j]); // Tukar elemen agar berada di kiri pivot
+        }
+    }
+
+    i++;
+    swap(arr[i], arr[high]); // Tempatkan pivot di posisi yang benar
+    return i;                // Kembalikan posisi pivot
+}</code></pre>
+            </div>
+
+            <h3>Kode Program (Bagian: quickSort)</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code id="qs-main-code">void quickSort(int arr[], int low, int high)
+{
+    if (high &lt;= low)
+        return;
+
+    int pivotIndex = partition(arr, low, high); // Partisi array
+
+    quickSort(arr, low, pivotIndex - 1);  // Urutkan bagian kiri
+    quickSort(arr, pivotIndex + 1, high); // Urutkan bagian kanan
+}</code></pre>
+            </div>
+
+            <h3>Kode Program (Full Code)</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++ — Full Code</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code id="qs-full-code">#include &lt;iostream&gt;
+using namespace std;
+
+int partition(int arr[], int low, int high)
+{
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for (int j = low; j &lt; high; j++)
+    {
+        if (arr[j] &lt;= pivot)
+        {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+
+    i++;
+    swap(arr[i], arr[high]);
+    return i;
+}
+
+void quickSort(int arr[], int low, int high)
+{
+    if (high &lt;= low)
+        return;
+
+    int pivotIndex = partition(arr, low, high);
+
+    quickSort(arr, low, pivotIndex - 1);
+    quickSort(arr, pivotIndex + 1, high);
+}
+
+void displayArray(int arr[], int length)
+{
+    cout &lt;&lt; "[ ";
+    for (int i = 0; i &lt; length; i++)
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    cout &lt;&lt; "]" &lt;&lt; endl;
+}
+
+int main()
+{
+    int arr[] = {70, 10, 80, 60, 90};
+    int length = sizeof(arr) / sizeof(arr[0]);
+
+    cout &lt;&lt; "Array sebelum sorting: ";
+    displayArray(arr, length);
+
+    quickSort(arr, 0, length - 1);
+
+    cout &lt;&lt; "Array setelah sorting: ";
+    displayArray(arr, length);
+
+    return 0;
+}</code></pre>
+            </div>
+
+            <h3>Penjelasan Program</h3>
+            <div class="info-box">
+                <strong>Cara Kerja Quick Sort:</strong>
+                <ul>
+                    <li>Pilih elemen pivot (dalam contoh ini elemen terakhir).</li>
+                    <li><strong>Partitioning:</strong> Geser semua elemen yang lebih kecil dari pivot ke sebelah
+                        kirinya, dan elemen yang lebih besar ke kanannya.</li>
+                    <li>Kembalikan indeks pivot yang sudah berada di posisi final.</li>
+                    <li>Rekursi panggil <code>quickSort</code> untuk bagian kiri dan kanan pivot.</li>
+                </ul>
+            </div>
+            <div class="note">
+                <strong>⏱ Kompleksitas:</strong>
+                <ul>
+                    <li>Best &amp; Average Case: <code>O(n log n)</code></li>
+                    <li>Worst Case: <code>O(n²)</code> (terjadi jika pivot selalu elemen terkecil/terbesar)</li>
+                    <li>Space Complexity: <code>O(log n)</code> untuk rekursi stack.</li>
+                </ul>
+            </div>
+            <h3>Contoh Output</h3>
+            <div class="output-block">
+                <pre>Array sebelum sorting: [ 70 10 80 60 90 ]
+Array setelah sorting: [ 10 60 70 80 90 ]</pre>
+            </div>
+        </div>
+
+        <!-- ===================== MERGE SORT ===================== -->
+        <div class="section" id="s2">
+            <h2>2. Merge Sort</h2>
+            <p>
+                <strong>Merge Sort</strong> juga menggunakan prinsip <em>Divide and Conquer</em>.
+                Algoritma ini terus membagi array menjadi dua bagian hingga masing-masing bagian hanya berisi satu
+                elemen, kemudian menggabungkannya kembali (merge) dalam urutan yang benar.
+            </p>
+
+            <h3>Visualisasi Interaktif Merge Sort</h3>
+            <div class="viz-box" id="ms-viz">
+                <div class="viz-header">
+                    <span>Merge Sort Visualizer</span>
+                    <div class="viz-controls">
+                        <div class="viz-speed">
+                            <span>Kecepatan:</span>
+                            <input type="range" id="ms-speed" min="50" max="1000" value="500">
+                            <span id="ms-speed-label">500ms</span>
+                        </div>
+                        <button class="viz-btn primary" id="ms-run">▶ Jalankan</button>
+                        <button class="viz-btn" id="ms-reset">↺ Reset</button>
+                        <button class="viz-btn" id="ms-random">🎲 Acak</button>
+                    </div>
+                </div>
+                <div class="viz-body">
+                    <div class="viz-input-row">
+                        <label>Array kustom:</label>
+                        <input type="text" id="ms-custom" placeholder="misal: 80,20,70,90,40,60" value="80,20,70,90">
+                        <button class="viz-btn" id="ms-load">Muat</button>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-dot left-half" style="background:#ccc;"></div><span>Subarray kiri</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot right-half" style="background:#555;"></div><span>Subarray
+                                kanan</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot merging"></div><span>Sedang digabung</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot sorted"></div><span>Terurut</span>
+                        </div>
+                    </div>
+                    <div class="step-counter" id="ms-counter">Langkah: 0 | Merge: 0 | Perbandingan: 0</div>
+                    <div class="bars-container" id="ms-bars"></div>
+                    <div class="viz-log" id="ms-log"><span class="log-step">Siap. Tekan ▶ Jalankan untuk memulai
+                            visualisasi.</span></div>
+                </div>
+            </div>
+
+            <h3>Kode Program (Bagian: merge)</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code id="ms-merge-code">void merge(int arr[], int left, int mid, int right)
+{
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    int leftArr[n1], rightArr[n2];
+
+    for (int i = 0; i &lt; n1; i++)
+        leftArr[i] = arr[left + i];
+    for (int j = 0; j &lt; n2; j++)
+        rightArr[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i &lt; n1 &amp;&amp; j &lt; n2)
+    {
+        if (leftArr[i] &lt;= rightArr[j])
+            arr[k++] = leftArr[i++];
+        else
+            arr[k++] = rightArr[j++];
+    }
+
+    while (i &lt; n1) arr[k++] = leftArr[i++];
+    while (j &lt; n2) arr[k++] = rightArr[j++];
+}</code></pre>
+            </div>
+
+            <h3>Kode Program (Bagian: mergeSort)</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code id="ms-main-code">void mergeSort(int arr[], int left, int right)
+{
+    if (left &gt;= right)
+        return;
+
+    int mid = left + (right - left) / 2;
+
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+
+    merge(arr, left, mid, right);
+}</code></pre>
+            </div>
+
+            <h3>Kode Program (Full Code)</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-language">C++ — Full Code</span>
+                    <button class="copy-button" onclick="copyCode(this)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg> Salin Kode
+                    </button>
+                </div>
+                <pre><code id="ms-full-code">#include &lt;iostream&gt;
+using namespace std;
+
+void merge(int arr[], int left, int mid, int right)
+{
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    int leftArr[n1], rightArr[n2];
+
+    for (int i = 0; i &lt; n1; i++)
+        leftArr[i] = arr[left + i];
+    for (int j = 0; j &lt; n2; j++)
+        rightArr[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i &lt; n1 &amp;&amp; j &lt; n2)
+    {
+        if (leftArr[i] &lt;= rightArr[j])
+            arr[k++] = leftArr[i++];
+        else
+            arr[k++] = rightArr[j++];
+    }
+    while (i &lt; n1) arr[k++] = leftArr[i++];
+    while (j &lt; n2) arr[k++] = rightArr[j++];
+}
+
+void mergeSort(int arr[], int left, int right)
+{
+    if (left &gt;= right)
+        return;
+
+    int mid = left + (right - left) / 2;
+
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+
+    merge(arr, left, mid, right);
+}
+
+void displayArray(int arr[], int length)
+{
+    cout &lt;&lt; "[ ";
+    for (int i = 0; i &lt; length; i++)
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    cout &lt;&lt; "]" &lt;&lt; endl;
+}
+
+int main()
+{
+    int arr[] = {80, 20, 70, 90};
+    int length = sizeof(arr) / sizeof(arr[0]);
+
+    cout &lt;&lt; "Array sebelum sorting: ";
+    displayArray(arr, length);
+
+    mergeSort(arr, 0, length - 1);
+
+    cout &lt;&lt; "Array setelah sorting: ";
+    displayArray(arr, length);
+
+    return 0;
+}</code></pre>
+            </div>
+
+            <h3>Penjelasan Program</h3>
+            <div class="info-box">
+                <strong>Cara Kerja Merge Sort:</strong>
+                <ul>
+                    <li>Bagi array menjadi dua bagian (kiri dan kanan).</li>
+                    <li>Lakukan pembagian secara rekursif hingga ukuran subarray adalah 1.</li>
+                    <li><strong>Merge:</strong> Bandingkan elemen dari kedua subarray dan susun kembali ke array utama
+                        secara terurut.</li>
+                </ul>
+            </div>
+            <div class="note">
+                <strong>⏱ Kompleksitas:</strong>
+                <ul>
+                    <li>All Cases: <code>O(n log n)</code> — sangat stabil kinerjanya.</li>
+                    <li>Space Complexity: <code>O(n)</code> karena membutuhkan array sementara untuk proses merging.
+                    </li>
+                </ul>
+            </div>
+            <h3>Contoh Output</h3>
+            <div class="output-block">
+                <pre>Array sebelum sorting: [ 80 20 70 90 ]
+Array setelah sorting: [ 20 70 80 90 ]</pre>
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <p>&copy; jossye, 2026 Dokumentasi C++ | dibuat untuk nyantui...</p>
+    </footer>
+</div>
+
+<script>
+    // ===== UTILITY =====
+    function copyCode(btn) {
+        const code = btn.closest('.code-block').querySelector('code');
+        navigator.clipboard.writeText(code.innerText).then(() => {
+            btn.classList.add('copied');
+            const orig = btn.innerHTML;
+            btn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Berhasil!`;
+            setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
+        });
+    }
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    function parseArr(str) {
+        return str.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n) && n > 0 && n <= 99);
+    }
+
+    function randomArr(n = 6) {
+        const arr = [];
+        const used = new Set();
+        while (arr.length < n) {
+            const v = Math.floor(Math.random() * 90) + 10;
+            if (!used.has(v)) { used.add(v); arr.push(v); }
+        }
+        return arr;
+    }
+
+    // ===== BARS RENDERER =====
+    function renderBars(containerId, arr, states = {}) {
+        const container = document.getElementById(containerId);
+        const maxVal = Math.max(...arr, 1);
+        container.innerHTML = '';
+        arr.forEach((val, i) => {
+            const wrap = document.createElement('div');
+            wrap.className = 'bar-wrap';
+            const bar = document.createElement('div');
+            bar.className = 'bar ' + (states[i] || '');
+            bar.style.height = Math.max(20, Math.round((val / maxVal) * 130)) + 'px';
+            const valEl = document.createElement('div');
+            valEl.className = 'bar-val';
+            if (states[i] === 'pivot') {
+                bar.style.position = 'relative';
+                valEl.style.cssText = 'position:absolute;top:4px;left:50%;transform:translateX(-50%);color:white;font-size:11px;';
+            }
+            valEl.textContent = val;
+            bar.appendChild(valEl);
+            const idxEl = document.createElement('div');
+            idxEl.className = 'bar-idx';
+            idxEl.textContent = i;
+            wrap.appendChild(bar);
+            wrap.appendChild(valEl.cloneNode(true));
+            // rebuild cleaner
+            wrap.innerHTML = '';
+            const b2 = document.createElement('div');
+            b2.className = 'bar ' + (states[i] || '');
+            b2.style.height = Math.max(20, Math.round((val / maxVal) * 130)) + 'px';
+            b2.style.position = 'relative';
+            if (states[i] === 'pivot') b2.style.background = 'black';
+            if (states[i] === 'comparing') b2.style.background = '#e0e0e0';
+            if (states[i] === 'sorted') b2.style.background = '#444';
+            if (states[i] === 'merging') b2.style.background = '#888';
+            if (states[i] === 'left-half') b2.style.background = '#ccc';
+            if (states[i] === 'right-half') b2.style.background = '#555';
+            const v2 = document.createElement('div');
+            v2.className = 'bar-val';
+            v2.textContent = val;
+            if (states[i] === 'pivot') { v2.style.cssText = 'position:absolute;top:4px;left:50%;transform:translateX(-50%);color:white;font-size:11px;'; b2.appendChild(v2); }
+            wrap.appendChild(b2);
+            if (states[i] !== 'pivot') { const v3 = document.createElement('div'); v3.className = 'bar-val'; v3.textContent = val; wrap.appendChild(v3); }
+            const idx = document.createElement('div'); idx.className = 'bar-idx'; idx.textContent = i;
+            wrap.appendChild(idx);
+            container.appendChild(wrap);
+        });
+    }
+
+    function logMsg(logId, msg, cls = 'log-step') {
+        const log = document.getElementById(logId);
+        const span = document.createElement('span');
+        span.className = cls;
+        span.textContent = msg;
+        log.appendChild(span);
+        log.scrollTop = log.scrollHeight;
+    }
+
+    // ===== QUICK SORT VISUALIZER =====
+    let qsArr = [70, 10, 80, 60, 90];
+    let qsRunning = false;
+    let qsSteps = 0, qsSwaps = 0, qsCmps = 0;
+
+    function qsUpdateCounter() {
+        document.getElementById('qs-counter').textContent = `Langkah: ${qsSteps} | Swap: ${qsSwaps} | Perbandingan: ${qsCmps}`;
+    }
+
+    function qsRenderInit() {
+        renderBars('qs-bars', qsArr, {});
+        document.getElementById('qs-log').innerHTML = '<span class="log-step">Siap. Tekan ▶ Jalankan untuk memulai visualisasi.</span>';
+        qsSteps = 0; qsSwaps = 0; qsCmps = 0;
+        qsUpdateCounter();
+    }
+
+    function qsGetDelay() {
+        const v = parseInt(document.getElementById('qs-speed').value);
+        return 1050 - v;
+    }
+
+    async function qsVisualize(arr, low, high, sorted, logId) {
+        if (high <= low) {
+            if (low === high) sorted.add(low);
+            return;
+        }
+        const states = {};
+        sorted.forEach(i => states[i] = 'sorted');
+        states[high] = 'pivot';
+        renderBars('qs-bars', arr, states);
+        logMsg(logId, `► Partisi arr[${low}..${high}] | Pivot = arr[${high}] = ${arr[high]}`, 'log-pivot');
+        qsSteps++;
+        qsUpdateCounter();
+        await sleep(qsGetDelay());
+
+        let pivot = arr[high];
+        let i = low - 1;
+
+        for (let j = low; j < high; j++) {
+            if (!qsRunning) return;
+            qsCmps++;
+            const st2 = {};
+            sorted.forEach(x => st2[x] = 'sorted');
+            st2[high] = 'pivot';
+            st2[j] = 'comparing';
+            if (i >= low) st2[i] = 'comparing';
+            renderBars('qs-bars', arr, st2);
+            logMsg(logId, `  Bandingkan arr[${j}]=${arr[j]} dengan pivot ${pivot}`, 'log-step');
+            qsUpdateCounter();
+            await sleep(qsGetDelay() * 0.6);
+
+            if (arr[j] <= pivot) {
+                i++;
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+                qsSwaps++;
+                const st3 = {};
+                sorted.forEach(x => st3[x] = 'sorted');
+                st3[high] = 'pivot';
+                st3[i] = 'comparing';
+                st3[j] = 'comparing';
+                renderBars('qs-bars', arr, st3);
+                logMsg(logId, `  Swap arr[${i}]=${arr[i]} ↔ arr[${j}]=${arr[j]}`, 'log-swap');
+                qsUpdateCounter();
+                await sleep(qsGetDelay() * 0.6);
+            }
+        }
+
+        i++;
+        [arr[i], arr[high]] = [arr[high], arr[i]];
+        qsSwaps++;
+        sorted.add(i);
+        qsSteps++;
+        const stFinal = {};
+        sorted.forEach(x => stFinal[x] = 'sorted');
+        renderBars('qs-bars', arr, stFinal);
+        logMsg(logId, `✔ Pivot ${arr[i]} ditempatkan di indeks ${i}`, 'log-done');
+        qsUpdateCounter();
+        await sleep(qsGetDelay());
+
+        await qsVisualize(arr, low, i - 1, sorted, logId);
+        await qsVisualize(arr, i + 1, high, sorted, logId);
+    }
+
+    document.getElementById('qs-run').addEventListener('click', async () => {
+        if (qsRunning) return;
+        qsRunning = true;
+        document.getElementById('qs-run').disabled = true;
+        document.getElementById('qs-log').innerHTML = '';
+        qsSteps = 0; qsSwaps = 0; qsCmps = 0;
+        const arr = [...qsArr];
+        logMsg('qs-log', `Array awal: [ ${arr.join(' ')} ]`, 'log-step');
+        const sorted = new Set();
+        await qsVisualize(arr, 0, arr.length - 1, sorted, 'qs-log');
+        sorted.clear();
+        arr.forEach((_, i) => sorted.add(i));
+        const stAll = {};
+        sorted.forEach(i => stAll[i] = 'sorted');
+        renderBars('qs-bars', arr, stAll);
+        logMsg('qs-log', `✅ Selesai! Array: [ ${arr.join(' ')} ]`, 'log-done');
+        qsRunning = false;
+        document.getElementById('qs-run').disabled = false;
+    });
+
+    document.getElementById('qs-reset').addEventListener('click', () => {
+        qsRunning = false;
+        setTimeout(() => { document.getElementById('qs-run').disabled = false; qsRenderInit(); }, 50);
+    });
+
+    document.getElementById('qs-random').addEventListener('click', () => {
+        qsRunning = false;
+        qsArr = randomArr(Math.floor(Math.random() * 3) + 5);
+        document.getElementById('qs-custom').value = qsArr.join(',');
+        setTimeout(() => { document.getElementById('qs-run').disabled = false; qsRenderInit(); }, 50);
+    });
+
+    document.getElementById('qs-load').addEventListener('click', () => {
+        const parsed = parseArr(document.getElementById('qs-custom').value);
+        if (parsed.length >= 2 && parsed.length <= 10) { qsArr = parsed; qsRenderInit(); }
+        else alert('Masukkan 2–10 angka antara 1–99, dipisahkan koma.');
+    });
+
+    document.getElementById('qs-speed').addEventListener('input', e => {
+        document.getElementById('qs-speed-label').textContent = e.target.value + 'ms';
+    });
+
+    // ===== MERGE SORT VISUALIZER =====
+    let msArr = [80, 20, 70, 90];
+    let msRunning = false;
+    let msSteps = 0, msMerges = 0, msCmps = 0;
+
+    function msUpdateCounter() {
+        document.getElementById('ms-counter').textContent = `Langkah: ${msSteps} | Merge: ${msMerges} | Perbandingan: ${msCmps}`;
+    }
+
+    function msRenderInit() {
+        renderBars('ms-bars', msArr, {});
+        document.getElementById('ms-log').innerHTML = '<span class="log-step">Siap. Tekan ▶ Jalankan untuk memulai visualisasi.</span>';
+        msSteps = 0; msMerges = 0; msCmps = 0;
+        msUpdateCounter();
+    }
+
+    function msGetDelay() {
+        return 1050 - parseInt(document.getElementById('ms-speed').value);
+    }
+
+    async function msMerge(arr, left, mid, right) {
+        const n1 = mid - left + 1;
+        const n2 = right - mid;
+        const L = arr.slice(left, mid + 1);
+        const R = arr.slice(mid + 1, right + 1);
+
+        let i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (!msRunning) return;
+            msCmps++;
+            const st = {};
+            for (let x = left; x <= mid; x++) st[x] = 'left-half';
+            for (let x = mid + 1; x <= right; x++) st[x] = 'right-half';
+            if (k < arr.length) st[k] = 'merging';
+            renderBars('ms-bars', arr, st);
+            logMsg('ms-log', `  Bandingkan L[${i}]=${L[i]} dengan R[${j}]=${R[j]}`, 'log-step');
+            msUpdateCounter();
+            await sleep(msGetDelay() * 0.7);
+
+            if (L[i] <= R[j]) arr[k++] = L[i++];
+            else arr[k++] = R[j++];
+        }
+        while (i < n1) { arr[k++] = L[i++]; }
+        while (j < n2) { arr[k++] = R[j++]; }
+    }
+
+    async function msSortViz(arr, left, right, sorted) {
+        if (left >= right) { sorted.add(left); return; }
+        msSteps++;
+        const mid = Math.floor(left + (right - left) / 2);
+
+        const stDiv = {};
+        sorted.forEach(x => stDiv[x] = 'sorted');
+        for (let x = left; x <= mid; x++) stDiv[x] = 'left-half';
+        for (let x = mid + 1; x <= right; x++) stDiv[x] = 'right-half';
+        renderBars('ms-bars', arr, stDiv);
+        logMsg('ms-log', `► Bagi arr[${left}..${right}] → kiri[${left}..${mid}] kanan[${mid + 1}..${right}]`, 'log-merge');
+        msUpdateCounter();
+        await sleep(msGetDelay());
+
+        await msSortViz(arr, left, mid, sorted);
+        await msSortViz(arr, mid + 1, right, sorted);
+
+        if (!msRunning) return;
+        msMerges++;
+        logMsg('ms-log', `↔ Merge arr[${left}..${mid}] + arr[${mid + 1}..${right}]`, 'log-merge');
+        await msMerge(arr, left, mid, right);
+        for (let x = left; x <= right; x++) sorted.add(x);
+        const stMerged = {};
+        sorted.forEach(x => stMerged[x] = 'sorted');
+        renderBars('ms-bars', arr, stMerged);
+        await sleep(msGetDelay() * 0.6);
+    }
+
+    document.getElementById('ms-run').addEventListener('click', async () => {
+        if (msRunning) return;
+        msRunning = true;
+        document.getElementById('ms-run').disabled = true;
+        document.getElementById('ms-log').innerHTML = '';
+        msSteps = 0; msMerges = 0; msCmps = 0;
+        const arr = [...msArr];
+        logMsg('ms-log', `Array awal: [ ${arr.join(' ')} ]`, 'log-step');
+        const sorted = new Set();
+        await msSortViz(arr, 0, arr.length - 1, sorted);
+        sorted.clear();
+        arr.forEach((_, i) => sorted.add(i));
+        const stAll = {};
+        sorted.forEach(i => stAll[i] = 'sorted');
+        renderBars('ms-bars', arr, stAll);
+        logMsg('ms-log', `✅ Selesai! Array: [ ${arr.join(' ')} ]`, 'log-done');
+        msRunning = false;
+        document.getElementById('ms-run').disabled = false;
+    });
+
+    document.getElementById('ms-reset').addEventListener('click', () => {
+        msRunning = false;
+        setTimeout(() => { document.getElementById('ms-run').disabled = false; msRenderInit(); }, 50);
+    });
+
+    document.getElementById('ms-random').addEventListener('click', () => {
+        msRunning = false;
+        msArr = randomArr(Math.floor(Math.random() * 3) + 4);
+        document.getElementById('ms-custom').value = msArr.join(',');
+        setTimeout(() => { document.getElementById('ms-run').disabled = false; msRenderInit(); }, 50);
+    });
+
+    document.getElementById('ms-load').addEventListener('click', () => {
+        const parsed = parseArr(document.getElementById('ms-custom').value);
+        if (parsed.length >= 2 && parsed.length <= 10) { msArr = parsed; msRenderInit(); }
+        else alert('Masukkan 2–10 angka antara 1–99, dipisahkan koma.');
+    });
+
+    document.getElementById('ms-speed').addEventListener('input', e => {
+        document.getElementById('ms-speed-label').textContent = e.target.value + 'ms';
+    });
+
+    // Init
+    qsRenderInit();
+    msRenderInit();
+</script>
