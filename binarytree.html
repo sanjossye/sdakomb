@@ -1,0 +1,642 @@
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;background:white;color:black}
+.container{max-width:1000px;margin:0 auto;background:white;border:1px solid black;overflow:hidden}
+header{background:black;color:white;padding:30px;text-align:center;border-bottom:2px solid black}
+header h1{font-size:2em;margin-bottom:10px}
+header p{font-size:1em;opacity:.85}
+nav{background:black;padding:0 30px;border-bottom:2px solid black;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+nav a,.dropbtn{color:white;text-decoration:none;font-weight:600;font-size:.9em;font-family:inherit;padding:14px 12px;display:inline-block;border-bottom:3px solid transparent;background:none;border-top:none;border-left:none;border-right:none;cursor:pointer;transition:border-color .2s}
+nav a:hover,.dropbtn:hover{border-bottom:3px solid white}
+.dropdown{position:relative}
+.dropdown-content{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;min-width:180px;border:1px solid #444;z-index:99}
+.dropdown-content a{display:block;padding:10px 16px;font-size:.88em;color:#ccc;border-bottom:none}
+.dropdown-content a:hover{background:#2a2a2a;color:white}
+.dropdown:hover .dropdown-content{display:block}
+.content{padding:40px;background:white}
+.section{margin-bottom:50px}
+.section h2{color:black;font-size:2em;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid black}
+.section h3{color:black;font-size:1.3em;margin:25px 0 15px 0}
+.section p{margin-bottom:15px;text-align:justify}
+.code-block{border:1px solid black;margin:20px 0;overflow:hidden;position:relative}
+.code-header{background:#21252b;padding:10px 15px;border-bottom:1px solid #181a1f;display:flex;justify-content:space-between;align-items:center}
+.code-language{color:#abb2bf;font-size:.85em;font-weight:600}
+.copy-button{background:#3e4451;color:#abb2bf;border:none;padding:5px 12px;border-radius:3px;cursor:pointer;font-size:.85em;display:flex;align-items:center;gap:5px;transition:background .2s}
+.copy-button:hover{background:#4e5461}
+.copy-button.copied{background:#2ea043;color:white}
+pre code{display:block;background:#282c34;color:#abb2bf;padding:20px!important;font-family:'Courier New',monospace;font-size:.9em!important;line-height:1.6!important;overflow-x:auto;white-space:pre}
+.output-block{background:black;color:white;padding:20px;margin:20px 0;font-family:'Courier New',monospace;font-size:.9em;border:1px solid black;overflow-x:auto}
+.output-block pre{margin:0}
+.info-box{background:white;border:1px solid black;border-left:4px solid black;padding:15px 18px;margin:20px 0}
+.info-box strong{color:black}
+.note{background:#f9f9f9;border:1px solid black;border-left:4px solid #555;padding:15px 18px;margin:20px 0}
+.note strong{color:black}
+.info-box ul,.note ul{margin:8px 0 0 20px}
+.info-box ul li,.note ul li{margin-bottom:6px}
+code{background:#f0f0f0;padding:.1em .35em;border-radius:3px;font-family:'Courier New',monospace;font-size:.88em;color:black;border:1px solid #ddd}
+pre code{background:#282c34;color:#abb2bf;border:none;border-radius:0;padding:20px!important;font-size:.9em!important}
+ul{padding-left:1.25rem}
+ul li{margin-bottom:.25rem}
+footer{background:black;color:white;text-align:center;padding:20px;font-size:.85rem}
+</style>
+
+<div class="container">
+  <header>
+    <h1>Dokumentasi Binary Tree C++</h1>
+    <p>Struktur data hierarkis di mana setiap node memiliki maksimal dua anak</p>
+  </header>
+
+  <nav>
+    <a href="index.html" style="color:white;text-decoration:none;display:flex;align-items:center;gap:5px;padding:14px 12px;border-bottom:3px solid transparent;transition:border-color .2s;font-weight:600;font-size:.9em;" onmouseover="this.style.borderBottom='3px solid white'" onmouseout="this.style.borderBottom='3px solid transparent'">← Kembali ke Beranda</a>
+    <div class="dropdown">
+      <button class="dropbtn">Materi ▼</button>
+      <div class="dropdown-content">
+        <a href="array-documentation.html">Array</a>
+        <a href="ps-documentation.html">Pointer &amp; Struct</a>
+        <a href="linkedlist.html">Linked List</a>
+        <a href="stackandqueue.html">Stack &amp; Queue</a>
+        <a href="traditionalsort.html">Traditional Sort</a>
+        <a href="modernsort.html">Modern Sort</a>
+        <a href="searching.html">Searching</a>
+        <a href="binarytree.html">Binary Tree</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Materi ▼</button>
+      <div class="dropdown-content">
+        <a href="#s1">Konsep Dasar</a>
+        <a href="#s2">Insertion</a>
+        <a href="#s3">Traversal</a>
+        <a href="#s4">Deletion</a>
+        <a href="#s5">Kode Lengkap</a>
+        <a href="#s6">Perbandingan</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <!-- KONSEP DASAR -->
+    <div class="section" id="s1">
+      <h2>1. Konsep Dasar Binary Tree</h2>
+      <p>
+        <strong>Binary Tree</strong> adalah struktur data berbentuk pohon di mana setiap node memiliki maksimal dua anak: <strong>left child</strong> (kiri) dan <strong>right child</strong> (kanan). Jenis yang paling umum digunakan adalah <strong>Binary Search Tree (BST)</strong>, di mana nilai node kiri selalu lebih kecil dari node induknya, dan nilai node kanan selalu lebih besar.
+      </p>
+      <p>
+        Dalam implementasi C++, setiap node direpresentasikan oleh sebuah <code>struct TreeNode</code> yang menyimpan data dan dua pointer ke anak kiri dan kanan. Seluruh operasi dikelola oleh class <code>BinaryTree</code> yang menyimpan pointer ke node akar (<code>root</code>).
+      </p>
+
+      <div class="info-box">
+        <strong>Properti Binary Search Tree (BST):</strong>
+        <ul>
+          <li>Setiap node memiliki tepat satu nilai (<code>data</code>)</li>
+          <li>Semua node di <em>subtree kiri</em> memiliki nilai &lt; nilai node saat ini</li>
+          <li>Semua node di <em>subtree kanan</em> memiliki nilai &gt; nilai node saat ini</li>
+          <li>Setiap subtree kiri dan kanan juga merupakan BST yang valid</li>
+          <li>Tidak ada nilai duplikat (dalam implementasi standar)</li>
+        </ul>
+      </div>
+
+      <h3>Struktur Node</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-language">C++</span>
+          <button class="copy-button" onclick="copyCode(this)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+          </button>
+        </div>
+        <pre><code>struct TreeNode
+{
+    int data;         // Nilai yang disimpan
+    TreeNode *left;   // Pointer ke anak kiri
+    TreeNode *right;  // Pointer ke anak kanan
+
+    // Constructor: inisialisasi node baru
+    TreeNode(int value) : data(value), left(nullptr), right(nullptr) {}
+};</code></pre>
+      </div>
+
+      <div class="note">
+        <strong>Terminologi Penting:</strong>
+        <ul>
+          <li><strong>Root</strong>: node paling atas, tidak memiliki induk</li>
+          <li><strong>Leaf</strong>: node tanpa anak (left dan right = nullptr)</li>
+          <li><strong>Height</strong>: jumlah edge terpanjang dari root ke leaf</li>
+          <li><strong>Subtree</strong>: pohon yang terbentuk dari suatu node beserta semua turunannya</li>
+        </ul>
+      </div>
+
+      <h3>Contoh Visualisasi BST</h3>
+      <div class="output-block">
+        <pre>Setelah insert: 40, 20, 60, 10, 30, 50, 70
+
+           40          ← Root
+          /  \
+        20    60
+       / \   / \
+      10  30 50  70   ← Leaf nodes
+
+Aturan: kiri &lt; induk &lt; kanan
+  10 &lt; 20 &lt; 30  ✓
+  20 &lt; 40 &lt; 60  ✓
+  50 &lt; 60 &lt; 70  ✓</pre>
+      </div>
+    </div>
+
+    <!-- INSERTION -->
+    <div class="section" id="s2">
+      <h2>2. Insertion (Penyisipan Node)</h2>
+      <p>
+        Operasi <strong>insertion</strong> menambahkan node baru ke dalam BST sambil tetap mempertahankan properti BST. Proses dilakukan secara rekursif: bandingkan nilai baru dengan node saat ini, lalu arahkan ke kiri jika lebih kecil atau ke kanan jika lebih besar, sampai ditemukan posisi kosong (<code>nullptr</code>).
+      </p>
+
+      <h3>Kode Program</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-language">C++</span>
+          <button class="copy-button" onclick="copyCode(this)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+          </button>
+        </div>
+        <pre><code>TreeNode *insertNode(TreeNode *node, int value)
+{
+    // Base case: posisi kosong ditemukan, buat node baru
+    if (node == nullptr)
+    {
+        return new TreeNode(value);
+    }
+
+    // Rekursi ke kiri jika value lebih kecil
+    if (value &lt; node-&gt;data)
+    {
+        node-&gt;left = insertNode(node-&gt;left, value);
+    }
+    // Rekursi ke kanan jika value lebih besar
+    else
+    {
+        node-&gt;right = insertNode(node-&gt;right, value);
+    }
+
+    return node;
+}</code></pre>
+      </div>
+
+      <h3>Penjelasan Program</h3>
+      <div class="info-box">
+        <strong>Cara Kerja Insertion:</strong>
+        <ul>
+          <li>Jika <code>node == nullptr</code> → posisi yang tepat ditemukan, buat dan kembalikan node baru</li>
+          <li>Jika <code>value &lt; node-&gt;data</code> → lanjutkan rekursi ke subtree <strong>kiri</strong></li>
+          <li>Jika <code>value &gt; node-&gt;data</code> → lanjutkan rekursi ke subtree <strong>kanan</strong></li>
+          <li>Setiap pemanggilan rekursif mengembalikan pointer node yang sudah diperbarui</li>
+          <li>Node baru selalu disisipkan sebagai <strong>leaf node</strong></li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <strong>⏱ Kompleksitas Insertion:</strong>
+        <ul>
+          <li>Best &amp; Average Case: <code>O(log n)</code> — tree seimbang, setiap langkah memangkas setengah</li>
+          <li>Worst Case: <code>O(n)</code> — tree menjadi linear (seperti linked list) jika data dimasukkan berurutan</li>
+        </ul>
+      </div>
+
+      <h3>Contoh Output</h3>
+      <div class="output-block">
+        <pre>tree.insert(40); → Root = 40
+tree.insert(20); → 20 &lt; 40, masuk ke kiri  → 40-&gt;left = 20
+tree.insert(60); → 60 &gt; 40, masuk ke kanan → 40-&gt;right = 60
+tree.insert(10); → 10 &lt; 40 → kiri, 10 &lt; 20 → kiri → 20-&gt;left = 10
+tree.insert(30); → 30 &lt; 40 → kiri, 30 &gt; 20 → kanan → 20-&gt;right = 30</pre>
+      </div>
+    </div>
+
+    <!-- TRAVERSAL -->
+    <div class="section" id="s3">
+      <h2>3. Traversal (Penelusuran)</h2>
+      <p>
+        <strong>Traversal</strong> adalah proses mengunjungi setiap node dalam tree. Ada tiga urutan traversal utama, yang dibedakan oleh kapan node <em>saat ini</em> diproses relatif terhadap subtree kiri dan kanannya.
+      </p>
+
+      <h3>Preorder Traversal (Root → Left → Right)</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-language">C++</span>
+          <button class="copy-button" onclick="copyCode(this)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+          </button>
+        </div>
+        <pre><code>void preorderTraversal(TreeNode *node)
+{
+    if (node == nullptr) return;
+
+    cout &lt;&lt; node-&gt;data &lt;&lt; " ";  // 1. Proses node saat ini (Root)
+    preorderTraversal(node-&gt;left);   // 2. Kunjungi subtree kiri
+    preorderTraversal(node-&gt;right);  // 3. Kunjungi subtree kanan
+}</code></pre>
+      </div>
+
+      <h3>Inorder Traversal (Left → Root → Right)</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-language">C++</span>
+          <button class="copy-button" onclick="copyCode(this)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+          </button>
+        </div>
+        <pre><code>void inorderTraversal(TreeNode *node)
+{
+    if (node == nullptr) return;
+
+    inorderTraversal(node-&gt;left);    // 1. Kunjungi subtree kiri
+    cout &lt;&lt; node-&gt;data &lt;&lt; " ";  // 2. Proses node saat ini (Root)
+    inorderTraversal(node-&gt;right);   // 3. Kunjungi subtree kanan
+}</code></pre>
+      </div>
+
+      <h3>Postorder Traversal (Left → Right → Root)</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-language">C++</span>
+          <button class="copy-button" onclick="copyCode(this)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+          </button>
+        </div>
+        <pre><code>void postorderTraversal(TreeNode *node)
+{
+    if (node == nullptr) return;
+
+    postorderTraversal(node-&gt;left);  // 1. Kunjungi subtree kiri
+    postorderTraversal(node-&gt;right); // 2. Kunjungi subtree kanan
+    cout &lt;&lt; node-&gt;data &lt;&lt; " ";  // 3. Proses node saat ini (Root)
+}</code></pre>
+      </div>
+
+      <h3>Penjelasan Traversal</h3>
+      <div class="info-box">
+        <strong>Perbedaan Ketiga Traversal:</strong>
+        <ul>
+          <li><strong>Preorder</strong> — Root diproses <em>sebelum</em> anak-anaknya. Berguna untuk menyalin atau mencetak struktur tree.</li>
+          <li><strong>Inorder</strong> — Root diproses <em>di antara</em> anak kiri dan kanan. Pada BST, inorder <strong>selalu menghasilkan urutan data yang terurut ascending</strong>.</li>
+          <li><strong>Postorder</strong> — Root diproses <em>setelah</em> semua anaknya. Berguna untuk menghapus tree (hapus anak dulu, baru induk) atau mengevaluasi ekspresi.</li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <strong>⏱ Kompleksitas Traversal:</strong>
+        <ul>
+          <li>Semua traversal: <code>O(n)</code> — setiap node dikunjungi tepat satu kali</li>
+          <li>Space complexity: <code>O(h)</code> di mana <code>h</code> adalah tinggi tree (rekursi stack)</li>
+        </ul>
+      </div>
+
+      <h3>Contoh Output</h3>
+      <div class="output-block">
+        <pre>BST yang digunakan:
+           40
+          /  \
+        20    60
+       / \   / \
+      10  30 50  70
+
+Preorder  (Root→L→R): 40 20 10 30 60 50 70
+Inorder   (L→Root→R): 10 20 30 40 50 60 70  ← Selalu terurut!
+Postorder (L→R→Root): 10 30 20 50 70 60 40</pre>
+      </div>
+    </div>
+
+    <!-- DELETION -->
+    <div class="section" id="s4">
+      <h2>4. Deletion (Penghapusan Node)</h2>
+      <p>
+        Operasi <strong>deletion</strong> adalah yang paling kompleks karena harus mempertahankan properti BST setelah node dihapus. Ada tiga kasus yang harus ditangani berdasarkan jumlah anak dari node yang akan dihapus.
+      </p>
+
+      <h3>Kode Program</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-language">C++</span>
+          <button class="copy-button" onclick="copyCode(this)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+          </button>
+        </div>
+        <pre><code>TreeNode *findMinNode(TreeNode *node)
+{
+    // Cari node paling kiri (nilai terkecil di subtree kanan)
+    while (node != nullptr &amp;&amp; node-&gt;left != nullptr)
+    {
+        node = node-&gt;left;
+    }
+    return node;
+}
+
+TreeNode *removeNode(TreeNode *node, int value)
+{
+    if (node == nullptr)
+        return node;
+
+    // Cari node yang akan dihapus
+    if (value &lt; node-&gt;data)
+        node-&gt;left = removeNode(node-&gt;left, value);
+    else if (value &gt; node-&gt;data)
+        node-&gt;right = removeNode(node-&gt;right, value);
+    else
+    {
+        // KASUS 1: Node tanpa anak (leaf) atau hanya satu anak
+        if (node-&gt;left == nullptr)
+        {
+            TreeNode *temp = node-&gt;right;
+            delete node;
+            return temp;
+        }
+        else if (node-&gt;right == nullptr)
+        {
+            TreeNode *temp = node-&gt;left;
+            delete node;
+            return temp;
+        }
+
+        // KASUS 2: Node dengan dua anak
+        // Ganti dengan inorder successor (nilai terkecil di subtree kanan)
+        TreeNode *temp = findMinNode(node-&gt;right);
+        node-&gt;data = temp-&gt;data;
+        node-&gt;right = removeNode(node-&gt;right, temp-&gt;data);
+    }
+
+    return node;
+}</code></pre>
+      </div>
+
+      <h3>Penjelasan Program</h3>
+      <div class="info-box">
+        <strong>Tiga Kasus Deletion:</strong>
+        <ul>
+          <li><strong>Kasus 1 — Node adalah leaf</strong>: Hapus langsung, kembalikan <code>nullptr</code> ke induknya.</li>
+          <li><strong>Kasus 2 — Node punya satu anak</strong>: Hubungkan induk langsung ke cucu (bypass node yang dihapus), lalu <code>delete</code> node tersebut.</li>
+          <li><strong>Kasus 3 — Node punya dua anak</strong>: Cari <em>inorder successor</em> (node terkecil di subtree kanan). Salin nilainya ke node saat ini, lalu hapus inorder successor dari subtree kanan.</li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <strong>💡 Mengapa Inorder Successor?</strong>
+        <ul>
+          <li>Inorder successor adalah nilai terkecil yang masih lebih besar dari node yang dihapus</li>
+          <li>Dengan menggantikan node dihapus menggunakan inorder successor, properti BST (kiri &lt; root &lt; kanan) tetap terjaga</li>
+          <li>Alternatif lain yang valid: gunakan <em>inorder predecessor</em> (nilai terbesar di subtree kiri)</li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <strong>⏱ Kompleksitas Deletion:</strong>
+        <ul>
+          <li>Best &amp; Average Case: <code>O(log n)</code> — tree seimbang</li>
+          <li>Worst Case: <code>O(n)</code> — tree berbentuk linear</li>
+        </ul>
+      </div>
+
+      <h3>Contoh Output</h3>
+      <div class="output-block">
+        <pre>BST awal:       40
+               /  \
+             20    60
+            / \   / \
+           10  30 50  70
+
+Hapus node 20 (dua anak):
+  → inorder successor dari 20 adalah 30
+  → ganti data 20 dengan 30, hapus node 30 lama
+
+Hasil:          40
+               /  \
+             30    60
+            /     / \
+           10     50  70
+
+Hapus node 60 (dua anak):
+  → inorder successor dari 60 adalah 70
+  → ganti data 60 dengan 70, hapus node 70 lama
+
+Hasil:          40
+               /  \
+             30    70
+            /     /
+           10     50</pre>
+      </div>
+    </div>
+
+    <!-- KODE LENGKAP -->
+    <div class="section" id="s5">
+      <h2>5. Kode Lengkap</h2>
+      <p>
+        Berikut adalah kode lengkap implementasi Binary Search Tree dalam C++, menggabungkan seluruh operasi: insertion, preorder/inorder/postorder traversal, dan deletion.
+      </p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-language">C++</span>
+          <button class="copy-button" onclick="copyCode(this)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+          </button>
+        </div>
+        <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+struct TreeNode
+{
+    int data;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int value) : data(value), left(nullptr), right(nullptr) {}
+};
+
+class BinaryTree
+{
+private:
+    TreeNode *root;
+
+    TreeNode *insertNode(TreeNode *node, int value)
+    {
+        if (node == nullptr)
+            return new TreeNode(value);
+        if (value &lt; node-&gt;data)
+            node-&gt;left = insertNode(node-&gt;left, value);
+        else
+            node-&gt;right = insertNode(node-&gt;right, value);
+        return node;
+    }
+
+    void preorderTraversal(TreeNode *node)
+    {
+        if (node == nullptr) return;
+        cout &lt;&lt; node-&gt;data &lt;&lt; " ";
+        preorderTraversal(node-&gt;left);
+        preorderTraversal(node-&gt;right);
+    }
+
+    void inorderTraversal(TreeNode *node)
+    {
+        if (node == nullptr) return;
+        inorderTraversal(node-&gt;left);
+        cout &lt;&lt; node-&gt;data &lt;&lt; " ";
+        inorderTraversal(node-&gt;right);
+    }
+
+    void postorderTraversal(TreeNode *node)
+    {
+        if (node == nullptr) return;
+        postorderTraversal(node-&gt;left);
+        postorderTraversal(node-&gt;right);
+        cout &lt;&lt; node-&gt;data &lt;&lt; " ";
+    }
+
+    TreeNode *findMinNode(TreeNode *node)
+    {
+        while (node != nullptr &amp;&amp; node-&gt;left != nullptr)
+            node = node-&gt;left;
+        return node;
+    }
+
+    TreeNode *removeNode(TreeNode *node, int value)
+    {
+        if (node == nullptr) return node;
+        if (value &lt; node-&gt;data)
+            node-&gt;left = removeNode(node-&gt;left, value);
+        else if (value &gt; node-&gt;data)
+            node-&gt;right = removeNode(node-&gt;right, value);
+        else
+        {
+            if (node-&gt;left == nullptr)
+            {
+                TreeNode *temp = node-&gt;right;
+                delete node; return temp;
+            }
+            else if (node-&gt;right == nullptr)
+            {
+                TreeNode *temp = node-&gt;left;
+                delete node; return temp;
+            }
+            TreeNode *temp = findMinNode(node-&gt;right);
+            node-&gt;data = temp-&gt;data;
+            node-&gt;right = removeNode(node-&gt;right, temp-&gt;data);
+        }
+        return node;
+    }
+
+public:
+    BinaryTree() : root(nullptr) {}
+
+    void insert(int value) { root = insertNode(root, value); }
+
+    void preorder()  { preorderTraversal(root);  cout &lt;&lt; endl; }
+    void inorder()   { inorderTraversal(root);   cout &lt;&lt; endl; }
+    void postorder() { postorderTraversal(root); cout &lt;&lt; endl; }
+    void remove(int value) { root = removeNode(root, value); }
+};
+
+int main()
+{
+    BinaryTree tree;
+
+    tree.insert(40);
+    tree.insert(20);
+    tree.insert(60);
+    tree.insert(10);
+    tree.insert(30);
+    tree.insert(50);
+    tree.insert(70);
+
+    cout &lt;&lt; "Preorder Traversal:  ";
+    tree.preorder();
+
+    cout &lt;&lt; "Inorder Traversal:   ";
+    tree.inorder();
+
+    cout &lt;&lt; "Postorder Traversal: ";
+    tree.postorder();
+
+    tree.remove(20);
+    cout &lt;&lt; "\nSetelah hapus 20:" &lt;&lt; endl;
+    cout &lt;&lt; "Inorder Traversal:   ";
+    tree.inorder();
+
+    return 0;
+}</code></pre>
+      </div>
+
+      <h3>Output Program</h3>
+      <div class="output-block">
+        <pre>Preorder Traversal:  40 20 10 30 60 50 70
+Inorder Traversal:   10 20 30 40 50 60 70
+Postorder Traversal: 10 30 20 50 70 60 40
+
+Setelah hapus 20:
+Inorder Traversal:   10 30 40 50 60 70</pre>
+      </div>
+    </div>
+
+    <!-- PERBANDINGAN OPERASI -->
+    <div class="section" id="s6">
+      <h2>6. Ringkasan Operasi Binary Search Tree</h2>
+
+      <div class="info-box">
+        <strong>Perbandingan Semua Operasi BST:</strong>
+        <ul>
+          <li><strong>Insert</strong> → Rekursi kiri/kanan sampai posisi kosong. Best/Avg: <code>O(log n)</code>, Worst: <code>O(n)</code></li>
+          <li><strong>Preorder</strong> → Root → Kiri → Kanan. Cocok untuk menyalin struktur tree. Selalu: <code>O(n)</code></li>
+          <li><strong>Inorder</strong> → Kiri → Root → Kanan. Menghasilkan data terurut ascending. Selalu: <code>O(n)</code></li>
+          <li><strong>Postorder</strong> → Kiri → Kanan → Root. Cocok untuk penghapusan tree. Selalu: <code>O(n)</code></li>
+          <li><strong>Delete</strong> → 3 kasus (leaf / 1 anak / 2 anak). Best/Avg: <code>O(log n)</code>, Worst: <code>O(n)</code></li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <strong>💡 Kapan BST Menjadi Tidak Efisien?</strong>
+        <ul>
+          <li>Jika data dimasukkan dalam urutan <em>sudah terurut</em> (misal: 10, 20, 30, 40...), tree menjadi seperti linked list — semua operasi menjadi <code>O(n)</code></li>
+          <li>Solusi: gunakan <strong>Self-Balancing BST</strong> seperti <em>AVL Tree</em> atau <em>Red-Black Tree</em> yang menjamin <code>O(log n)</code> selalu</li>
+          <li>Untuk penggunaan sehari-hari: <code>std::map</code> dan <code>std::set</code> di C++ STL menggunakan Red-Black Tree secara internal</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- KESIMPULAN -->
+    <div class="section">
+      <h2>Kesimpulan</h2>
+      <p>
+        Binary Search Tree adalah struktur data yang sangat berguna untuk penyimpanan data terurut dengan operasi pencarian, penyisipan, dan penghapusan yang efisien. Kunci kekuatannya terletak pada properti BST: kiri &lt; root &lt; kanan, yang memungkinkan pencarian biner di setiap langkah.
+      </p>
+      <div class="info-box">
+        <strong>Poin-Poin Penting:</strong>
+        <ul>
+          <li><strong>Insertion:</strong> Selalu rekursif, node baru selalu jadi leaf. Pertahankan properti BST.</li>
+          <li><strong>Inorder Traversal:</strong> Satu-satunya traversal yang menghasilkan data terurut di BST.</li>
+          <li><strong>Deletion:</strong> Kasus dua anak adalah yang paling kompleks — gunakan inorder successor.</li>
+          <li>Semua operasi bergantung pada tinggi tree: tree seimbang = <code>O(log n)</code>, tree linear = <code>O(n)</code>.</li>
+          <li>Untuk data production, gunakan self-balancing tree (AVL, Red-Black) atau <code>std::map</code>/<code>std::set</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; jossye, 2026 Dokumentasi C++</p>
+  </footer>
+</div>
+
+<script>
+function copyCode(button) {
+  const pre = button.parentElement.nextElementSibling;
+  const code = pre.querySelector('code');
+  const textarea = document.createElement('textarea');
+  textarea.value = code.innerText;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+  const originalText = button.innerHTML;
+  button.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin!';
+  button.classList.add('copied');
+  setTimeout(() => { button.innerHTML = originalText; button.classList.remove('copied'); }, 2000);
+}
+</script>
