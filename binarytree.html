@@ -1,44 +1,277 @@
-
+ <link rel="stylesheet" type="text/css" href="aset/main.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;background:white;color:black}
-.container{max-width:1000px;margin:0 auto;background:white;border:1px solid black;overflow:hidden}
-header{background:black;color:white;padding:30px;text-align:center;border-bottom:2px solid black}
-header h1{font-size:2em;margin-bottom:10px}
-header p{font-size:1em;opacity:.85}
-nav{background:black;padding:0 30px;border-bottom:2px solid black;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-nav a,.dropbtn{color:white;text-decoration:none;font-weight:600;font-size:.9em;font-family:inherit;padding:14px 12px;display:inline-block;border-bottom:3px solid transparent;background:none;border-top:none;border-left:none;border-right:none;cursor:pointer;transition:border-color .2s}
-nav a:hover,.dropbtn:hover{border-bottom:3px solid white}
-.dropdown{position:relative}
-.dropdown-content{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;min-width:180px;border:1px solid #444;z-index:99}
-.dropdown-content a{display:block;padding:10px 16px;font-size:.88em;color:#ccc;border-bottom:none}
-.dropdown-content a:hover{background:#2a2a2a;color:white}
-.dropdown:hover .dropdown-content{display:block}
-.content{padding:40px;background:white}
-.section{margin-bottom:50px}
-.section h2{color:black;font-size:2em;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid black}
-.section h3{color:black;font-size:1.3em;margin:25px 0 15px 0}
-.section p{margin-bottom:15px;text-align:justify}
-.code-block{border:1px solid black;margin:20px 0;overflow:hidden;position:relative}
-.code-header{background:#21252b;padding:10px 15px;border-bottom:1px solid #181a1f;display:flex;justify-content:space-between;align-items:center}
-.code-language{color:#abb2bf;font-size:.85em;font-weight:600}
-.copy-button{background:#3e4451;color:#abb2bf;border:none;padding:5px 12px;border-radius:3px;cursor:pointer;font-size:.85em;display:flex;align-items:center;gap:5px;transition:background .2s}
-.copy-button:hover{background:#4e5461}
-.copy-button.copied{background:#2ea043;color:white}
-pre code{display:block;background:#282c34;color:#abb2bf;padding:20px!important;font-family:'Courier New',monospace;font-size:.9em!important;line-height:1.6!important;overflow-x:auto;white-space:pre}
-.output-block{background:black;color:white;padding:20px;margin:20px 0;font-family:'Courier New',monospace;font-size:.9em;border:1px solid black;overflow-x:auto}
-.output-block pre{margin:0}
-.info-box{background:white;border:1px solid black;border-left:4px solid black;padding:15px 18px;margin:20px 0}
-.info-box strong{color:black}
-.note{background:#f9f9f9;border:1px solid black;border-left:4px solid #555;padding:15px 18px;margin:20px 0}
-.note strong{color:black}
-.info-box ul,.note ul{margin:8px 0 0 20px}
-.info-box ul li,.note ul li{margin-bottom:6px}
-code{background:#f0f0f0;padding:.1em .35em;border-radius:3px;font-family:'Courier New',monospace;font-size:.88em;color:black;border:1px solid #ddd}
-pre code{background:#282c34;color:#abb2bf;border:none;border-radius:0;padding:20px!important;font-size:.9em!important}
-ul{padding-left:1.25rem}
-ul li{margin-bottom:.25rem}
-footer{background:black;color:white;text-align:center;padding:20px;font-size:.85rem}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background: white;
+    color: black
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border: 1px solid black;
+    overflow: hidden
+  }
+
+  header {
+    background: black;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-bottom: 2px solid black
+  }
+
+  header h1 {
+    font-size: 2em;
+    margin-bottom: 10px
+  }
+
+  header p {
+    font-size: 1em;
+    opacity: .85
+  }
+
+  nav {
+    background: black;
+    padding: 0 30px;
+    border-bottom: 2px solid black;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap
+  }
+
+  nav a,
+  .dropbtn {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .9em;
+    font-family: inherit;
+    padding: 14px 12px;
+    display: inline-block;
+    border-bottom: 3px solid transparent;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+    transition: border-color .2s
+  }
+
+  nav a:hover,
+  .dropbtn:hover {
+    border-bottom: 3px solid white
+  }
+
+  .dropdown {
+    position: relative
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #1a1a1a;
+    min-width: 180px;
+    border: 1px solid #444;
+    z-index: 99
+  }
+
+  .dropdown-content a {
+    display: block;
+    padding: 10px 16px;
+    font-size: .88em;
+    color: #ccc;
+    border-bottom: none
+  }
+
+  .dropdown-content a:hover {
+    background: #2a2a2a;
+    color: white
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block
+  }
+
+  .content {
+    padding: 40px;
+    background: white
+  }
+
+  .section {
+    margin-bottom: 50px
+  }
+
+  .section h2 {
+    color: black;
+    font-size: 2em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black
+  }
+
+  .section h3 {
+    color: black;
+    font-size: 1.3em;
+    margin: 25px 0 15px 0
+  }
+
+  .section p {
+    margin-bottom: 15px;
+    text-align: justify
+  }
+
+  .code-block {
+    border: 1px solid black;
+    margin: 20px 0;
+    overflow: hidden;
+    position: relative
+  }
+
+  .code-header {
+    background: #21252b;
+    padding: 10px 15px;
+    border-bottom: 1px solid #181a1f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+  }
+
+  .code-language {
+    color: #abb2bf;
+    font-size: .85em;
+    font-weight: 600
+  }
+
+  .copy-button {
+    background: #3e4451;
+    color: #abb2bf;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: .85em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background .2s
+  }
+
+  .copy-button:hover {
+    background: #4e5461
+  }
+
+  .copy-button.copied {
+    background: #2ea043;
+    color: white
+  }
+
+  pre code {
+    display: block;
+    background: #282c34;
+    color: #abb2bf;
+    padding: 20px !important;
+    font-family: 'Courier New', monospace;
+    font-size: .9em !important;
+    line-height: 1.6 !important;
+    overflow-x: auto;
+    white-space: pre
+  }
+
+  .output-block {
+    background: black;
+    color: white;
+    padding: 20px;
+    margin: 20px 0;
+    font-family: 'Courier New', monospace;
+    font-size: .9em;
+    border: 1px solid black;
+    overflow-x: auto
+  }
+
+  .output-block pre {
+    margin: 0
+  }
+
+  .info-box {
+    background: white;
+    border: 1px solid black;
+    border-left: 4px solid black;
+    padding: 15px 18px;
+    margin: 20px 0
+  }
+
+  .info-box strong {
+    color: black
+  }
+
+  .note {
+    background: #f9f9f9;
+    border: 1px solid black;
+    border-left: 4px solid #555;
+    padding: 15px 18px;
+    margin: 20px 0
+  }
+
+  .note strong {
+    color: black
+  }
+
+  .info-box ul,
+  .note ul {
+    margin: 8px 0 0 20px
+  }
+
+  .info-box ul li,
+  .note ul li {
+    margin-bottom: 6px
+  }
+
+  code {
+    background: #f0f0f0;
+    padding: .1em .35em;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: .88em;
+    color: black;
+    border: 1px solid #ddd
+  }
+
+  pre code {
+    background: #282c34;
+    color: #abb2bf;
+    border: none;
+    border-radius: 0;
+    padding: 20px !important;
+    font-size: .9em !important
+  }
+
+  ul {
+    padding-left: 1.25rem
+  }
+
+  ul li {
+    margin-bottom: .25rem
+  }
+
+  footer {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: .85rem
+  }
 </style>
 
 <div class="container">
@@ -48,7 +281,10 @@ footer{background:black;color:white;text-align:center;padding:20px;font-size:.85
   </header>
 
   <nav>
-    <a href="index.html" style="color:white;text-decoration:none;display:flex;align-items:center;gap:5px;padding:14px 12px;border-bottom:3px solid transparent;transition:border-color .2s;font-weight:600;font-size:.9em;" onmouseover="this.style.borderBottom='3px solid white'" onmouseout="this.style.borderBottom='3px solid transparent'">← Kembali ke Beranda</a>
+    <a href="index.html"
+      style="color:white;text-decoration:none;display:flex;align-items:center;gap:5px;padding:14px 12px;border-bottom:3px solid transparent;transition:border-color .2s;font-weight:600;font-size:.9em;"
+      onmouseover="this.style.borderBottom='3px solid white'"
+      onmouseout="this.style.borderBottom='3px solid transparent'">← Kembali ke Beranda</a>
     <div class="dropdown">
       <button class="dropbtn">Materi ▼</button>
       <div class="dropdown-content">
@@ -81,10 +317,15 @@ footer{background:black;color:white;text-align:center;padding:20px;font-size:.85
     <div class="section" id="s1">
       <h2>1. Konsep Dasar Binary Tree</h2>
       <p>
-        <strong>Binary Tree</strong> adalah struktur data berbentuk pohon di mana setiap node memiliki maksimal dua anak: <strong>left child</strong> (kiri) dan <strong>right child</strong> (kanan). Jenis yang paling umum digunakan adalah <strong>Binary Search Tree (BST)</strong>, di mana nilai node kiri selalu lebih kecil dari node induknya, dan nilai node kanan selalu lebih besar.
+        <strong>Binary Tree</strong> adalah struktur data berbentuk pohon di mana setiap node memiliki maksimal dua
+        anak: <strong>left child</strong> (kiri) dan <strong>right child</strong> (kanan). Jenis yang paling umum
+        digunakan adalah <strong>Binary Search Tree (BST)</strong>, di mana nilai node kiri selalu lebih kecil dari node
+        induknya, dan nilai node kanan selalu lebih besar.
       </p>
       <p>
-        Dalam implementasi C++, setiap node direpresentasikan oleh sebuah <code>struct TreeNode</code> yang menyimpan data dan dua pointer ke anak kiri dan kanan. Seluruh operasi dikelola oleh class <code>BinaryTree</code> yang menyimpan pointer ke node akar (<code>root</code>).
+        Dalam implementasi C++, setiap node direpresentasikan oleh sebuah <code>struct TreeNode</code> yang menyimpan
+        data dan dua pointer ke anak kiri dan kanan. Seluruh operasi dikelola oleh class <code>BinaryTree</code> yang
+        menyimpan pointer ke node akar (<code>root</code>).
       </p>
 
       <div class="info-box">
@@ -103,7 +344,10 @@ footer{background:black;color:white;text-align:center;padding:20px;font-size:.85
         <div class="code-header">
           <span class="code-language">C++</span>
           <button class="copy-button" onclick="copyCode(this)">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg> Salin Kode
           </button>
         </div>
         <pre><code>struct TreeNode
@@ -148,7 +392,9 @@ Aturan: kiri &lt; induk &lt; kanan
     <div class="section" id="s2">
       <h2>2. Insertion (Penyisipan Node)</h2>
       <p>
-        Operasi <strong>insertion</strong> menambahkan node baru ke dalam BST sambil tetap mempertahankan properti BST. Proses dilakukan secara rekursif: bandingkan nilai baru dengan node saat ini, lalu arahkan ke kiri jika lebih kecil atau ke kanan jika lebih besar, sampai ditemukan posisi kosong (<code>nullptr</code>).
+        Operasi <strong>insertion</strong> menambahkan node baru ke dalam BST sambil tetap mempertahankan properti BST.
+        Proses dilakukan secara rekursif: bandingkan nilai baru dengan node saat ini, lalu arahkan ke kiri jika lebih
+        kecil atau ke kanan jika lebih besar, sampai ditemukan posisi kosong (<code>nullptr</code>).
       </p>
 
       <h3>Kode Program</h3>
@@ -156,7 +402,10 @@ Aturan: kiri &lt; induk &lt; kanan
         <div class="code-header">
           <span class="code-language">C++</span>
           <button class="copy-button" onclick="copyCode(this)">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg> Salin Kode
           </button>
         </div>
         <pre><code>TreeNode *insertNode(TreeNode *node, int value)
@@ -198,7 +447,8 @@ Aturan: kiri &lt; induk &lt; kanan
         <strong>⏱ Kompleksitas Insertion:</strong>
         <ul>
           <li>Best &amp; Average Case: <code>O(log n)</code> — tree seimbang, setiap langkah memangkas setengah</li>
-          <li>Worst Case: <code>O(n)</code> — tree menjadi linear (seperti linked list) jika data dimasukkan berurutan</li>
+          <li>Worst Case: <code>O(n)</code> — tree menjadi linear (seperti linked list) jika data dimasukkan berurutan
+          </li>
         </ul>
       </div>
 
@@ -216,7 +466,8 @@ tree.insert(30); → 30 &lt; 40 → kiri, 30 &gt; 20 → kanan → 20-&gt;right 
     <div class="section" id="s3">
       <h2>3. Traversal (Penelusuran)</h2>
       <p>
-        <strong>Traversal</strong> adalah proses mengunjungi setiap node dalam tree. Ada tiga urutan traversal utama, yang dibedakan oleh kapan node <em>saat ini</em> diproses relatif terhadap subtree kiri dan kanannya.
+        <strong>Traversal</strong> adalah proses mengunjungi setiap node dalam tree. Ada tiga urutan traversal utama,
+        yang dibedakan oleh kapan node <em>saat ini</em> diproses relatif terhadap subtree kiri dan kanannya.
       </p>
 
       <h3>Preorder Traversal (Root → Left → Right)</h3>
@@ -224,7 +475,10 @@ tree.insert(30); → 30 &lt; 40 → kiri, 30 &gt; 20 → kanan → 20-&gt;right 
         <div class="code-header">
           <span class="code-language">C++</span>
           <button class="copy-button" onclick="copyCode(this)">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg> Salin Kode
           </button>
         </div>
         <pre><code>void preorderTraversal(TreeNode *node)
@@ -242,7 +496,10 @@ tree.insert(30); → 30 &lt; 40 → kiri, 30 &gt; 20 → kanan → 20-&gt;right 
         <div class="code-header">
           <span class="code-language">C++</span>
           <button class="copy-button" onclick="copyCode(this)">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg> Salin Kode
           </button>
         </div>
         <pre><code>void inorderTraversal(TreeNode *node)
@@ -260,7 +517,10 @@ tree.insert(30); → 30 &lt; 40 → kiri, 30 &gt; 20 → kanan → 20-&gt;right 
         <div class="code-header">
           <span class="code-language">C++</span>
           <button class="copy-button" onclick="copyCode(this)">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg> Salin Kode
           </button>
         </div>
         <pre><code>void postorderTraversal(TreeNode *node)
@@ -277,9 +537,12 @@ tree.insert(30); → 30 &lt; 40 → kiri, 30 &gt; 20 → kanan → 20-&gt;right 
       <div class="info-box">
         <strong>Perbedaan Ketiga Traversal:</strong>
         <ul>
-          <li><strong>Preorder</strong> — Root diproses <em>sebelum</em> anak-anaknya. Berguna untuk menyalin atau mencetak struktur tree.</li>
-          <li><strong>Inorder</strong> — Root diproses <em>di antara</em> anak kiri dan kanan. Pada BST, inorder <strong>selalu menghasilkan urutan data yang terurut ascending</strong>.</li>
-          <li><strong>Postorder</strong> — Root diproses <em>setelah</em> semua anaknya. Berguna untuk menghapus tree (hapus anak dulu, baru induk) atau mengevaluasi ekspresi.</li>
+          <li><strong>Preorder</strong> — Root diproses <em>sebelum</em> anak-anaknya. Berguna untuk menyalin atau
+            mencetak struktur tree.</li>
+          <li><strong>Inorder</strong> — Root diproses <em>di antara</em> anak kiri dan kanan. Pada BST, inorder
+            <strong>selalu menghasilkan urutan data yang terurut ascending</strong>.</li>
+          <li><strong>Postorder</strong> — Root diproses <em>setelah</em> semua anaknya. Berguna untuk menghapus tree
+            (hapus anak dulu, baru induk) atau mengevaluasi ekspresi.</li>
         </ul>
       </div>
 
@@ -310,7 +573,8 @@ Postorder (L→R→Root): 10 30 20 50 70 60 40</pre>
     <div class="section" id="s4">
       <h2>4. Deletion (Penghapusan Node)</h2>
       <p>
-        Operasi <strong>deletion</strong> adalah yang paling kompleks karena harus mempertahankan properti BST setelah node dihapus. Ada tiga kasus yang harus ditangani berdasarkan jumlah anak dari node yang akan dihapus.
+        Operasi <strong>deletion</strong> adalah yang paling kompleks karena harus mempertahankan properti BST setelah
+        node dihapus. Ada tiga kasus yang harus ditangani berdasarkan jumlah anak dari node yang akan dihapus.
       </p>
 
       <h3>Kode Program</h3>
@@ -318,7 +582,10 @@ Postorder (L→R→Root): 10 30 20 50 70 60 40</pre>
         <div class="code-header">
           <span class="code-language">C++</span>
           <button class="copy-button" onclick="copyCode(this)">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg> Salin Kode
           </button>
         </div>
         <pre><code>TreeNode *findMinNode(TreeNode *node)
@@ -372,9 +639,12 @@ TreeNode *removeNode(TreeNode *node, int value)
       <div class="info-box">
         <strong>Tiga Kasus Deletion:</strong>
         <ul>
-          <li><strong>Kasus 1 — Node adalah leaf</strong>: Hapus langsung, kembalikan <code>nullptr</code> ke induknya.</li>
-          <li><strong>Kasus 2 — Node punya satu anak</strong>: Hubungkan induk langsung ke cucu (bypass node yang dihapus), lalu <code>delete</code> node tersebut.</li>
-          <li><strong>Kasus 3 — Node punya dua anak</strong>: Cari <em>inorder successor</em> (node terkecil di subtree kanan). Salin nilainya ke node saat ini, lalu hapus inorder successor dari subtree kanan.</li>
+          <li><strong>Kasus 1 — Node adalah leaf</strong>: Hapus langsung, kembalikan <code>nullptr</code> ke induknya.
+          </li>
+          <li><strong>Kasus 2 — Node punya satu anak</strong>: Hubungkan induk langsung ke cucu (bypass node yang
+            dihapus), lalu <code>delete</code> node tersebut.</li>
+          <li><strong>Kasus 3 — Node punya dua anak</strong>: Cari <em>inorder successor</em> (node terkecil di subtree
+            kanan). Salin nilainya ke node saat ini, lalu hapus inorder successor dari subtree kanan.</li>
         </ul>
       </div>
 
@@ -382,7 +652,8 @@ TreeNode *removeNode(TreeNode *node, int value)
         <strong>💡 Mengapa Inorder Successor?</strong>
         <ul>
           <li>Inorder successor adalah nilai terkecil yang masih lebih besar dari node yang dihapus</li>
-          <li>Dengan menggantikan node dihapus menggunakan inorder successor, properti BST (kiri &lt; root &lt; kanan) tetap terjaga</li>
+          <li>Dengan menggantikan node dihapus menggunakan inorder successor, properti BST (kiri &lt; root &lt; kanan)
+            tetap terjaga</li>
           <li>Alternatif lain yang valid: gunakan <em>inorder predecessor</em> (nilai terbesar di subtree kiri)</li>
         </ul>
       </div>
@@ -429,13 +700,17 @@ Hasil:          40
     <div class="section" id="s5">
       <h2>5. Kode Lengkap</h2>
       <p>
-        Berikut adalah kode lengkap implementasi Binary Search Tree dalam C++, menggabungkan seluruh operasi: insertion, preorder/inorder/postorder traversal, dan deletion.
+        Berikut adalah kode lengkap implementasi Binary Search Tree dalam C++, menggabungkan seluruh operasi: insertion,
+        preorder/inorder/postorder traversal, dan deletion.
       </p>
       <div class="code-block">
         <div class="code-header">
           <span class="code-language">C++</span>
           <button class="copy-button" onclick="copyCode(this)">
-            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Salin Kode
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg> Salin Kode
           </button>
         </div>
         <pre><code>#include &lt;iostream&gt;
@@ -581,20 +856,28 @@ Inorder Traversal:   10 30 40 50 60 70</pre>
       <div class="info-box">
         <strong>Perbandingan Semua Operasi BST:</strong>
         <ul>
-          <li><strong>Insert</strong> → Rekursi kiri/kanan sampai posisi kosong. Best/Avg: <code>O(log n)</code>, Worst: <code>O(n)</code></li>
-          <li><strong>Preorder</strong> → Root → Kiri → Kanan. Cocok untuk menyalin struktur tree. Selalu: <code>O(n)</code></li>
-          <li><strong>Inorder</strong> → Kiri → Root → Kanan. Menghasilkan data terurut ascending. Selalu: <code>O(n)</code></li>
-          <li><strong>Postorder</strong> → Kiri → Kanan → Root. Cocok untuk penghapusan tree. Selalu: <code>O(n)</code></li>
-          <li><strong>Delete</strong> → 3 kasus (leaf / 1 anak / 2 anak). Best/Avg: <code>O(log n)</code>, Worst: <code>O(n)</code></li>
+          <li><strong>Insert</strong> → Rekursi kiri/kanan sampai posisi kosong. Best/Avg: <code>O(log n)</code>, Worst:
+            <code>O(n)</code></li>
+          <li><strong>Preorder</strong> → Root → Kiri → Kanan. Cocok untuk menyalin struktur tree. Selalu:
+            <code>O(n)</code></li>
+          <li><strong>Inorder</strong> → Kiri → Root → Kanan. Menghasilkan data terurut ascending. Selalu:
+            <code>O(n)</code></li>
+          <li><strong>Postorder</strong> → Kiri → Kanan → Root. Cocok untuk penghapusan tree. Selalu: <code>O(n)</code>
+          </li>
+          <li><strong>Delete</strong> → 3 kasus (leaf / 1 anak / 2 anak). Best/Avg: <code>O(log n)</code>, Worst:
+            <code>O(n)</code></li>
         </ul>
       </div>
 
       <div class="note">
         <strong>💡 Kapan BST Menjadi Tidak Efisien?</strong>
         <ul>
-          <li>Jika data dimasukkan dalam urutan <em>sudah terurut</em> (misal: 10, 20, 30, 40...), tree menjadi seperti linked list — semua operasi menjadi <code>O(n)</code></li>
-          <li>Solusi: gunakan <strong>Self-Balancing BST</strong> seperti <em>AVL Tree</em> atau <em>Red-Black Tree</em> yang menjamin <code>O(log n)</code> selalu</li>
-          <li>Untuk penggunaan sehari-hari: <code>std::map</code> dan <code>std::set</code> di C++ STL menggunakan Red-Black Tree secara internal</li>
+          <li>Jika data dimasukkan dalam urutan <em>sudah terurut</em> (misal: 10, 20, 30, 40...), tree menjadi seperti
+            linked list — semua operasi menjadi <code>O(n)</code></li>
+          <li>Solusi: gunakan <strong>Self-Balancing BST</strong> seperti <em>AVL Tree</em> atau <em>Red-Black Tree</em>
+            yang menjamin <code>O(log n)</code> selalu</li>
+          <li>Untuk penggunaan sehari-hari: <code>std::map</code> dan <code>std::set</code> di C++ STL menggunakan
+            Red-Black Tree secara internal</li>
         </ul>
       </div>
     </div>
@@ -603,7 +886,9 @@ Inorder Traversal:   10 30 40 50 60 70</pre>
     <div class="section">
       <h2>Kesimpulan</h2>
       <p>
-        Binary Search Tree adalah struktur data yang sangat berguna untuk penyimpanan data terurut dengan operasi pencarian, penyisipan, dan penghapusan yang efisien. Kunci kekuatannya terletak pada properti BST: kiri &lt; root &lt; kanan, yang memungkinkan pencarian biner di setiap langkah.
+        Binary Search Tree adalah struktur data yang sangat berguna untuk penyimpanan data terurut dengan operasi
+        pencarian, penyisipan, dan penghapusan yang efisien. Kunci kekuatannya terletak pada properti BST: kiri &lt;
+        root &lt; kanan, yang memungkinkan pencarian biner di setiap langkah.
       </p>
       <div class="info-box">
         <strong>Poin-Poin Penting:</strong>
@@ -611,32 +896,45 @@ Inorder Traversal:   10 30 40 50 60 70</pre>
           <li><strong>Insertion:</strong> Selalu rekursif, node baru selalu jadi leaf. Pertahankan properti BST.</li>
           <li><strong>Inorder Traversal:</strong> Satu-satunya traversal yang menghasilkan data terurut di BST.</li>
           <li><strong>Deletion:</strong> Kasus dua anak adalah yang paling kompleks — gunakan inorder successor.</li>
-          <li>Semua operasi bergantung pada tinggi tree: tree seimbang = <code>O(log n)</code>, tree linear = <code>O(n)</code>.</li>
-          <li>Untuk data production, gunakan self-balancing tree (AVL, Red-Black) atau <code>std::map</code>/<code>std::set</code>.</li>
+          <li>Semua operasi bergantung pada tinggi tree: tree seimbang = <code>O(log n)</code>, tree linear =
+            <code>O(n)</code>.</li>
+          <li>Untuk data production, gunakan self-balancing tree (AVL, Red-Black) atau
+            <code>std::map</code>/<code>std::set</code>.</li>
         </ul>
       </div>
     </div>
 
   </div>
+  <!-- SECTION PENGUMPULAN -->
+  <div class="section" id="pengumpulan">
+    <h2>Pengumpulan Tugas</h2>
+    <p>Silakan kumpulkan tugas melalui link berikut:</p>
 
+    <div class="info-box">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScXhRZqI8mihx4c5jPNsnTIn3Yj0vWzR5lPOYs3Qnv9m9fFkA/viewform?usp=dialog"
+        target="_blank" class="submit-link">
+        Klik di sini untuk Pengumpulan Tugas
+      </a>
+    </div>
+  </div>
   <footer>
     <p>&copy; jossye, 2026 Dokumentasi C++</p>
   </footer>
 </div>
 
 <script>
-function copyCode(button) {
-  const pre = button.parentElement.nextElementSibling;
-  const code = pre.querySelector('code');
-  const textarea = document.createElement('textarea');
-  textarea.value = code.innerText;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand('copy');
-  document.body.removeChild(textarea);
-  const originalText = button.innerHTML;
-  button.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin!';
-  button.classList.add('copied');
-  setTimeout(() => { button.innerHTML = originalText; button.classList.remove('copied'); }, 2000);
-}
+  function copyCode(button) {
+    const pre = button.parentElement.nextElementSibling;
+    const code = pre.querySelector('code');
+    const textarea = document.createElement('textarea');
+    textarea.value = code.innerText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    const originalText = button.innerHTML;
+    button.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin!';
+    button.classList.add('copied');
+    setTimeout(() => { button.innerHTML = originalText; button.classList.remove('copied'); }, 2000);
+  }
 </script>
