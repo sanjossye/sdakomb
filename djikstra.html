@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Algoritma Dijkstra C++</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: white;
+            color: black
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid black;
+            overflow: hidden
+        }
+
+        header {
+            background: black;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid black
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px
+        }
+
+        header p {
+            font-size: 1em;
+            opacity: .85
+        }
+
+        nav {
+            background: black;
+            padding: 0 30px;
+            border-bottom: 2px solid black;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        nav a,
+        .dropbtn {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: .9em;
+            font-family: inherit;
+            padding: 14px 12px;
+            display: inline-block;
+            border-bottom: 3px solid transparent;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            cursor: pointer;
+            transition: border-color .2s
+        }
+
+        nav a:hover,
+        .dropbtn:hover {
+            border-bottom: 3px solid white
+        }
+
+        .dropdown {
+            position: relative
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1a1a1a;
+            min-width: 180px;
+            border: 1px solid #444;
+            z-index: 99
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 16px;
+            font-size: .88em;
+            color: #ccc;
+            border-bottom: none
+        }
+
+        .dropdown-content a:hover {
+            background: #2a2a2a;
+            color: white
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block
+        }
+
+        .content {
+            padding: 40px;
+            background: white
+        }
+
+        .section {
+            margin-bottom: 50px
+        }
+
+        .section h2 {
+            color: black;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid black
+        }
+
+        .section h3 {
+            color: black;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify
+        }
+
+        .code-block {
+            border: 1px solid black;
+            margin: 20px 0;
+            overflow: hidden;
+            position: relative
+        }
+
+        .code-header {
+            background: #21252b;
+            padding: 10px 15px;
+            border-bottom: 1px solid #181a1f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .code-language {
+            color: #abb2bf;
+            font-size: .85em;
+            font-weight: 600
+        }
+
+        .copy-button {
+            background: #3e4451;
+            color: #abb2bf;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: .85em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background .2s
+        }
+
+        .copy-button:hover {
+            background: #4e5461
+        }
+
+        .copy-button.copied {
+            background: #2ea043;
+            color: white
+        }
+
+        pre code {
+            display: block;
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px !important;
+            font-family: 'Courier New', monospace;
+            font-size: .9em !important;
+            line-height: 1.6 !important;
+            overflow-x: auto;
+            white-space: pre
+        }
+
+        .output-block {
+            background: black;
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: .9em;
+            border: 1px solid black;
+            overflow-x: auto
+        }
+
+        .output-block pre {
+            margin: 0
+        }
+
+        .info-box {
+            background: white;
+            border: 1px solid black;
+            border-left: 4px solid black;
+            padding: 15px 18px;
+            margin: 20px 0
+        }
+
+        .info-box strong {
+            color: black
+        }
+
+        .note {
+            background: #f9f9f9;
+            border: 1px solid black;
+            border-left: 4px solid #555;
+            padding: 15px 18px;
+            margin: 20px 0
+        }
+
+        .note strong {
+            color: black
+        }
+
+        .info-box ul,
+        .note ul {
+            margin: 8px 0 0 20px
+        }
+
+        .info-box ul li,
+        .note ul li {
+            margin-bottom: 6px
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: .1em .35em;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: .88em;
+            color: black;
+            border: 1px solid #ddd
+        }
+
+        pre code {
+            background: #282c34;
+            color: #abb2bf;
+            border: none;
+            border-radius: 0;
+            padding: 20px !important;
+            font-size: .9em !important
+        }
+
+        ul {
+            padding-left: 1.25rem
+        }
+
+        ul li {
+            margin-bottom: .25rem
+        }
+
+        .submit-link {
+            color: black;
+            font-weight: 700;
+            text-decoration: underline
+        }
+
+        footer {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: .85rem
+        }
+
+        /* Graph table styling */
+        .matrix-table {
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: .9em
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            border: 1px solid black;
+            padding: 8px 14px;
+            text-align: center
+        }
+
+        .matrix-table th {
+            background: black;
+            color: white
+        }
+
+        .matrix-table td.nonzero {
+            font-weight: bold
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Dokumentasi Algoritma Dijkstra C++</h1>
+            <p>Algoritma pencarian jalur terpendek pada graf berbobot tak-negatif</p>
+        </header>
+
+        <nav>
+            <a href="index.html"
+                style="color:white;text-decoration:none;display:flex;align-items:center;gap:5px;padding:14px 12px;border-bottom:3px solid transparent;transition:border-color .2s;font-weight:600;font-size:.9em;"
+                onmouseover="this.style.borderBottom='3px solid white'"
+                onmouseout="this.style.borderBottom='3px solid transparent'">← Kembali ke Beranda</a>
+            <div class="dropdown">
+                <button class="dropbtn">Materi ▼</button>
+                <div class="dropdown-content">
+                    <a href="array-documentation.html">Array</a>
+                    <a href="ps-documentation.html">Pointer &amp; Struct</a>
+                    <a href="linkedlist.html">Linked List</a>
+                    <a href="stackandqueue.html">Stack &amp; Queue</a>
+                    <a href="traditionalsort.html">Traditional Sort</a>
+                    <a href="modernsort.html">Modern Sort</a>
+                    <a href="searching.html">Searching</a>
+                    <a href="binarytree.html">Binary Tree</a>
+                    <a href="dijkstra.html">Dijkstra</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Navigasi ▼</button>
+                <div class="dropdown-content">
+                    <a href="#s1">Konsep Dasar</a>
+                    <a href="#s2">Representasi Graf</a>
+                    <a href="#s3">Fungsi jarakMinimum</a>
+                    <a href="#s4">Fungsi dijkstra</a>
+                    <a href="#s5">Kode Lengkap</a>
+                    <a href="#s6">Ringkasan</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+
+            <!-- KONSEP DASAR -->
+            <div class="section" id="s1">
+                <h2>1. Konsep Dasar Algoritma Dijkstra</h2>
+                <p>
+                    <strong>Algoritma Dijkstra</strong> adalah algoritma pencarian jalur terpendek (<em>shortest
+                        path</em>) dari
+                    satu node sumber ke semua node lain pada sebuah <strong>graf berbobot dengan bobot
+                        non-negatif</strong>.
+                    Dikembangkan oleh ilmuwan komputer Belanda <strong>Edsger W. Dijkstra</strong> pada tahun 1956,
+                    algoritma
+                    ini termasuk dalam kategori <em>greedy algorithm</em> karena setiap langkahnya selalu memilih node
+                    dengan jarak minimum yang belum dikunjungi.
+                </p>
+                <p>
+                    Dalam implementasi ini, graf direpresentasikan sebagai <strong>adjacency matrix</strong> berukuran
+                    7×7
+                    untuk 7 node (A sampai G). Algoritma mencari jarak terpendek dari node <strong>A (indeks 0)</strong>
+                    ke node <strong>B (indeks 1)</strong> beserta jalurnya.
+                </p>
+
+                <div class="info-box">
+                    <strong>Prinsip Kerja Dijkstra:</strong>
+                    <ul>
+                        <li>Mulai dari node sumber dengan jarak = 0, semua node lain = ∞ (<code>INT_MAX</code>)</li>
+                        <li>Setiap iterasi: pilih node belum dikunjungi dengan jarak terkecil</li>
+                        <li>Perbarui jarak tetangga-tetangganya jika jalur lewat node ini lebih pendek
+                            (<em>relaxation</em>)</li>
+                        <li>Tandai node sebagai sudah dikunjungi (<code>set[] = true</code>), tidak diproses ulang</li>
+                        <li>Ulangi hingga semua node dikunjungi</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>Terminologi Penting:</strong>
+                    <ul>
+                        <li><strong>Graf (Graph)</strong>: kumpulan node/vertex yang dihubungkan oleh edge/sisi</li>
+                        <li><strong>Bobot (Weight)</strong>: nilai numerik pada setiap edge, merepresentasikan
+                            jarak/biaya</li>
+                        <li><strong>Node Sumber (Source)</strong>: titik awal pencarian jalur terpendek</li>
+                        <li><strong>Relaxation</strong>: proses memperbarui jarak jika ditemukan jalur yang lebih pendek
+                        </li>
+                        <li><strong>Visited Set</strong>: kumpulan node yang sudah diproses dan tidak akan diubah lagi
+                        </li>
+                        <li><strong>Parent Array</strong>: menyimpan node sebelumnya untuk merekonstruksi jalur</li>
+                    </ul>
+                </div>
+
+                <h3>Visualisasi Graf (7 Node: A–G)</h3>
+                <div class="output-block">
+                    <pre>Node: A=0, B=1, C=2, D=3, E=4, F=5, G=6
+
+         2       5
+    A ——————— F ——————— G
+    |  \    / |  \      |
+   3|   \2/  |2   \6   |2
+    |    \/  |     \   |
+    C    /\  |      B  |
+    |\  /  \ |     /|  |
+   4| \/    \|    / |  |
+    | /\     E   /  |  |
+   1|/  \1  / \ /3  |  |
+    D    \ /   X   2|  |
+          E   / \  |   |
+         1\  /   2 |   |
+            B     \|   |
+             ←—2——— G ——'
+
+Bobot edge:
+  A-C: 3  A-F: 2
+  B-D: 1  B-E: 2  B-F: 6  B-G: 2
+  C-D: 4  C-E: 1  C-F: 2
+  E-F: 3  F-G: 5</pre>
+                </div>
+            </div>
+
+            <!-- REPRESENTASI GRAF -->
+            <div class="section" id="s2">
+                <h2>2. Representasi Graf (Adjacency Matrix)</h2>
+                <p>
+                    Graf direpresentasikan sebagai matriks 7×7 di mana <code>graf[i][j]</code> menyimpan bobot edge
+                    antara node <code>i</code> dan node <code>j</code>. Nilai <code>0</code> berarti tidak ada
+                    edge langsung antara kedua node tersebut.
+                </p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code>int n = 7;
+int graf[7][7] = {
+//   A  B  C  D  E  F  G
+    {0, 0, 3, 0, 0, 2, 0},  // A
+    {0, 0, 0, 1, 2, 6, 2},  // B
+    {3, 0, 0, 4, 1, 2, 0},  // C
+    {0, 1, 4, 0, 0, 0, 0},  // D
+    {0, 2, 1, 0, 0, 3, 0},  // E
+    {2, 6, 2, 0, 3, 0, 5},  // F
+    {0, 2, 0, 0, 0, 5, 0}   // G
+};</code></pre>
+                </div>
+
+                <h3>Tabel Adjacency Matrix</h3>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                            <th>D</th>
+                            <th>E</th>
+                            <th>F</th>
+                            <th>G</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>A</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="nonzero">3</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="nonzero">2</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>B</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="nonzero">1</td>
+                            <td class="nonzero">2</td>
+                            <td class="nonzero">6</td>
+                            <td class="nonzero">2</td>
+                        </tr>
+                        <tr>
+                            <th>C</th>
+                            <td class="nonzero">3</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="nonzero">4</td>
+                            <td class="nonzero">1</td>
+                            <td class="nonzero">2</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>D</th>
+                            <td>0</td>
+                            <td class="nonzero">1</td>
+                            <td class="nonzero">4</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>E</th>
+                            <td>0</td>
+                            <td class="nonzero">2</td>
+                            <td class="nonzero">1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="nonzero">3</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>F</th>
+                            <td class="nonzero">2</td>
+                            <td class="nonzero">6</td>
+                            <td class="nonzero">2</td>
+                            <td>0</td>
+                            <td class="nonzero">3</td>
+                            <td>0</td>
+                            <td class="nonzero">5</td>
+                        </tr>
+                        <tr>
+                            <th>G</th>
+                            <td>0</td>
+                            <td class="nonzero">2</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="nonzero">5</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <strong>Cara Membaca Matriks:</strong>
+                    <ul>
+                        <li><code>graf[0][2] = 3</code> → ada edge dari A ke C dengan bobot 3</li>
+                        <li><code>graf[0][5] = 2</code> → ada edge dari A ke F dengan bobot 2</li>
+                        <li><code>graf[1][3] = 1</code> → ada edge dari B ke D dengan bobot 1</li>
+                        <li><code>graf[i][j] == 0</code> → tidak ada edge langsung antara node i dan j</li>
+                        <li>Matriks ini <strong>simetris</strong> karena graf tidak berarah (<em>undirected</em>)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FUNGSI JARAKMINIMUM -->
+            <div class="section" id="s3">
+                <h2>3. Fungsi jarakMinimum()</h2>
+                <p>
+                    Fungsi <code>jarakMinimum()</code> bertugas menemukan node dengan jarak terkecil di antara semua
+                    node
+                    yang <strong>belum dikunjungi</strong> (<code>set[i] == false</code>). Fungsi ini dipanggil setiap
+                    iterasi oleh fungsi <code>dijkstra()</code> untuk menentukan node mana yang harus diproses
+                    berikutnya.
+                </p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code>int jarakMinimum(int jarak[], bool set[], int n)
+{
+    int kecil = INT_MAX;  // Mulai dengan nilai tak hingga
+    int indeks;
+
+    for (int i = 0; i < n; i++)
+    {
+        // Hanya periksa node yang belum dikunjungi
+        if (set[i] == false && jarak[i] <= kecil)
+        {
+            kecil = jarak[i];
+            indeks = i;   // Simpan indeks node dengan jarak terkecil
+        }
+    }
+
+    return indeks;  // Kembalikan indeks node terpilih
+}</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Cara Kerja jarakMinimum():</strong>
+                    <ul>
+                        <li>Parameter <code>jarak[]</code>: array berisi jarak terbaik saat ini ke setiap node</li>
+                        <li>Parameter <code>set[]</code>: array boolean, <code>true</code> = sudah dikunjungi</li>
+                        <li>Iterasi semua node, lewati yang <code>set[i] == true</code></li>
+                        <li>Lacak node dengan <code>jarak[i]</code> terkecil, simpan indeksnya</li>
+                        <li>Kembalikan indeks node tersebut agar <code>dijkstra()</code> memprosesnya</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>⚠️ Catatan Implementasi:</strong>
+                    <ul>
+                        <li>Fungsi ini berjalan dalam <code>O(n)</code> per panggilan — total <code>O(n²)</code> untuk
+                            seluruh algoritma</li>
+                        <li>Implementasi yang lebih efisien menggunakan <strong>priority queue (min-heap)</strong> untuk
+                            mencapai <code>O((V+E) log V)</code></li>
+                        <li><code>INT_MAX</code> dari <code>&lt;climits&gt;</code> digunakan sebagai representasi "tak
+                            hingga"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FUNGSI DIJKSTRA -->
+            <div class="section" id="s4">
+                <h2>4. Fungsi dijkstra()</h2>
+                <p>
+                    Fungsi utama <code>dijkstra()</code> mengimplementasikan keseluruhan algoritma. Ia menginisialisasi
+                    tiga array penting (<code>jarak</code>, <code>set</code>, <code>parent</code>), menjalankan iterasi
+                    sebanyak <code>n</code> kali, dan di akhir merekonstruksi serta mencetak jalur terpendek dari A ke
+                    B.
+                </p>
+
+                <h3>Inisialisasi Array</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code>void dijkstra(int graf[7][7], int awal, int n)
+{
+    int jarak[7];   // Jarak terpendek dari node awal ke tiap node
+    bool set[7];    // true = sudah dikunjungi/diproses
+    int parent[7];  // Node sebelumnya dalam jalur terpendek
+
+    // Inisialisasi: semua jarak = tak-hingga, belum dikunjungi
+    for (int i = 0; i < n; i++) {
+        jarak[i] = INT_MAX;
+        set[i] = false;
+        parent[i] = -1;   // -1 = belum ada parent
+    }
+
+    jarak[awal] = 0;  // Jarak dari sumber ke dirinya sendiri = 0</code></pre>
+                </div>
+
+                <h3>Loop Utama (Relaxation)</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code>    for (int i = 0; i < n; i++)
+    {
+        // 1. Pilih node belum dikunjungi dengan jarak terkecil
+        int m = jarakMinimum(jarak, set, n);
+        set[m] = true;  // Tandai sebagai sudah dikunjungi
+
+        // 2. Perbarui jarak semua tetangga node m (relaxation)
+        for (int j = 0; j < n; j++)
+        {
+            if (!set[j]              // j belum dikunjungi
+                && graf[m][j]        // ada edge m→j
+                && jarak[m] != INT_MAX               // m bisa dicapai
+                && jarak[m] + graf[m][j] < jarak[j]) // jalur lebih pendek
+            {
+                jarak[j] = jarak[m] + graf[m][j];  // Perbarui jarak
+                parent[j] = m;                      // Catat parent baru
+            }
+        }
+    }</code></pre>
+                </div>
+
+                <h3>Rekonstruksi Jalur dan Output</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code>    // Rekonstruksi jalur dari B (indeks 1) ke belakang menggunakan parent[]
+    char namaNode[] = {'A','B','C','D','E','F','G'};
+    string jalur = "";
+    int curr = 1;  // Mulai dari node tujuan B
+
+    while (curr != -1)
+    {
+        // Tambahkan nama node di depan string jalur
+        jalur = namaNode[curr] + (jalur.empty() ? "" : " -> " + jalur);
+        curr = parent[curr];  // Mundur ke node sebelumnya
+    }
+
+    cout << "Jarak terdekat A ke B : " << jarak[1] << endl;
+    cout << "Jalur                 : " << jalur << endl;
+}</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Penjelasan Langkah demi Langkah:</strong>
+                    <ul>
+                        <li><strong>Inisialisasi</strong>: <code>jarak[A]=0</code>, semua lain = <code>INT_MAX</code>,
+                            semua <code>set[]=false</code>, semua <code>parent[]=-1</code></li>
+                        <li><strong>Iterasi 1</strong>: pilih A (jarak 0) → update tetangga: C=3, F=2</li>
+                        <li><strong>Iterasi 2</strong>: pilih F (jarak 2) → update: C=min(3,4)=3, B=8, E=5, G=7</li>
+                        <li><strong>Iterasi 3</strong>: pilih C (jarak 3) → update: E=min(5,4)=4, D=7</li>
+                        <li><strong>Iterasi 4</strong>: pilih E (jarak 4) → update: B=min(8,6)=6, D tetap 7</li>
+                        <li><strong>Iterasi 5</strong>: pilih B (jarak 6) → B sudah tujuan, jarak final = 6</li>
+                        <li><strong>Rekonstruksi jalur</strong>: B→parent=E, E→parent=C, C→parent=A → jalur: A→C→E→B
+                        </li>
+                    </ul>
+                </div>
+
+                <h3>Contoh Output Langkah per Langkah</h3>
+                <div class="output-block">
+                    <pre>Inisialisasi:
+  jarak[] = {0, ∞, ∞, ∞, ∞, ∞, ∞}
+  set[]   = {F, F, F, F, F, F, F}
+
+Iterasi 1 → pilih A (indeks 0, jarak=0):
+  Update C: 0+3=3  < ∞  → jarak[C]=3,  parent[C]=A
+  Update F: 0+2=2  < ∞  → jarak[F]=2,  parent[F]=A
+  jarak[] = {0, ∞, 3, ∞, ∞, 2, ∞}
+
+Iterasi 2 → pilih F (indeks 5, jarak=2):
+  Update B: 2+6=8  < ∞  → jarak[B]=8,  parent[B]=F
+  Update C: 2+2=4  > 3  → tidak diperbarui
+  Update E: 2+3=5  < ∞  → jarak[E]=5,  parent[E]=F
+  Update G: 2+5=7  < ∞  → jarak[G]=7,  parent[G]=F
+  jarak[] = {0, 8, 3, ∞, 5, 2, 7}
+
+Iterasi 3 → pilih C (indeks 2, jarak=3):
+  Update D: 3+4=7  < ∞  → jarak[D]=7,  parent[D]=C
+  Update E: 3+1=4  < 5  → jarak[E]=4,  parent[E]=C
+  jarak[] = {0, 8, 3, 7, 4, 2, 7}
+
+Iterasi 4 → pilih E (indeks 4, jarak=4):
+  Update B: 4+2=6  < 8  → jarak[B]=6,  parent[B]=E
+  jarak[] = {0, 6, 3, 7, 4, 2, 7}
+
+Iterasi 5 → pilih B (indeks 1, jarak=6):
+  Jarak final ke B = 6 ✓
+
+Rekonstruksi jalur B:
+  B → parent[B]=E → parent[E]=C → parent[C]=A → parent[A]=-1 (stop)
+  Jalur: A -> C -> E -> B</pre>
+                </div>
+            </div>
+
+            <!-- KODE LENGKAP -->
+            <div class="section" id="s5">
+                <h2>5. Kode Lengkap</h2>
+                <p>
+                    Berikut adalah kode lengkap implementasi Algoritma Dijkstra dalam C++, mencakup fungsi
+                    <code>jarakMinimum()</code>, <code>dijkstra()</code>, dan fungsi <code>main()</code> dengan
+                    graf berikut:
+                </p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">C++</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg> Salin Kode
+                        </button>
+                    </div>
+                    <pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int jarakMinimum(int jarak[], bool set[], int n) {
+    int kecil = INT_MAX;
+    int indeks;
+    for (int i = 0; i &lt; n; i++) {
+        if (set[i] == false &amp;&amp; jarak[i] &lt;= kecil) {
+            kecil = jarak[i];
+            indeks = i;
+        }
+    }
+    return indeks;
+}
+
+void dijkstra(int graf[7][7], int awal, int n) {
+    int jarak[7];
+    bool set[7];
+    int parent[7];
+
+    for (int i = 0; i &lt; n; i++) {
+        jarak[i] = INT_MAX;
+        set[i] = false;
+        parent[i] = -1;
+    }
+
+    jarak[awal] = 0;
+
+    for (int i = 0; i &lt; n; i++) {
+        int m = jarakMinimum(jarak, set, n);
+        set[m] = true;
+
+        for (int j = 0; j &lt; n; j++) {
+            if (!set[j] &amp;&amp; graf[m][j] &amp;&amp; jarak[m] != INT_MAX
+                &amp;&amp; jarak[m] + graf[m][j] &lt; jarak[j]) {
+                jarak[j] = jarak[m] + graf[m][j];
+                parent[j] = m;
+            }
+        }
+    }
+
+    char namaNode[] = {'A','B','C','D','E','F','G'};
+    string jalur = "";
+    int curr = 1;
+    while (curr != -1) {
+        jalur = namaNode[curr] + (jalur.empty() ? "" : " -&gt; " + jalur);
+        curr = parent[curr];
+    }
+
+    cout &lt;&lt; "Jarak terdekat A ke B : " &lt;&lt; jarak[1] &lt;&lt; endl;
+    cout &lt;&lt; "Jalur                 : " &lt;&lt; jalur &lt;&lt; endl;
+}
+
+int main() {
+    int n = 7;
+    int graf[7][7] = {
+        {0, 0, 3, 0, 0, 2, 0},
+        {0, 0, 0, 1, 2, 6, 2},
+        {3, 0, 0, 4, 1, 2, 0},
+        {0, 1, 4, 0, 0, 0, 0},
+        {0, 2, 1, 0, 0, 3, 0},
+        {2, 6, 2, 0, 3, 0, 5},
+        {0, 2, 0, 0, 0, 5, 0}
+    };
+    dijkstra(graf, 0, n);
+    return 0;
+}</code></pre>
+                </div>
+
+                <h3>Output Program</h3>
+                <div class="output-block">
+                    <pre>Jarak terdekat A ke B : 6
+Jalur                 : A -> C -> E -> B</pre>
+                </div>
+
+                <div class="note">
+                    <strong>💡 Verifikasi Output:</strong>
+                    <ul>
+                        <li>Jalur <strong>A → C → E → B</strong> memiliki total bobot: 3 + 1 + 2 = <strong>6</strong> ✓
+                        </li>
+                        <li>Alternatif lain yang lebih panjang: A→F→B = 2+6 = 8 | A→C→D→B = 3+4+1 = 8 | A→F→E→B = 2+3+2
+                            = 7</li>
+                        <li>Dijkstra berhasil menemukan jalur optimal dengan bobot minimum = 6</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RINGKASAN -->
+            <div class="section" id="s6">
+                <h2>6. Ringkasan Algoritma Dijkstra</h2>
+
+                <div class="info-box">
+                    <strong>Perbandingan Komponen Implementasi:</strong>
+                    <ul>
+                        <li><strong>Array jarak[]</strong> → menyimpan jarak terpendek saat ini dari sumber ke tiap
+                            node. Init: 0 untuk sumber, <code>INT_MAX</code> untuk lain</li>
+                        <li><strong>Array set[]</strong> → menandai node yang sudah "dikunci" (tidak bisa diperbaiki
+                            lagi). Init: semua <code>false</code></li>
+                        <li><strong>Array parent[]</strong> → menyimpan node sebelumnya di jalur terpendek untuk
+                            rekonstruksi. Init: semua <code>-1</code></li>
+                        <li><strong>jarakMinimum()</strong> → memilih node belum dikunjungi dengan jarak terkecil.
+                            Kompleksitas: <code>O(n)</code></li>
+                        <li><strong>Loop relaxation</strong> → memperbarui jarak tetangga jika ditemukan jalur lebih
+                            pendek. Dipanggil <code>n</code> kali</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>⏱ Kompleksitas Algoritma Dijkstra:</strong>
+                    <ul>
+                        <li>Implementasi ini (adjacency matrix + linear search): <code>O(V²)</code> di mana V = jumlah
+                            node</li>
+                        <li>Implementasi optimal (adjacency list + min-heap): <code>O((V + E) log V)</code></li>
+                        <li>Space complexity: <code>O(V)</code> untuk array jarak, set, dan parent</li>
+                        <li>Untuk graf padat (banyak edge), <code>O(V²)</code> bisa lebih baik dari versi heap</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>⚠️ Batasan Algoritma Dijkstra:</strong>
+                    <ul>
+                        <li>Hanya bekerja pada graf dengan <strong>bobot non-negatif</strong></li>
+                        <li>Untuk graf dengan bobot negatif, gunakan algoritma <strong>Bellman-Ford</strong></li>
+                        <li>Untuk jalur terpendek antara semua pasangan node, gunakan <strong>Floyd-Warshall</strong>
+                        </li>
+                        <li>Implementasi ini hanya mencetak jalur ke node B; bisa dimodifikasi untuk semua node</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- KESIMPULAN -->
+            <div class="section">
+                <h2>Kesimpulan</h2>
+                <p>
+                    Algoritma Dijkstra adalah salah satu algoritma graf yang paling penting dan banyak digunakan,
+                    mulai dari navigasi GPS, routing jaringan komputer, hingga optimasi jalur di game. Kuncinya
+                    terletak pada prinsip <em>greedy</em>: selalu pilih node dengan jarak terkecil yang belum
+                    dikunjungi, lalu perbarui tetangga-tetangganya (<em>relaxation</em>).
+                </p>
+                <div class="info-box">
+                    <strong>Poin-Poin Penting:</strong>
+                    <ul>
+                        <li><strong>Inisialisasi:</strong> Jarak sumber = 0, semua lain = ∞, semua belum dikunjungi.
+                        </li>
+                        <li><strong>Greedy:</strong> Setiap iterasi memproses node dengan jarak terkecil — dijamin
+                            optimal untuk bobot non-negatif.</li>
+                        <li><strong>Relaxation:</strong> Inti algoritma — perbarui jarak jika
+                            <code>jarak[m] + bobot(m,j) &lt; jarak[j]</code>.</li>
+                        <li><strong>Parent array:</strong> Kunci rekonstruksi jalur — lacak dari tujuan ke sumber secara
+                            mundur.</li>
+                        <li>Kompleksitas implementasi ini: <code>O(V²)</code>. Versi heap lebih cepat:
+                            <code>O((V+E) log V)</code>.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECTION PENGUMPULAN -->
+        <div class="content" style="padding-top:0">
+            <div class="section" id="pengumpulan">
+                <h2>Pengumpulan Tugas</h2>
+                <p>Silakan kumpulkan tugas melalui link berikut:</p>
+                <div class="info-box">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScXhRZqI8mihx4c5jPNsnTIn3Yj0vWzR5lPOYs3Qnv9m9fFkA/viewform?usp=dialog"
+                        target="_blank" class="submit-link">
+                        Klik di sini untuk Pengumpulan Tugas
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; jossye, 2026 Dokumentasi C++</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const pre = button.parentElement.nextElementSibling;
+            const code = pre.querySelector('code');
+            const textarea = document.createElement('textarea');
+            textarea.value = code.innerText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            const originalText = button.innerHTML;
+            button.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Tersalin!';
+            button.classList.add('copied');
+            setTimeout(() => { button.innerHTML = originalText; button.classList.remove('copied'); }, 2000);
+        }
+    </script>
+</body>
+
+</html>
